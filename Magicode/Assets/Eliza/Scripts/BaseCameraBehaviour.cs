@@ -66,6 +66,10 @@ public class BaseCameraBehaviour : NetworkBehaviour {
             isDown = false;
             orgBoxPos = Vector2.zero;
             endBoxPos = Vector2.zero;
+            foreach(var minion in selectedMinions)
+            {
+                minion.transform.Find("Sphere").GetComponent<MeshRenderer>().enabled = false;
+            }
             selectedMinions.Clear();
             Ray ray = GetComponent<Camera>().ScreenPointToRay(Input.mousePosition);
             RaycastHit hit;
@@ -78,10 +82,8 @@ public class BaseCameraBehaviour : NetworkBehaviour {
                 {
                     if (c.transform.GetComponent<BaseMinionBehaviour>() != null)
                     {
-                        if(c.transform.GetComponent<BaseMinionBehaviour>().Player == playerNumber)
-                        {
-                            selectedMinions.Add(c.gameObject);
-                        }
+                        selectedMinions.Add(c.gameObject);
+                        c.transform.Find("Sphere").GetComponent<MeshRenderer>().enabled = true;
                     }
                 }
             }
