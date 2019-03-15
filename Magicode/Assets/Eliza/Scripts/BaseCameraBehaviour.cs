@@ -11,14 +11,20 @@ public class BaseCameraBehaviour : NetworkBehaviour {
     public List<GameObject> selectedMinions = new List<GameObject>();
     public GameObject minionPrefab;
     public int playerNumber;
-    public static int lastPlayerNumber;
+    public static int lastPlayerNumber = 0;
 
     private Vector3 startDragboxPos;
-    private Vector3 endDragboxPos;
+    private Vector3 endDragboxPos;  
 
     void Start()
     {
-        GenerateMinions(new Vector3(transform.position.x, 0, transform.position.z));
+        lastPlayerNumber++;
+        playerNumber = lastPlayerNumber;
+        var minions = GenerateMinions(new Vector3(transform.position.x, 0, transform.position.z));
+        foreach(var minion in minions)
+        {
+            minion.GetComponent<BaseMinionBehaviour>().player = playerNumber;
+        }
     }
 
     void Update()
@@ -129,12 +135,13 @@ public class BaseCameraBehaviour : NetworkBehaviour {
         minion.GetComponent<UnityEngine.AI.NavMeshAgent>().SetDestination(destination);
     }
 
-    void GenerateMinions(Vector3 position)
+    List<GameObject> GenerateMinions(Vector3 position)
     {
         if (isServer)
         {
             Debug.Log("Spawned");
             List<Vector3> positions = new List<Vector3>();
+            List<GameObject> minions = new List<GameObject>();
             for (int i = -1; i <= 1; i++)
             {
                 positions.Add(new Vector3(position.x - 3, 2, position.z + i * 3));
@@ -144,8 +151,11 @@ public class BaseCameraBehaviour : NetworkBehaviour {
             {
                 var spawned = Instantiate(minionPrefab, pos, Quaternion.identity);
                 NetworkServer.Spawn(spawned);
+                minions.Add(spawned);
             }
+            return minions;
         }
+        return null;
     }
 }
     

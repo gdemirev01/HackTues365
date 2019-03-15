@@ -4,5 +4,5 @@ using UnityEngine;
 
 public class BaseMinionBehaviour : MonoBehaviour
 {
-    private int player;
+    public int player;
 }
