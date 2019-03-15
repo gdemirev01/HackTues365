@@ -41,6 +41,21 @@ public class VisualScriptingManager : MonoBehaviour
         vars = new Dictionary<string, string>();
     }
 
+    public void compile()
+    {
+        if (CVManager.validateCode(codeBlocks))
+        {
+            CFManager.formatCode(codeBlocks);
+            collectVars();
+            printVars();
+            //saveCode();
+        }
+        else
+        {
+            Debug.Log("There's a mistake in your code!");
+        }
+    }
+
     private void collectVars()
     {
         vars.Clear();
@@ -88,14 +103,6 @@ public class VisualScriptingManager : MonoBehaviour
         int index = GetIndexOfBlockY(codeBlock);
         codeBlock.transform.SetSiblingIndex(index);
         codeBlocks.Insert(index, codeBlock);
-
-        if (CVManager.validateCode(codeBlocks))
-        {
-            CFManager.formatCode(codeBlocks);
-            collectVars();
-            printVars();
-        }
-        //saveCode();
     }
 
     public int GetIndexOfBlockY(CodeBlock codeBlock)
