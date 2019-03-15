@@ -188,7 +188,12 @@ public class BaseCameraBehaviour : NetworkBehaviour {
         {
             float width = orgBoxPos.x - Input.mousePosition.x;
             float height = (Screen.height - orgBoxPos.y) - (Screen.height - Input.mousePosition.y);
-            GUI.DrawTexture(new Rect(orgBoxPos.x, Screen.height - orgBoxPos.y, -width, -height), TextureForRect, ScaleMode.StretchToFill, true, 1f, Color.red, 5f, 0); // -
+            float x = orgBoxPos.x;
+            float y = Screen.height - orgBoxPos.y;
+
+            GUIStyle style = new GUIStyle();
+            GUI.Box(new Rect(x, y, -width, -height), "");
+            //GUI.DrawTexture(new Rect(orgBoxPos.x, Screen.height - orgBoxPos.y, -width, -height), TextureForRect, ScaleMode.StretchToFill, true, 1f, Color.red, 5f, 0); // -
         }
     }
 }
