@@ -22,7 +22,7 @@ public class BaseCameraBehaviour : NetworkBehaviour {
     public Texture TextureForRect;
 
     private bool isDown = false;
-
+    bool m_Started;
     void Start()
     {
         if(isServer)
@@ -34,6 +34,7 @@ public class BaseCameraBehaviour : NetworkBehaviour {
             }
             lastPlayerNumber++;
         }
+        m_Started = true;
     }
 
     void Update()
@@ -43,8 +44,8 @@ public class BaseCameraBehaviour : NetworkBehaviour {
             GetComponent<Camera>().enabled = false;
             return;
         }
-        MoveCameraMouse();
-        MoveCameraWASD();
+        //MoveCameraMouse();
+        //MoveCameraWASD();
         if (Input.GetMouseButtonDown(0))
         {
             Ray ray = GetComponent<Camera>().ScreenPointToRay(Input.mousePosition);
@@ -81,7 +82,8 @@ public class BaseCameraBehaviour : NetworkBehaviour {
                 endDragboxPos = hit.point;
                 var x = Mathf.Abs(startDragboxPos.x - endDragboxPos.x);
                 var z = Mathf.Abs(startDragboxPos.z - endDragboxPos.z);
-                foreach (Collider c in Physics.OverlapBox((startDragboxPos + endDragboxPos) / 2, new Vector3(x, 100, z)))
+                var List = Physics.OverlapBox((startDragboxPos + endDragboxPos) / 2, new Vector3(x / 1.2f, 100, z / 1.2f));
+                foreach (Collider c in List)
                 {
                     if (c.transform.GetComponent<BaseMinionBehaviour>() != null)
                     {
@@ -103,47 +105,48 @@ public class BaseCameraBehaviour : NetworkBehaviour {
             {
                 if (selectedMinions.Count != 0)
                 {
-                    for (int i = -selectedMinions.Count / 2, k = 0; i < selectedMinions.Count / 2; i++, k++)
+                    for (int i = -selectedMinions.Count / 2, k = 0; k < selectedMinions.Count; i++, k++)
                     {
-                        CmdMoveMinion(selectedMinions[k], hit.point + new Vector3((i * 2.5f) % 15, 0, i / 5));
+                        CmdMoveMinion(selectedMinions[k], hit.point + new Vector3((i * 2.5f) % 15, 0, i / 5));                    
+                        //CmdMoveMinion(selectedMinions[k], hit.point);
                     }
                 }
             }
         }
     }
 
-    void MoveCameraMouse()
-    {
-        float inputX = new float();
-        float inputZ = new float();
+    //void MoveCameraMouse()
+    //{
+    //    float inputX = new float();
+    //    float inputZ = new float();
 
-        if (Input.mousePosition.y > Screen.height * 0.95)
-        {
-            inputZ = 1;
-        }
-        else if (Input.mousePosition.y < Screen.height * 0.05)
-        {
-            inputZ = -1;
-        }
+    //    if (Input.mousePosition.y > Screen.height * 0.95)
+    //    {
+    //        inputZ = 1;
+    //    }
+    //    else if (Input.mousePosition.y < Screen.height * 0.05)
+    //    {
+    //        inputZ = -1;
+    //    }
 
-        if (Input.mousePosition.x > Screen.width * 0.95)
-        {
-            inputX = 1;
-        }
-        else if (Input.mousePosition.x < Screen.width * 0.05)
-        {
-            inputX = -1;
-        }
+    //    if (Input.mousePosition.x > Screen.width * 0.95)
+    //    {
+    //        inputX = 1;
+    //    }
+    //    else if (Input.mousePosition.x < Screen.width * 0.05)
+    //    {
+    //        inputX = -1;
+    //    }
 
-        transform.position += new Vector3(inputX, 0, inputZ) * Time.deltaTime * scrollSpeed;
-    }
+    //    transform.position += new Vector3(inputX, 0, inputZ) * Time.deltaTime * scrollSpeed;
+    //}
 
-    void MoveCameraWASD()
-    {
-        var x = Input.GetAxis("Horizontal");
-        var z = Input.GetAxis("Vertical");
-        transform.position += new Vector3(x, 0, z) * Time.deltaTime * scrollSpeed;
-    }
+    //void MoveCameraWASD()
+    //{
+    //    var x = Input.GetAxis("Horizontal");
+    //    var z = Input.GetAxis("Vertical");
+    //    transform.position += new Vector3(x, 0, z) * Time.deltaTime * scrollSpeed;
+    //}
 
     [Command]
     private void CmdMoveMinion(GameObject minion, Vector3 destination)
@@ -201,5 +204,19 @@ public class BaseCameraBehaviour : NetworkBehaviour {
             //GUI.DrawTexture(new Rect(orgBoxPos.x, Screen.height - orgBoxPos.y, -width, -height), TextureForRect, ScaleMode.StretchToFill, true, 1f, Color.red, 5f, 0); // -
         }
     }
+
+    //void OnDrawGizmos()
+    //{
+    //    Gizmos.color = Color.red;
+    //    //Check that it is being run in Play Mode, so it doesn't try to draw this in Editor mode
+    //    if (m_Started)
+    //    {
+    //        var x = Mathf.Abs(startDragboxPos.x - endDragboxPos.x);
+    //        var z = Mathf.Abs(startDragboxPos.z - endDragboxPos.z);
+    //        Gizmos.DrawWireCube((startDragboxPos + endDragboxPos) / 2, new Vector3(x / 1.2f, 100, z / 1.2f));
+
+    //    }
+    //    //Draw a cube where the OverlapBox is (positioned where your GameObject is as well as a size)
+    //}
 }
     
