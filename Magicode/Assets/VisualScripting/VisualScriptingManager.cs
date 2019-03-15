@@ -30,12 +30,15 @@ public class VisualScriptingManager : MonoBehaviour
     [SerializeField]
     private CodeFormatManager CFManager;
 
+    private Dictionary<string, string> vars;
+
     public static VisualScriptingManager instance;
 
     private void Start()
     {
         instance = this;
         AddInstantiatedCodeBlocks();
+        vars = new Dictionary<string, string>();
     }
 
     public void AddInstantiatedCodeBlocks()
