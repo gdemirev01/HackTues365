@@ -43,4 +43,9 @@ public class CodeValidationManager : MonoBehaviour
             return true;
         return false;
     }
+
+    private bool conditionalsAreOK(List<CodeBlock> codeBlocks)
+    {
+        return true;
+    }
 }

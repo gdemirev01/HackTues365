@@ -2,14 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CodeBlockEndLoop : CodeBlock
+public class CodeBlockEndLoop : CodeBlockEnd
 {
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
     public override void execute()
     {
         throw new System.NotImplementedException();

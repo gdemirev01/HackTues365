@@ -17,8 +17,35 @@ public class CodeFormatManager : MonoBehaviour
 
     public void formatCode(List<CodeBlock> codeBlocks)
     {
+        List<List<CodeBlock>> loopPairs = getLoopPairs(codeBlocks);
+        List<List<CodeBlock>> ifPairs = getIfPairs(codeBlocks);
+
+        resetAll(codeBlocks);
+
+        indentPairs(loopPairs, codeBlocks);
+        indentPairs(ifPairs, codeBlocks);
+    }
+
+    private void indentPairs(List<List<CodeBlock>> pairs, List<CodeBlock> codeBlocks)
+    {
+        foreach (List<CodeBlock> pair in pairs)
+        {
+            //Debug.Log("beginning index: " + codeBlocks.IndexOf(pair[0]) + ", end index:" + codeBlocks.IndexOf(pair[1]));
+            for (int i = codeBlocks.IndexOf(pair[0]) + 1; i < codeBlocks.IndexOf(pair[1]); i++)
+            {
+                //Debug.Log("indented: " + i, codeBlocks[i].gameObject);
+                //Debug.Log(codeBlocks[i]);
+                indent(codeBlocks[i]);
+            }
+
+        }
+    }
+
+    private List<List<CodeBlock>> getLoopPairs(List<CodeBlock> codeBlocks)
+    {
         List<List<CodeBlock>> loopPairs = new List<List<CodeBlock>>();
         Stack<CodeBlock> loops = new Stack<CodeBlock>();
+
         foreach (CodeBlock cb in codeBlocks)
         {
             if (cb is CodeBlockLoop)
@@ -33,22 +60,31 @@ public class CodeFormatManager : MonoBehaviour
                 loopPairs.Add(pair);
             }
         }
-
-        resetAll(codeBlocks);
-
         loopPairs.Reverse();
-        foreach (List<CodeBlock> pair in loopPairs)
+        return loopPairs;
+    }
+
+    private List<List<CodeBlock>> getIfPairs(List<CodeBlock> codeBlocks)
+    {
+        List<List<CodeBlock>> ifPairs = new List<List<CodeBlock>>();
+        Stack<CodeBlock> ifs = new Stack<CodeBlock>();
+
+        foreach (CodeBlock cb in codeBlocks)
         {
-            //Debug.Log("beginning index: " + codeBlocks.IndexOf(pair[0]) + ", end index:" + codeBlocks.IndexOf(pair[1]));
-            for (int i = codeBlocks.IndexOf(pair[0]) + 1; i < codeBlocks.IndexOf(pair[1]); i++)
+            if (cb is CodeBlockIf)
             {
-                Debug.Log("indented: " + i, codeBlocks[i].gameObject);
-                //Debug.Log(codeBlocks[i]);
-                indent(codeBlocks[i]);
+                ifs.Push(cb);
             }
-            
+            else if (cb is CodeBlockEndIf)
+            {
+                List<CodeBlock> pair = new List<CodeBlock>();
+                pair.Add(ifs.Pop());
+                pair.Add(cb);
+                ifPairs.Add(pair);
+            }
         }
-        Debug.Log("");
+        ifPairs.Reverse();
+        return ifPairs;
     }
 
     private void resetAll(List<CodeBlock> codeBlocks)
@@ -64,7 +100,5 @@ public class CodeFormatManager : MonoBehaviour
     {
         LayoutElement le = cb.GetComponent<LayoutElement>();
         le.preferredWidth = le.preferredWidth - 25;
-        //RectTransform rt = cb.transform as RectTransform;
-        //rt.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, 100);
     }
 }
