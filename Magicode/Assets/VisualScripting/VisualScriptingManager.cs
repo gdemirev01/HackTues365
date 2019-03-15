@@ -41,6 +41,33 @@ public class VisualScriptingManager : MonoBehaviour
         vars = new Dictionary<string, string>();
     }
 
+    private void collectVars()
+    {
+        vars.Clear();
+        foreach (CodeBlock cb in codeBlocks)
+        {
+            if (cb is CodeBlockCreate)
+            {
+                CodeBlockCreate cbc = (CodeBlockCreate)cb;
+                try
+                {
+                    vars.Add(cbc.getVarName(), cbc.getVarVal().ToString());
+                } catch(System.ArgumentException e)
+                {
+                    Debug.Log(string.Format("{0}: {1}", e.GetType().Name, e.Message));
+                }
+            }
+        }
+    }
+
+    public void printVars()
+    {
+        foreach (KeyValuePair<string, string> entry in vars)
+        {
+            Debug.Log("varname: " + entry.Key + " varval: " + entry.Value);
+        }
+    }
+
     public void AddInstantiatedCodeBlocks()
     {
         try {
@@ -63,7 +90,11 @@ public class VisualScriptingManager : MonoBehaviour
         codeBlocks.Insert(index, codeBlock);
 
         if (CVManager.validateCode(codeBlocks))
+        {
             CFManager.formatCode(codeBlocks);
+            collectVars();
+            printVars();
+        }
         //saveCode();
     }
 
