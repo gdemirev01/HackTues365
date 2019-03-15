@@ -20,6 +20,21 @@ public class VisualScriptingManager : MonoBehaviour
     private void Start()
     {
         instance = this;
+        AddInstantiatedCodeBlocks();
+    }
+
+    public void AddInstantiatedCodeBlocks()
+    {
+        try {
+            List<CodeBlock> instantiatedBlocks = codeBlockArea.GetComponentsInChildren<CodeBlock>().ToList();
+            instantiatedBlocks.OrderByDescending(o => o.transform.position.y);
+
+            codeBlocks = instantiatedBlocks;
+        }
+        catch (System.NullReferenceException e)
+        {
+            Debug.Log("No objects at start of visual scripting");
+        }
     }
 
     public void AddCodeBlock(CodeBlock codeBlock, float y)
@@ -63,7 +78,7 @@ public class VisualScriptingManager : MonoBehaviour
         EventSystem.current.RaycastAll(eventData, results);
         foreach(RaycastResult result in results)
         {
-            if(result.gameObject == codeBlockArea)
+            if(result.gameObject == codeArea)
             {
                 Debug.Log("add code block");
                 AddCodeBlock(codeBlock, eventData.position.y);

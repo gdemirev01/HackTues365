@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -18,6 +19,7 @@ public abstract class CodeBlock : MonoBehaviour, IDragHandler, IBeginDragHandler
         if(isBase)
         {
             currentBlock = Instantiate<CodeBlock>(this, transform.parent);
+            currentBlock.DisableBase();
         }
         else
         {
@@ -28,10 +30,16 @@ public abstract class CodeBlock : MonoBehaviour, IDragHandler, IBeginDragHandler
     public void OnDrag(PointerEventData eventData)
     {
         currentBlock.transform.position = eventData.position;
+        // VisualScriptingManager.instance.HandleCodeBlockDrag();
     }
 
     public void OnEndDrag(PointerEventData eventData)
     {
         VisualScriptingManager.instance.HandleCodeBlockDrop(currentBlock, eventData);
+    }
+
+    public void DisableBase()
+    {
+        isBase = false;
     }
 }
