@@ -9,7 +9,7 @@ public class VisualScriptingManager : MonoBehaviour
 {
     [SerializeField]
     List<CodeBlock> codeBlocks = new List<CodeBlock>();
-
+    
     [SerializeField]
     private GameObject codeArea;
 
@@ -30,9 +30,9 @@ public class VisualScriptingManager : MonoBehaviour
 
     [SerializeField]
     private GameObject blockContainer;
-
+    
     Dictionary<Unit, List<CodeBlock>> unitScripts = new Dictionary<Unit, List<CodeBlock>>();
-
+    
     private GameObject placeholder;
     int placeholderSiblingIndex;
 
@@ -54,38 +54,27 @@ public class VisualScriptingManager : MonoBehaviour
 
     public void SetSelectedUnit(Unit unit)
     {
-        SaveCurrentBlocks();
-
-        selectedUnit = unit;
-        selectedUnitName.text = unit.name;
-
-        LoadBlocksForSelectedUnit();
-    }
-
-    public void SaveCurrentBlocks()
-    {
-        if (selectedUnit)
+        if(selectedUnit)
         {
             List<CodeBlock> dictBlocks = new List<CodeBlock>();
             dictBlocks.AddRange(codeBlocks);
-
+            
             unitScripts[selectedUnit] = dictBlocks;
-
-            // Unload blocks
-            foreach (CodeBlock block in dictBlocks)
+            // Unload current blocks;
+            foreach(CodeBlock block in dictBlocks)
             {
                 block.transform.parent = blockContainer.transform;
             }
             codeBlocks = new List<CodeBlock>();
         }
-    }
+        
+        selectedUnit = unit;
+        selectedUnitName.text = unit.name;
 
-    public void LoadBlocksForSelectedUnit()
-    {
-        if (unitScripts.ContainsKey(selectedUnit))
+        if (unitScripts.ContainsKey(unit))
         {
-            List<CodeBlock> blocks = unitScripts[selectedUnit];
-            foreach (CodeBlock codeBlock in blocks)
+            List<CodeBlock> blocks = unitScripts[unit];
+            foreach(CodeBlock codeBlock in blocks)
             {
                 codeBlocks.Add(codeBlock);
                 codeBlock.transform.parent = codeBlockArea.transform;
@@ -93,53 +82,9 @@ public class VisualScriptingManager : MonoBehaviour
         }
     }
 
-    public void compile()
-    {
-        if (CVManager.validateCode(codeBlocks))
-        {
-            CFManager.formatCode(codeBlocks);
-            collectVars();
-            printVars();
-            //saveCode();
-        }
-        else
-        {
-            Debug.Log("There's a mistake in your code!");
-        }
-    }
-
-    private void collectVars()
-    {
-        vars.Clear();
-        foreach (CodeBlock cb in codeBlocks)
-        {
-            if (cb is CodeBlockCreate)
-            {
-                CodeBlockCreate cbc = (CodeBlockCreate)cb;
-                try
-                {
-                    vars.Add(cbc.getVarName(), cbc.getVarVal());
-                }
-                catch (System.ArgumentException e)
-                {
-                    Debug.Log(string.Format("{0}: {1}", e.GetType().Name, e.Message));
-                }
-            }
-        }
-    }
-
-    public void printVars()
-    {
-        foreach (KeyValuePair<string, string> entry in vars)
-        {
-            Debug.Log("varname: " + entry.Key + " varval: " + entry.Value);
-        }
-    }
-
     public void AddInstantiatedCodeBlocks()
     {
-        try
-        {
+        try {
             List<CodeBlock> instantiatedBlocks = codeBlockArea.GetComponentsInChildren<CodeBlock>().ToList();
             instantiatedBlocks.OrderByDescending(o => o.transform.position.y);
 
@@ -157,6 +102,10 @@ public class VisualScriptingManager : MonoBehaviour
         int index = GetIndexOfBlockY(codeBlock);
         codeBlock.transform.SetSiblingIndex(index);
         codeBlocks.Insert(index, codeBlock);
+
+        if (CVManager.validateCode(codeBlocks))
+            CFManager.formatCode(codeBlocks);
+        //saveCode();
     }
 
     public int GetIndexOfBlockY(CodeBlock codeBlock)
@@ -191,7 +140,7 @@ public class VisualScriptingManager : MonoBehaviour
 
     public void HandleCodeBlockDrop(CodeBlock codeBlock, PointerEventData eventData)
     {
-        if (selectedUnit == null)
+        if(selectedUnit == null)
         {
             Destroy(placeholder);
             Destroy(codeBlock.gameObject);
@@ -199,9 +148,9 @@ public class VisualScriptingManager : MonoBehaviour
         }
         List<RaycastResult> results = new List<RaycastResult>();
         EventSystem.current.RaycastAll(eventData, results);
-        foreach (RaycastResult result in results)
+        foreach(RaycastResult result in results)
         {
-            if (result.gameObject == codeArea)
+            if(result.gameObject == codeArea)
             {
                 //Debug.Log("add code block");
                 Destroy(placeholder);
@@ -209,7 +158,7 @@ public class VisualScriptingManager : MonoBehaviour
                 return;
             }
         }
-
+        
         Destroy(placeholder);
         Destroy(codeBlock.gameObject);
     }
@@ -222,16 +171,16 @@ public class VisualScriptingManager : MonoBehaviour
 
         for (int i = 0; i < codeBlocks.Count(); i++)
         {
-            code.Add(i.ToString(), codeBlocks[i].getExecutableCode());
+			code.Add(i.ToString(), codeBlocks[i].getExecutableCode());
         }
 
         Debug.Log(code.ToString());
-
+        
     }
 
     public void HandleCodeBlockDrag(CodeBlock codeBlock, PointerEventData eventData)
     {
-        if (placeholder == null)
+        if(placeholder == null)
         {
             //Debug.Log("New placeholder");
             placeholder = Instantiate<GameObject>(placeholderAsset);
@@ -240,12 +189,12 @@ public class VisualScriptingManager : MonoBehaviour
             placeholderSiblingIndex = 0;
         }
         int index = GetIndexOfBlockY(codeBlock);
-        if (placeholderSiblingIndex != index)
+        if(placeholderSiblingIndex != index)
         {
             placeholderSiblingIndex = index;
             placeholder.transform.SetSiblingIndex(index);
         }
-
+        
     }
 
     public void RemoveCodeBlock(CodeBlock codeBlock)
