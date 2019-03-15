@@ -14,11 +14,12 @@ public class CodeValidationManager : MonoBehaviour
         instance = this;
     }
 
-    public void validateCode(List<CodeBlock> codeBlocks)
+    public bool validateCode(List<CodeBlock> codeBlocks)
     {
 
-        if(!loopsAreOK(codeBlocks))
-            Debug.Log("A loop has not been constructed properly!");
+        if (!loopsAreOK(codeBlocks))
+            return false;
+        return true;
     }
 
     private bool loopsAreOK(List<CodeBlock> codeBlocks)

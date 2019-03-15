@@ -253,10 +253,10 @@ MonoBehaviour:
   m_IgnoreLayout: 0
   m_MinWidth: -1
   m_MinHeight: -1
-  m_PreferredWidth: -1
-  m_PreferredHeight: 150
+  m_PreferredWidth: 450
+  m_PreferredHeight: -1
   m_FlexibleWidth: 0
-  m_FlexibleHeight: 0
+  m_FlexibleHeight: -1
   m_LayoutPriority: 1
 --- !u!114 &6955178915168857805
 MonoBehaviour:
@@ -270,7 +270,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4038c6de71c43cd4cbd7e5c43c0d0c43, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isAParent: 0
   executableCode: 
   isBase: 1
 --- !u!1 &2022842299150346890

@@ -27,6 +27,8 @@ public class VisualScriptingManager : MonoBehaviour
 
     [SerializeField]
     private CodeValidationManager CVManager;
+    [SerializeField]
+    private CodeFormatManager CFManager;
 
     public static VisualScriptingManager instance;
 
@@ -57,7 +59,8 @@ public class VisualScriptingManager : MonoBehaviour
         codeBlock.transform.SetSiblingIndex(index);
         codeBlocks.Insert(index, codeBlock);
 
-        CVManager.validateCode(codeBlocks);
+        if (CVManager.validateCode(codeBlocks))
+            CFManager.formatCode(codeBlocks);
         //saveCode();
     }
 
