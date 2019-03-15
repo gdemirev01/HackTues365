@@ -7,6 +7,7 @@ public class PlayerBehaviour : NetworkBehaviour
 {
     void Start()
     {
+
     }
 
     void Update()
