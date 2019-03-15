@@ -9,7 +9,7 @@ public class VisualScriptingManager : MonoBehaviour
 {
     [SerializeField]
     List<CodeBlock> codeBlocks = new List<CodeBlock>();
-    
+
     [SerializeField]
     private GameObject codeArea;
 
@@ -21,7 +21,18 @@ public class VisualScriptingManager : MonoBehaviour
 
     [SerializeField]
     private GameObject placeholderAsset;
-    
+
+    [SerializeField] // TODO: Remove serialize field;
+    private Unit selectedUnit;
+
+    [SerializeField]
+    private TMPro.TMP_Text selectedUnitName;
+
+    [SerializeField]
+    private GameObject blockContainer;
+
+    Dictionary<Unit, List<CodeBlock>> unitScripts = new Dictionary<Unit, List<CodeBlock>>();
+
     private GameObject placeholder;
     int placeholderSiblingIndex;
 
@@ -39,6 +50,47 @@ public class VisualScriptingManager : MonoBehaviour
         instance = this;
         AddInstantiatedCodeBlocks();
         vars = new Dictionary<string, string>();
+    }
+
+    public void SetSelectedUnit(Unit unit)
+    {
+        SaveCurrentBlocks();
+
+        selectedUnit = unit;
+        selectedUnitName.text = unit.name;
+
+        LoadBlocksForSelectedUnit();
+    }
+
+    public void SaveCurrentBlocks()
+    {
+        if (selectedUnit)
+        {
+            List<CodeBlock> dictBlocks = new List<CodeBlock>();
+            dictBlocks.AddRange(codeBlocks);
+
+            unitScripts[selectedUnit] = dictBlocks;
+
+            // Unload blocks
+            foreach (CodeBlock block in dictBlocks)
+            {
+                block.transform.parent = blockContainer.transform;
+            }
+            codeBlocks = new List<CodeBlock>();
+        }
+    }
+
+    public void LoadBlocksForSelectedUnit()
+    {
+        if (unitScripts.ContainsKey(selectedUnit))
+        {
+            List<CodeBlock> blocks = unitScripts[selectedUnit];
+            foreach (CodeBlock codeBlock in blocks)
+            {
+                codeBlocks.Add(codeBlock);
+                codeBlock.transform.parent = codeBlockArea.transform;
+            }
+        }
     }
 
     public void compile()
@@ -67,7 +119,8 @@ public class VisualScriptingManager : MonoBehaviour
                 try
                 {
                     vars.Add(cbc.getVarName(), cbc.getVarVal());
-                } catch(System.ArgumentException e)
+                }
+                catch (System.ArgumentException e)
                 {
                     Debug.Log(string.Format("{0}: {1}", e.GetType().Name, e.Message));
                 }
@@ -85,7 +138,8 @@ public class VisualScriptingManager : MonoBehaviour
 
     public void AddInstantiatedCodeBlocks()
     {
-        try {
+        try
+        {
             List<CodeBlock> instantiatedBlocks = codeBlockArea.GetComponentsInChildren<CodeBlock>().ToList();
             instantiatedBlocks.OrderByDescending(o => o.transform.position.y);
 
@@ -137,11 +191,17 @@ public class VisualScriptingManager : MonoBehaviour
 
     public void HandleCodeBlockDrop(CodeBlock codeBlock, PointerEventData eventData)
     {
+        if (selectedUnit == null)
+        {
+            Destroy(placeholder);
+            Destroy(codeBlock.gameObject);
+            return;
+        }
         List<RaycastResult> results = new List<RaycastResult>();
         EventSystem.current.RaycastAll(eventData, results);
-        foreach(RaycastResult result in results)
+        foreach (RaycastResult result in results)
         {
-            if(result.gameObject == codeArea)
+            if (result.gameObject == codeArea)
             {
                 //Debug.Log("add code block");
                 Destroy(placeholder);
@@ -149,7 +209,7 @@ public class VisualScriptingManager : MonoBehaviour
                 return;
             }
         }
-        
+
         Destroy(placeholder);
         Destroy(codeBlock.gameObject);
     }
@@ -162,16 +222,16 @@ public class VisualScriptingManager : MonoBehaviour
 
         for (int i = 0; i < codeBlocks.Count(); i++)
         {
-			code.Add(i.ToString(), codeBlocks[i].getExecutableCode());
+            code.Add(i.ToString(), codeBlocks[i].getExecutableCode());
         }
 
         Debug.Log(code.ToString());
-        
+
     }
 
     public void HandleCodeBlockDrag(CodeBlock codeBlock, PointerEventData eventData)
     {
-        if(placeholder == null)
+        if (placeholder == null)
         {
             //Debug.Log("New placeholder");
             placeholder = Instantiate<GameObject>(placeholderAsset);
@@ -180,12 +240,12 @@ public class VisualScriptingManager : MonoBehaviour
             placeholderSiblingIndex = 0;
         }
         int index = GetIndexOfBlockY(codeBlock);
-        if(placeholderSiblingIndex != index)
+        if (placeholderSiblingIndex != index)
         {
             placeholderSiblingIndex = index;
             placeholder.transform.SetSiblingIndex(index);
         }
-        
+
     }
 
     public void RemoveCodeBlock(CodeBlock codeBlock)
