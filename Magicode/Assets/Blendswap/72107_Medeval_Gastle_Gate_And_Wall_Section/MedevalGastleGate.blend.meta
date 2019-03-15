@@ -1,0 +1,202 @@
+fileFormatVersion: 2
+guid: 1f403cc3ff488674d81c18b9483ecd4c
+ModelImporter:
+  serializedVersion: 23
+  fileIDToRecycleName:
+    100000: Crenel01
+    100002: Crenel01_001
+    100004: Crenel01_002
+    100006: Crenel01_003
+    100008: CubeCutter01
+    100010: Flag01
+    100012: ForeGrounds
+    100014: GatePortal
+    100016: //RootNode
+    100018: PartialPorticullis
+    100020: Plane
+    100022: Plane_001
+    100024: Plane_003
+    100026: Plane_004
+    100028: Plane_006
+    100030: Porticullis
+    100032: Porticullis_001
+    100034: Porticullis_002
+    100036: TopOfPortal
+    400000: Crenel01
+    400002: Crenel01_001
+    400004: Crenel01_002
+    400006: Crenel01_003
+    400008: CubeCutter01
+    400010: Flag01
+    400012: ForeGrounds
+    400014: GatePortal
+    400016: //RootNode
+    400018: PartialPorticullis
+    400020: Plane
+    400022: Plane_001
+    400024: Plane_003
+    400026: Plane_004
+    400028: Plane_006
+    400030: Porticullis
+    400032: Porticullis_001
+    400034: Porticullis_002
+    400036: TopOfPortal
+    2100000: Rivet__Gates02_jpg
+    2100002: Rivet_001__Gates02_jpg
+    2100004: Gates02
+    2100006: Gates02__Gates02_jpg
+    2100008: BackOfGate01__BackOfGate01_jpg
+    2100010: Crennelations_005__Crennelations_jpg
+    2100012: Crennelations_004__Crennelations_jpg
+    2100014: Crennelations_001__Crennelations_jpg
+    2100016: unnamed
+    2100018: Crennelations__Crennelations_jpg
+    2100020: RoadAcrossTop__RoadAcrossTop_jpg
+    2100022: BottomofRimAtTop__RoadAcrossTop_jpg
+    2100024: Insides__InSides_jpg
+    2100026: OutSides__OutSides_jpg
+    2100028: FrontOfGate01__FrontOfGate01_jpg
+    2100030: ForeGrounds01__ForeGrounds01_jpg
+    2300000: Crenel01
+    2300002: Crenel01_001
+    2300004: Crenel01_002
+    2300006: Crenel01_003
+    2300008: CubeCutter01
+    2300010: Flag01
+    2300012: ForeGrounds
+    2300014: GatePortal
+    2300016: PartialPorticullis
+    2300018: Plane
+    2300020: Plane_001
+    2300022: Plane_003
+    2300024: Plane_004
+    2300026: Plane_006
+    2300028: Porticullis
+    2300030: Porticullis_001
+    2300032: Porticullis_002
+    2300034: TopOfPortal
+    3300000: Crenel01
+    3300002: Crenel01_001
+    3300004: Crenel01_002
+    3300006: Crenel01_003
+    3300008: CubeCutter01
+    3300010: Flag01
+    3300012: ForeGrounds
+    3300014: GatePortal
+    3300016: PartialPorticullis
+    3300018: Plane
+    3300020: Plane_001
+    3300022: Plane_003
+    3300024: Plane_004
+    3300026: Plane_006
+    3300028: Porticullis
+    3300030: Porticullis_001
+    3300032: Porticullis_002
+    3300034: TopOfPortal
+    4300000: Porticullis_002
+    4300002: Porticullis_001
+    4300004: Plane_006
+    4300006: Porticullis
+    4300008: Plane_003
+    4300010: Plane_004
+    4300012: PartialPorticullis
+    4300014: Plane_001
+    4300016: Flag01
+    4300018: Crenel01_003
+    4300020: Crenel01_002
+    4300022: Crenel01_001
+    4300024: CubeCutter01
+    4300026: Crenel01
+    4300028: Plane
+    4300030: TopOfPortal
+    4300032: GatePortal
+    4300034: ForeGrounds
+    7400000: Default Take
+    9500000: //RootNode
+    2186277476908879412: ImportLogs
+  externalObjects: {}
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+    materialLocation: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    importAnimatedCustomProperties: 0
+    importConstraints: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    extraUserProperties: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    useSRGBMaterialColor: 1
+    importVisibility: 1
+    importBlendShapes: 1
+    importCameras: 1
+    importLights: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    preserveHierarchy: 0
+    indexFormat: 0
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+    previousCalculatedGlobalScale: 1
+    hasPreviousCalculatedGlobalScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+    normalCalculationMode: 4
+    legacyComputeAllNormalsFromSmoothingGroupsWhenMeshHasBlendShapes: 0
+    blendShapeNormalImportMode: 1
+    normalSmoothingSource: 0
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    serializedVersion: 2
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 2
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
