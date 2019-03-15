@@ -79,7 +79,7 @@ public class BaseCameraBehaviour : NetworkBehaviour {
                 endDragboxPos = hit.point;
                 var x = Mathf.Abs(startDragboxPos.x - endDragboxPos.x);
                 var z = Mathf.Abs(startDragboxPos.z - endDragboxPos.z);
-                var List = Physics.OverlapBox((startDragboxPos + endDragboxPos) / 2, new Vector3(x / 1.2f, 100, z / 1.2f));
+                var List = Physics.OverlapBox((startDragboxPos + endDragboxPos) / 2, new Vector3(x / 2f, 100, z / 2f));
                 foreach (Collider c in List)
                 {
                     if (c.transform.GetComponent<BaseMinionBehaviour>() != null)

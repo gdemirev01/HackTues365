@@ -11,12 +11,7 @@ public class MenuController : MonoBehaviour
 
     public void StartGame()
     {
-        SceneManager.LoadScene("Play", LoadSceneMode.Single);
-    }
-
-    public void PauseGame(bool pause)
-    {
-        ToggleMenu("PauseMenu", pause);
+        SceneManager.LoadScene("EPlayLevel", LoadSceneMode.Single);
     }
 
     public void BackToMenu()
