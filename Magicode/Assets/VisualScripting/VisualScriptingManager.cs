@@ -25,6 +25,9 @@ public class VisualScriptingManager : MonoBehaviour
     private GameObject placeholder;
     int placeholderSiblingIndex;
 
+    [SerializeField]
+    private CodeValidationManager CVManager;
+
     public static VisualScriptingManager instance;
 
     private void Start()
@@ -49,11 +52,13 @@ public class VisualScriptingManager : MonoBehaviour
 
     public void AddCodeBlock(CodeBlock codeBlock, float y)
     {
-        codeBlock.transform.parent = codeBlockArea.transform;
+        codeBlock.transform.SetParent(codeBlockArea.transform);
         int index = GetIndexOfBlockY(codeBlock);
         codeBlock.transform.SetSiblingIndex(index);
         codeBlocks.Insert(index, codeBlock);
-        saveCode();
+
+        CVManager.validateCode(codeBlocks);
+        //saveCode();
     }
 
     public int GetIndexOfBlockY(CodeBlock codeBlock)
@@ -69,7 +74,7 @@ public class VisualScriptingManager : MonoBehaviour
         }
         else
         {
-            Debug.Log("To else");
+            //Debug.Log("To else");
             for (int i = 0; i < codeBlocks.Count - 1; i++)
             {
                 CodeBlock currentBlock = codeBlocks.ElementAt(i);
@@ -94,12 +99,13 @@ public class VisualScriptingManager : MonoBehaviour
         {
             if(result.gameObject == codeArea)
             {
-                Debug.Log("add code block");
+                //Debug.Log("add code block");
                 Destroy(placeholder);
                 AddCodeBlock(codeBlock, eventData.position.y);
                 return;
             }
         }
+        
         Destroy(placeholder);
         Destroy(codeBlock.gameObject);
     }
@@ -123,9 +129,9 @@ public class VisualScriptingManager : MonoBehaviour
     {
         if(placeholder == null)
         {
-            Debug.Log("New placeholder");
+            //Debug.Log("New placeholder");
             placeholder = Instantiate<GameObject>(placeholderAsset);
-            placeholder.transform.parent = codeBlockArea.transform;
+            placeholder.transform.SetParent(codeBlockArea.transform);
             placeholder.transform.SetAsFirstSibling();
             placeholderSiblingIndex = 0;
         }
@@ -141,7 +147,7 @@ public class VisualScriptingManager : MonoBehaviour
     public void RemoveCodeBlock(CodeBlock codeBlock)
     {
         codeBlocks.Remove(codeBlock);
-        codeBlock.transform.parent = intermediaryCodeArea.transform;
+        codeBlock.transform.SetParent(intermediaryCodeArea.transform);
     }
 
 }
