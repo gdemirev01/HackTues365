@@ -111,7 +111,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 120296}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 20048c13a5d194941bac6cd566a5e468, type: 3}
   m_Name: 
@@ -200,7 +200,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 120296}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c993a6cdd010c314baf397863fa0d63d, type: 3}
+  m_Script: {fileID: 11500000, guid: a8d77158544c83740945eba2a940fbbe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   syncInterval: 0.1
@@ -209,8 +209,7 @@ MonoBehaviour:
   minDistanceY: 5
   maxDistanceY: 15
   selectedMinions: []
-  minionPrefab: {fileID: 3481216556416443505, guid: 0cdc7ed4f4356d346ba372f7506d468e,
+  minionPrefab: {fileID: 3481216556416443505, guid: de90d15af8c8f9c4fbc393168389715d,
     type: 3}
   selector: {fileID: 0}
-  playerNumber: 0
   TextureForRect: {fileID: 0}

@@ -25,6 +25,7 @@ public class BaseCameraBehaviour : NetworkBehaviour {
     {
         if(isLocalPlayer)
         {
+            Debug.Log("Local");
             gameObject.AddComponent<Camera>();
         }
         m_Started = true;
@@ -32,6 +33,7 @@ public class BaseCameraBehaviour : NetworkBehaviour {
 
     public override void OnStartLocalPlayer()
     {
+        Debug.Log("Spawn");
         CmdGenerateMinions(new Vector3(transform.position.x, 0, transform.position.z));
     }
 
@@ -39,6 +41,7 @@ public class BaseCameraBehaviour : NetworkBehaviour {
     {
         if(!isLocalPlayer)
         {
+            //Debug.Log("Not local");
             return;
         }
         //MoveCameraMouse();
