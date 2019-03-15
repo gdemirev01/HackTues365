@@ -4,8 +4,8 @@ using UnityEngine;
 using Mirror;
 
 public class BaseMinionBehaviour : NetworkBehaviour {
-    [SerializeField] private int player = 0;
-    public int id;
+    [SerializeField] [SyncVar] private int player = 0;
+    [SyncVar] public int id;
 
     public int Player {
         get {
