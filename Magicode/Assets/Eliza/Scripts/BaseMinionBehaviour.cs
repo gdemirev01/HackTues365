@@ -1,16 +1,20 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Mirror;
 
-public class BaseMinionBehaviour : MonoBehaviour {
-    private int player = 0;
+public class BaseMinionBehaviour : NetworkBehaviour {
+    [SyncVar] private int player = 0;
+
     public int Player {
-        set {
-            player = value;
-            Debug.Log(player);
-        }
         get {
             return player;
+        }
+        set {
+            if(player==0)
+            {
+                player = value;
+            }
         }
     }
 }

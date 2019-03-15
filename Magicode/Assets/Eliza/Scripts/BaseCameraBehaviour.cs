@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
+using System.Linq;
 using Mirror;
 
 public class BaseCameraBehaviour : NetworkBehaviour { 
@@ -11,34 +12,37 @@ public class BaseCameraBehaviour : NetworkBehaviour {
     public float maxDistanceY = 15;
     public List<GameObject> selectedMinions = new List<GameObject>();
     public GameObject minionPrefab;
-    public int playerNumber;
-    public static int lastPlayerNumber = 0;
-
     private Vector3 startDragboxPos;
     private Vector3 endDragboxPos;  
-
     public GameObject selector;
-
     private Vector2 orgBoxPos = Vector2.zero;
     private Vector2 endBoxPos = Vector2.zero;
-
+    [SyncVar] static public int lastPlayerNumber = 1;
+    public int playerNumber = 0;
     public Texture TextureForRect;
 
     private bool isDown = false;
 
     void Start()
     {
-        lastPlayerNumber++;
-        playerNumber = lastPlayerNumber;
-        var minions = GenerateMinions(new Vector3(transform.position.x, 0, transform.position.z));
-        foreach(var minion in minions)
+        if(isServer)
         {
-            minion.GetComponent<BaseMinionBehaviour>().Player = playerNumber;
+            playerNumber = lastPlayerNumber;
+            if (isServer)
+            {
+                var minions = GenerateMinions(new Vector3(transform.position.x, 0, transform.position.z));
+            }
+            lastPlayerNumber++;
         }
     }
 
     void Update()
     {
+        if(!isLocalPlayer)
+        {
+            GetComponent<Camera>().enabled = false;
+            return;
+        }
         MoveCameraMouse();
         MoveCameraWASD();
         if (Input.GetMouseButtonDown(0))
@@ -62,7 +66,6 @@ public class BaseCameraBehaviour : NetworkBehaviour {
         }   
         else if (Input.GetMouseButtonUp(0))
         {
-            //Debug.Log("Up");
             isDown = false;
             orgBoxPos = Vector2.zero;
             endBoxPos = Vector2.zero;
@@ -82,8 +85,11 @@ public class BaseCameraBehaviour : NetworkBehaviour {
                 {
                     if (c.transform.GetComponent<BaseMinionBehaviour>() != null)
                     {
-                        selectedMinions.Add(c.gameObject);
-                        c.transform.Find("Sphere").GetComponent<MeshRenderer>().enabled = true;
+                        if (c.transform.GetComponent<BaseMinionBehaviour>().Player == playerNumber)
+                        {
+                            selectedMinions.Add(c.gameObject);
+                            c.transform.Find("Sphere").GetComponent<MeshRenderer>().enabled = true;
+                        }
                     }
                 }
             }
@@ -142,16 +148,11 @@ public class BaseCameraBehaviour : NetworkBehaviour {
     [Command]
     private void CmdMoveMinion(GameObject minion, Vector3 destination)
     {
-        /*if(isClient)
-        {
-            return;
-        }*/
         if(!isServer)
         {
             return;
         }
         minion.GetComponent<UnityEngine.AI.NavMeshAgent>().SetDestination(destination);
-        //RpcMoveMinionOnClients(minion, destination);
     }
 
     [ClientRpc]
@@ -174,6 +175,10 @@ public class BaseCameraBehaviour : NetworkBehaviour {
             foreach (Vector3 pos in positions)
             {
                 var spawned = Instantiate(minionPrefab, pos, Quaternion.identity);
+                spawned.GetComponent<BaseMinionBehaviour>().Player = lastPlayerNumber;
+                Color color;
+                EStatic.playerColors.TryGetValue(lastPlayerNumber, out color);
+                spawned.transform.Find("Mage").Find("mage_mesh").Find("Mage").GetComponent<SkinnedMeshRenderer>().materials.ElementAt(1).color = color;
                 NetworkServer.Spawn(spawned);
                 minions.Add(spawned);
             }

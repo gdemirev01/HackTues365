@@ -7,6 +7,7 @@ public static class EStatic {
 
     static EStatic()
     {
+        playerColors = new Dictionary<int, Color>();
         // GAIA DONT USE PLAYER 0
         playerColors.Add(0, Color.gray);
 
