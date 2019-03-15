@@ -10,6 +10,9 @@ public abstract class CodeBlock : MonoBehaviour, IDragHandler, IBeginDragHandler
     public abstract void execute();
 
     [SerializeField]
+    protected string executableCode;
+
+    [SerializeField]
     private bool isBase = true;
 
     private CodeBlock currentBlock;
@@ -42,5 +45,10 @@ public abstract class CodeBlock : MonoBehaviour, IDragHandler, IBeginDragHandler
     public void DisableBase()
     {
         isBase = false;
+    }
+
+    public string getExecutableCode()
+    {
+        return executableCode;
     }
 }

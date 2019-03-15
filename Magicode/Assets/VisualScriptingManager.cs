@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using SimpleJSON;
 
 public class VisualScriptingManager : MonoBehaviour
 {
@@ -52,6 +53,7 @@ public class VisualScriptingManager : MonoBehaviour
         int index = GetIndexOfBlockY(codeBlock);
         codeBlock.transform.SetSiblingIndex(index);
         codeBlocks.Insert(index, codeBlock);
+        saveCode();
     }
 
     public int GetIndexOfBlockY(CodeBlock codeBlock)
@@ -102,6 +104,21 @@ public class VisualScriptingManager : MonoBehaviour
         Destroy(codeBlock.gameObject);
     }
 
+
+    public void saveCode()
+    {
+        JSONObject code = new JSONObject();
+
+
+        for (int i = 0; i < codeBlocks.Count(); i++)
+        {
+			code.Add(i.ToString(), codeBlocks[i].getExecutableCode());
+        }
+
+        Debug.Log(code.ToString());
+        
+    }
+
     public void HandleCodeBlockDrag(CodeBlock codeBlock, PointerEventData eventData)
     {
         if(placeholder == null)
@@ -126,4 +143,5 @@ public class VisualScriptingManager : MonoBehaviour
         codeBlocks.Remove(codeBlock);
         codeBlock.transform.parent = intermediaryCodeArea.transform;
     }
+
 }
