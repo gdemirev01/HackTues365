@@ -41,9 +41,18 @@ public class VisualScriptingManager : MonoBehaviour
         else
         {
             Debug.Log("To else");
-            for(int i = 0; i < codeBlocks.Count; i++)
+            for(int i = 0; i < codeBlocks.Count - 1; i++)
             {
+                CodeBlock currentBlock = codeBlocks.ElementAt(i);
+                CodeBlock nextBlock = codeBlocks.ElementAt(i + 1);
+                float firstY = currentBlock.transform.position.y;
+                float secondY = nextBlock.transform.position.y;
 
+                if(firstY > y && secondY < y)
+                {
+                    codeBlocks.Insert(i + 1, codeBlock);
+                    codeBlock.transform.SetSiblingIndex(i + 1);
+                }
             }
         }
     }
@@ -61,6 +70,6 @@ public class VisualScriptingManager : MonoBehaviour
                 return;
             }
         }
-        Destroy(codeBlock);
+        Destroy(codeBlock.gameObject);
     }
 }
