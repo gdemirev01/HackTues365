@@ -179,11 +179,8 @@ public class BaseCameraBehaviour : NetworkBehaviour {
     {
         if (isDown)
         {
-            Debug.Log("orgBox" + orgBoxPos);
-            Debug.Log("endBox" + Input.mousePosition);
             float width = orgBoxPos.x - Input.mousePosition.x;
             float height = (Screen.height - orgBoxPos.y) - (Screen.height - Input.mousePosition.y);
-            Debug.Log("fdsa" + width + " " + height);
             GUI.DrawTexture(new Rect(orgBoxPos.x, Screen.height - orgBoxPos.y, -width, -height), TextureForRect, ScaleMode.StretchToFill, true, 1f, Color.red, 5f, 0); // -
         }
     }
