@@ -40,36 +40,39 @@ public class VisualScriptingManager : MonoBehaviour
     public void AddCodeBlock(CodeBlock codeBlock, float y)
     {
         codeBlock.transform.parent = codeBlockArea.transform;
-        
-        if(codeBlocks.Count == 0 || codeBlocks.First().transform.position.y < y)
+        int index = GetIndexOfBlockY(codeBlock);
+        codeBlock.transform.SetSiblingIndex(index);
+        codeBlocks.Insert(index, codeBlock);
+    }
+
+    public int GetIndexOfBlockY(CodeBlock codeBlock)
+    {
+        float y = codeBlock.transform.position.y;
+        if (codeBlocks.Count == 0 || codeBlocks.First().transform.position.y < y)
         {
-            Debug.Log("Add first");
-            codeBlock.transform.SetAsFirstSibling();
-            codeBlocks.Insert(0, codeBlock);
+            return 0;
         }
-        else if(codeBlocks.Last().transform.position.y > y)
+        else if (codeBlocks.Last().transform.position.y > y)
         {
-            Debug.Log("Add last");
-            codeBlock.transform.SetAsLastSibling();
-            codeBlocks.Add(codeBlock);
+            return codeBlocks.Count;
         }
         else
         {
             Debug.Log("To else");
-            for(int i = 0; i < codeBlocks.Count - 1; i++)
+            for (int i = 0; i < codeBlocks.Count - 1; i++)
             {
                 CodeBlock currentBlock = codeBlocks.ElementAt(i);
                 CodeBlock nextBlock = codeBlocks.ElementAt(i + 1);
                 float firstY = currentBlock.transform.position.y;
                 float secondY = nextBlock.transform.position.y;
 
-                if(firstY > y && secondY < y)
+                if (firstY > y && secondY < y)
                 {
-                    codeBlocks.Insert(i + 1, codeBlock);
-                    codeBlock.transform.SetSiblingIndex(i + 1);
+                    return i + 1;
                 }
             }
         }
+        return 0;
     }
 
     public void HandleCodeBlockDrop(CodeBlock codeBlock, PointerEventData eventData)
