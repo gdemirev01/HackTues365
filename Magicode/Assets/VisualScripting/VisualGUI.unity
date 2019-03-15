@@ -587,6 +587,17 @@ PrefabInstance:
       propertyPath: intermediaryCodeArea
       value: 
       objectReference: {fileID: 644745509}
+    - target: {fileID: 3068565570610809850, guid: 1117e01f647130844b4c0562d609ab1d,
+        type: 3}
+      propertyPath: placeholder
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 3068565570610809850, guid: 1117e01f647130844b4c0562d609ab1d,
+        type: 3}
+      propertyPath: placeholderAsset
+      value: 
+      objectReference: {fileID: 8952468615183752661, guid: 4444ff5ed383ba14fa9e8adbf4d21be5,
+        type: 3}
     - target: {fileID: 3068565570947000249, guid: 1117e01f647130844b4c0562d609ab1d,
         type: 3}
       propertyPath: m_AnchoredPosition.y

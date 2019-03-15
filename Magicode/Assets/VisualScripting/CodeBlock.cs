@@ -31,7 +31,7 @@ public abstract class CodeBlock : MonoBehaviour, IDragHandler, IBeginDragHandler
     public void OnDrag(PointerEventData eventData)
     {
         currentBlock.transform.position = eventData.position;
-        // VisualScriptingManager.instance.HandleCodeBlockDrag();
+        VisualScriptingManager.instance.HandleCodeBlockDrag(currentBlock, eventData);
     }
 
     public void OnEndDrag(PointerEventData eventData)
