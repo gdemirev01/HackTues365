@@ -2,8 +2,9 @@
 using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
+using Mirror;
 
-public class BaseCameraBehaviour : MonoBehaviour
+public class BaseCameraBehaviour : NetworkBehaviour
 {
     public float scrollSpeed = 5;
     public float distanceY = 10;
@@ -11,6 +12,8 @@ public class BaseCameraBehaviour : MonoBehaviour
     public float maxDistanceY = 15;
     public List<GameObject> selectedMinions = new List<GameObject>();
     public GameObject minionPrefab;
+    public int playerNumber;
+    public static int lastPlayerNumber = 0;
 
     private Vector3 startDragboxPos;
     private Vector3 endDragboxPos;
@@ -26,7 +29,13 @@ public class BaseCameraBehaviour : MonoBehaviour
 
     void Start()
     {
-        GenerateMinions();
+        lastPlayerNumber++;
+        playerNumber = lastPlayerNumber;
+        var minions = GenerateMinions(new Vector3(transform.position.x, 0, transform.position.z));
+        foreach (var minion in minions)
+        {
+            minion.GetComponent<BaseMinionBehaviour>().player = playerNumber;
+        }
     }
 
     void Update()
@@ -35,7 +44,6 @@ public class BaseCameraBehaviour : MonoBehaviour
         MoveCameraWASD();
         if (Input.GetMouseButtonDown(0))
         {
-            Debug.Log("Down");
 
             Ray ray = GetComponent<Camera>().ScreenPointToRay(Input.mousePosition);
             RaycastHit hit;
@@ -51,11 +59,11 @@ public class BaseCameraBehaviour : MonoBehaviour
                 {
                     selectedMinions.Add(hit.transform.gameObject);
                 }
-                
+
                 startDragboxPos = hit.point;
                 endBoxPos = Input.mousePosition;
             }
-        }   
+        }
         else if (Input.GetMouseButtonUp(0))
         {
             //Debug.Log("Up");
@@ -70,8 +78,6 @@ public class BaseCameraBehaviour : MonoBehaviour
                 endDragboxPos = hit.point;
                 var x = Mathf.Abs(startDragboxPos.x - endDragboxPos.x);
                 var z = Mathf.Abs(startDragboxPos.z - endDragboxPos.z);
-                //selector.transform.position = (startDragboxPos + endDragboxPos) / 2;
-                //selector.transform.localScale = new Vector3(x, 100, z);
                 foreach (Collider c in Physics.OverlapBox((startDragboxPos + endDragboxPos) / 2, new Vector3(x, 100, z)))
                 {
                     if (c.transform.GetComponent<BaseMinionBehaviour>() != null)
@@ -81,9 +87,9 @@ public class BaseCameraBehaviour : MonoBehaviour
                 }
             }
         }
+
         if (Input.GetMouseButtonDown(1))
         {
-            Debug.Log(selectedMinions.Count);
             Ray ray = GetComponent<Camera>().ScreenPointToRay(Input.mousePosition);
             RaycastHit hit;
             if (Physics.Raycast(ray, out hit))
@@ -92,8 +98,7 @@ public class BaseCameraBehaviour : MonoBehaviour
                 {
                     for (int i = -selectedMinions.Count / 2, k = 0; i < selectedMinions.Count / 2; i++, k++)
                     {
-                        selectedMinions[k].GetComponent<UnityEngine.AI.NavMeshAgent>()
-                            .SetDestination(hit.point + new Vector3((i * 2.5f) % 15, 0, i / 5));
+                        CmdMoveMinion(selectedMinions[k], hit.point + new Vector3((i * 2.5f) % 15, 0, i / 5));
                     }
                 }
             }
@@ -133,22 +138,48 @@ public class BaseCameraBehaviour : MonoBehaviour
         transform.position += new Vector3(x, 0, z) * Time.deltaTime * scrollSpeed;
     }
 
-    void GenerateMinions()
+    [Command]
+    private void CmdMoveMinion(GameObject minion, Vector3 destination)
     {
-        RaycastHit hit;
-        if (Physics.Raycast(transform.position, Vector3.down, out hit, Mathf.Infinity))
+        /*if(isClient)
         {
+            return;
+        }*/
+        if (!isServer)
+        {
+            return;
+        }
+        minion.GetComponent<UnityEngine.AI.NavMeshAgent>().SetDestination(destination);
+        //RpcMoveMinionOnClients(minion, destination);
+    }
+
+    [ClientRpc]
+    private void RpcMoveMinionOnClients(GameObject minion, Vector3 destination)
+    {
+        minion.GetComponent<UnityEngine.AI.NavMeshAgent>().SetDestination(destination);
+    }
+
+    List<GameObject> GenerateMinions(Vector3 position)
+    {
+        if (isServer)
+        {
+            Debug.Log("Spawned");
             List<Vector3> positions = new List<Vector3>();
+            List<GameObject> minions = new List<GameObject>();
             for (int i = -1; i <= 1; i++)
             {
-                positions.Add(new Vector3(transform.position.x - 3, 0, transform.position.z + i * 3));
-                positions.Add(new Vector3(transform.position.x + 3, 0, transform.position.z + i * 3));
+                positions.Add(new Vector3(position.x - 3, 2, position.z + i * 3));
+                positions.Add(new Vector3(position.x + 3, 2, position.z + i * 3));
             }
             foreach (Vector3 pos in positions)
             {
-                Instantiate(minionPrefab, pos, Quaternion.identity);
+                var spawned = Instantiate(minionPrefab, pos, Quaternion.identity);
+                NetworkServer.Spawn(spawned);
+                minions.Add(spawned);
             }
+            return minions;
         }
+        return null;
     }
 
     void OnGUI()
