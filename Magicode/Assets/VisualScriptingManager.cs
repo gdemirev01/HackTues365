@@ -20,8 +20,7 @@ public class VisualScriptingManager : MonoBehaviour
 
     [SerializeField]
     private GameObject placeholderAsset;
-
-    [SerializeField]
+    
     private GameObject placeholder;
     int placeholderSiblingIndex;
 
