@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 using Mirror;
 
@@ -15,6 +16,15 @@ public class BaseCameraBehaviour : NetworkBehaviour {
 
     private Vector3 startDragboxPos;
     private Vector3 endDragboxPos;  
+
+    public GameObject selector;
+
+    private Vector2 orgBoxPos = Vector2.zero;
+    private Vector2 endBoxPos = Vector2.zero;
+
+    public Texture TextureForRect;
+
+    private bool isDown = false;
 
     void Start()
     {
@@ -33,19 +43,32 @@ public class BaseCameraBehaviour : NetworkBehaviour {
         MoveCameraWASD();
         if (Input.GetMouseButtonDown(0))
         {
+            
             Ray ray = GetComponent<Camera>().ScreenPointToRay(Input.mousePosition);
             RaycastHit hit;
             if (Physics.Raycast(ray, out hit))
             {
+                if (!isDown)
+                {
+                    orgBoxPos = Input.mousePosition;
+                    isDown = true;
+                }
+                Debug.Log("asdf" + orgBoxPos.x);
                 if (hit.transform.GetComponent<BaseMinionBehaviour>() != null)
                 {
                     selectedMinions.Add(hit.transform.gameObject);
                 }
+                
                 startDragboxPos = hit.point;
+                endBoxPos = Input.mousePosition;
             }
-        }
-        if (Input.GetMouseButtonUp(0))
+        }   
+        else if (Input.GetMouseButtonUp(0))
         {
+            //Debug.Log("Up");
+            isDown = false;
+            orgBoxPos = Vector2.zero;
+            endBoxPos = Vector2.zero;
             selectedMinions.Clear();
             Ray ray = GetComponent<Camera>().ScreenPointToRay(Input.mousePosition);
             RaycastHit hit;
@@ -156,6 +179,19 @@ public class BaseCameraBehaviour : NetworkBehaviour {
             return minions;
         }
         return null;
+    }
+
+    void OnGUI()
+    {
+        if (isDown)
+        {
+            Debug.Log("orgBox" + orgBoxPos);
+            Debug.Log("endBox" + Input.mousePosition);
+            float width = orgBoxPos.x - Input.mousePosition.x;
+            float height = (Screen.height - orgBoxPos.y) - (Screen.height - Input.mousePosition.y);
+            Debug.Log("fdsa" + width + " " + height);
+            GUI.DrawTexture(new Rect(orgBoxPos.x, Screen.height - orgBoxPos.y, -width, -height), TextureForRect, ScaleMode.StretchToFill, true, 1f, Color.red, 5f, 0); // -
+        }
     }
 }
     
