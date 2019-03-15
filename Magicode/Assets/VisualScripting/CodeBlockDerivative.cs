@@ -8,4 +8,9 @@ public class CodeBlockDerivative : CodeBlock
     {
         throw new System.NotImplementedException();
     }
+
+    void Start()
+    {
+        this.executableCode = "Executable code for a generic code block";
+    }
 }
