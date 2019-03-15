@@ -4,8 +4,7 @@ using UnityEditor;
 using UnityEngine;
 using Mirror;
 
-public class BaseCameraBehaviour : NetworkBehaviour
-{
+public class BaseCameraBehaviour : NetworkBehaviour { 
     public float scrollSpeed = 5;
     public float distanceY = 10;
     public float minDistanceY = 5;
@@ -13,7 +12,7 @@ public class BaseCameraBehaviour : NetworkBehaviour
     public List<GameObject> selectedMinions = new List<GameObject>();
     public GameObject minionPrefab;
     public int playerNumber;
-    public static int lastPlayerNumber = 0;
+    public static int lastPlayerNumber;
 
     private Vector3 startDragboxPos;
     private Vector3 endDragboxPos;
@@ -29,13 +28,7 @@ public class BaseCameraBehaviour : NetworkBehaviour
 
     void Start()
     {
-        lastPlayerNumber++;
-        playerNumber = lastPlayerNumber;
-        var minions = GenerateMinions(new Vector3(transform.position.x, 0, transform.position.z));
-        foreach (var minion in minions)
-        {
-            minion.GetComponent<BaseMinionBehaviour>().player = playerNumber;
-        }
+        GenerateMinions(new Vector3(transform.position.x, 0, transform.position.z));
     }
 
     void Update()
@@ -44,7 +37,7 @@ public class BaseCameraBehaviour : NetworkBehaviour
         MoveCameraWASD();
         if (Input.GetMouseButtonDown(0))
         {
-
+            
             Ray ray = GetComponent<Camera>().ScreenPointToRay(Input.mousePosition);
             RaycastHit hit;
             if (Physics.Raycast(ray, out hit))
@@ -59,11 +52,11 @@ public class BaseCameraBehaviour : NetworkBehaviour
                 {
                     selectedMinions.Add(hit.transform.gameObject);
                 }
-
+                
                 startDragboxPos = hit.point;
                 endBoxPos = Input.mousePosition;
             }
-        }
+        }   
         else if (Input.GetMouseButtonUp(0))
         {
             //Debug.Log("Up");
@@ -145,7 +138,7 @@ public class BaseCameraBehaviour : NetworkBehaviour
         {
             return;
         }*/
-        if (!isServer)
+        if(!isServer)
         {
             return;
         }
@@ -159,13 +152,12 @@ public class BaseCameraBehaviour : NetworkBehaviour
         minion.GetComponent<UnityEngine.AI.NavMeshAgent>().SetDestination(destination);
     }
 
-    List<GameObject> GenerateMinions(Vector3 position)
+    void GenerateMinions(Vector3 position)
     {
         if (isServer)
         {
             Debug.Log("Spawned");
             List<Vector3> positions = new List<Vector3>();
-            List<GameObject> minions = new List<GameObject>();
             for (int i = -1; i <= 1; i++)
             {
                 positions.Add(new Vector3(position.x - 3, 2, position.z + i * 3));
@@ -175,11 +167,8 @@ public class BaseCameraBehaviour : NetworkBehaviour
             {
                 var spawned = Instantiate(minionPrefab, pos, Quaternion.identity);
                 NetworkServer.Spawn(spawned);
-                minions.Add(spawned);
             }
-            return minions;
         }
-        return null;
     }
 
     void OnGUI()
@@ -195,3 +184,4 @@ public class BaseCameraBehaviour : NetworkBehaviour
         }
     }
 }
+    
