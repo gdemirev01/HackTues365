@@ -4,6 +4,7 @@ using System.Linq;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using SimpleJSON;
+using System;
 
 public class VisualScriptingManager : MonoBehaviour
 {
@@ -52,29 +53,48 @@ public class VisualScriptingManager : MonoBehaviour
         vars = new Dictionary<string, string>();
     }
 
+    public void SetActiveScriptToUnit(Unit unit)
+    {
+        Debug.Log("Dublicate list");
+        List<CodeBlock> copiedBlocks = new List<CodeBlock>();
+        copiedBlocks.AddRange(codeBlocks);
+        unitScripts[unit] = copiedBlocks;
+    }
+
     public void SetSelectedUnit(Unit unit)
     {
-        if(selectedUnit)
+        SaveCurrentBlocks();
+
+        selectedUnit = unit;
+        selectedUnitName.text = unit.name;
+
+        LoadSelectedUnitBlocks();
+    }
+
+    public void SaveCurrentBlocks()
+    {
+        if (selectedUnit)
         {
             List<CodeBlock> dictBlocks = new List<CodeBlock>();
             dictBlocks.AddRange(codeBlocks);
-            
+
             unitScripts[selectedUnit] = dictBlocks;
             // Unload current blocks;
-            foreach(CodeBlock block in dictBlocks)
+            foreach (CodeBlock block in dictBlocks)
             {
                 block.transform.parent = blockContainer.transform;
             }
             codeBlocks = new List<CodeBlock>();
         }
-        
-        selectedUnit = unit;
-        selectedUnitName.text = unit.name;
+    }
 
-        if (unitScripts.ContainsKey(unit))
+
+    public void LoadSelectedUnitBlocks()
+    {
+        if (unitScripts.ContainsKey(selectedUnit))
         {
-            List<CodeBlock> blocks = unitScripts[unit];
-            foreach(CodeBlock codeBlock in blocks)
+            List<CodeBlock> blocks = unitScripts[selectedUnit];
+            foreach (CodeBlock codeBlock in blocks)
             {
                 codeBlocks.Add(codeBlock);
                 codeBlock.transform.parent = codeBlockArea.transform;
