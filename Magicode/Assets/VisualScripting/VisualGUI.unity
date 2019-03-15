@@ -229,8 +229,19 @@ PrefabInstance:
       propertyPath: m_Pivot.y
       value: 0.5
       objectReference: {fileID: 0}
+    - target: {fileID: 6473822925995827759, guid: 104b55a6ce9392249b40c79164cb5396,
+        type: 3}
+      propertyPath: isBase
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 104b55a6ce9392249b40c79164cb5396, type: 3}
+--- !u!1 &644745509 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 573100132374472164, guid: 1117e01f647130844b4c0562d609ab1d,
+    type: 3}
+  m_PrefabInstance: {fileID: 3068565570562557515}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &833817051
 GameObject:
   m_ObjectHideFlags: 0
@@ -571,9 +582,19 @@ PrefabInstance:
       propertyPath: m_Pivot.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3068565570610809850, guid: 1117e01f647130844b4c0562d609ab1d,
+        type: 3}
+      propertyPath: intermediaryCodeArea
+      value: 
+      objectReference: {fileID: 644745509}
     - target: {fileID: 3068565570947000249, guid: 1117e01f647130844b4c0562d609ab1d,
         type: 3}
       propertyPath: m_AnchoredPosition.y
+      value: 0.000030517578
+      objectReference: {fileID: 0}
+    - target: {fileID: 3068565570947000249, guid: 1117e01f647130844b4c0562d609ab1d,
+        type: 3}
+      propertyPath: m_RootOrder
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3068565570079450702, guid: 1117e01f647130844b4c0562d609ab1d,
@@ -787,6 +808,16 @@ PrefabInstance:
     - target: {fileID: 310532620258270, guid: 1117e01f647130844b4c0562d609ab1d, type: 3}
       propertyPath: m_isInputParsingRequired
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7108814802315041873, guid: 1117e01f647130844b4c0562d609ab1d,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 453086280110120798, guid: 1117e01f647130844b4c0562d609ab1d,
+        type: 3}
+      propertyPath: m_RaycastTarget
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1117e01f647130844b4c0562d609ab1d, type: 3}

@@ -24,6 +24,7 @@ public abstract class CodeBlock : MonoBehaviour, IDragHandler, IBeginDragHandler
         else
         {
             currentBlock = this;
+            VisualScriptingManager.instance.RemoveCodeBlock(currentBlock);
         }
     }
 

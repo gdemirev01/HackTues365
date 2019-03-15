@@ -15,6 +15,9 @@ public class VisualScriptingManager : MonoBehaviour
     [SerializeField]
     private GameObject codeBlockArea;
 
+    [SerializeField]
+    private GameObject intermediaryCodeArea;
+
     public static VisualScriptingManager instance;
 
     private void Start()
@@ -39,6 +42,10 @@ public class VisualScriptingManager : MonoBehaviour
 
     public void AddCodeBlock(CodeBlock codeBlock, float y)
     {
+        if(codeBlockArea.transform)
+        {
+
+        }
         codeBlock.transform.parent = codeBlockArea.transform;
         int index = GetIndexOfBlockY(codeBlock);
         codeBlock.transform.SetSiblingIndex(index);
@@ -89,5 +96,15 @@ public class VisualScriptingManager : MonoBehaviour
             }
         }
         Destroy(codeBlock.gameObject);
+    }
+
+    public void HandleCodeBlockDrag(CodeBlock codeBlock, PointerEventData eventData)
+    {
+    }
+
+    public void RemoveCodeBlock(CodeBlock codeBlock)
+    {
+        codeBlocks.Remove(codeBlock);
+        codeBlock.transform.parent = intermediaryCodeArea.transform;
     }
 }
