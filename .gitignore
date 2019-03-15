@@ -17,7 +17,7 @@ Magicode/Library/*
 
 # Visual Studio cache directory
 .vs/
-
+Magicode/Library/*
 # Gradle cache directory
 .gradle/
 
