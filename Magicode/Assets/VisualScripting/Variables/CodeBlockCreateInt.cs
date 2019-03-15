@@ -16,10 +16,10 @@ public class CodeBlockCreateInt : CodeBlockCreate
         return false;
     }
 
-    public override int getVarVal()
+    public override string getVarVal()
     {
         if (validateVarVal())
-            return intVarValue;
+            return intVarValue.ToString();
         throw new System.ArgumentException(System.String.Format("{0} is not an integer", varValue), "varValue");
     }
 

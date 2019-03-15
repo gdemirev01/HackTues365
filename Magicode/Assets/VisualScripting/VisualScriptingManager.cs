@@ -66,7 +66,7 @@ public class VisualScriptingManager : MonoBehaviour
                 CodeBlockCreate cbc = (CodeBlockCreate)cb;
                 try
                 {
-                    vars.Add(cbc.getVarName(), cbc.getVarVal().ToString());
+                    vars.Add(cbc.getVarName(), cbc.getVarVal());
                 } catch(System.ArgumentException e)
                 {
                     Debug.Log(string.Format("{0}: {1}", e.GetType().Name, e.Message));

@@ -31,5 +31,5 @@ public abstract class CodeBlockCreate : CodeBlock
 
     public abstract bool validateVarVal();
 
-    public abstract int getVarVal();
+    public abstract string getVarVal();
 }
