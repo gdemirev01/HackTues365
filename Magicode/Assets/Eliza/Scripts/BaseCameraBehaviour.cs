@@ -12,10 +12,10 @@ public class BaseCameraBehaviour : NetworkBehaviour {
     public List<GameObject> selectedMinions = new List<GameObject>();
     public GameObject minionPrefab;
     public int playerNumber;
-    public static int lastPlayerNumber;
+    public static int lastPlayerNumber = 0;
 
     private Vector3 startDragboxPos;
-    private Vector3 endDragboxPos;
+    private Vector3 endDragboxPos;  
 
     public GameObject selector;
 
@@ -28,7 +28,13 @@ public class BaseCameraBehaviour : NetworkBehaviour {
 
     void Start()
     {
-        GenerateMinions(new Vector3(transform.position.x, 0, transform.position.z));
+        lastPlayerNumber++;
+        playerNumber = lastPlayerNumber;
+        var minions = GenerateMinions(new Vector3(transform.position.x, 0, transform.position.z));
+        foreach(var minion in minions)
+        {
+            minion.GetComponent<BaseMinionBehaviour>().Player = playerNumber;
+        }
     }
 
     void Update()
@@ -37,7 +43,6 @@ public class BaseCameraBehaviour : NetworkBehaviour {
         MoveCameraWASD();
         if (Input.GetMouseButtonDown(0))
         {
-            
             Ray ray = GetComponent<Camera>().ScreenPointToRay(Input.mousePosition);
             RaycastHit hit;
             if (Physics.Raycast(ray, out hit))
@@ -47,7 +52,6 @@ public class BaseCameraBehaviour : NetworkBehaviour {
                     orgBoxPos = Input.mousePosition;
                     isDown = true;
                 }
-                Debug.Log("asdf" + orgBoxPos.x);
                 if (hit.transform.GetComponent<BaseMinionBehaviour>() != null)
                 {
                     selectedMinions.Add(hit.transform.gameObject);
@@ -156,12 +160,12 @@ public class BaseCameraBehaviour : NetworkBehaviour {
         minion.GetComponent<UnityEngine.AI.NavMeshAgent>().SetDestination(destination);
     }
 
-    void GenerateMinions(Vector3 position)
+    List<GameObject> GenerateMinions(Vector3 position)
     {
         if (isServer)
         {
-            Debug.Log("Spawned");
             List<Vector3> positions = new List<Vector3>();
+            List<GameObject> minions = new List<GameObject>();
             for (int i = -1; i <= 1; i++)
             {
                 positions.Add(new Vector3(position.x - 3, 2, position.z + i * 3));
@@ -171,19 +175,19 @@ public class BaseCameraBehaviour : NetworkBehaviour {
             {
                 var spawned = Instantiate(minionPrefab, pos, Quaternion.identity);
                 NetworkServer.Spawn(spawned);
+                minions.Add(spawned);
             }
+            return minions;
         }
+        return null;
     }
 
     void OnGUI()
     {
         if (isDown)
         {
-            Debug.Log("orgBox" + orgBoxPos);
-            Debug.Log("endBox" + Input.mousePosition);
             float width = orgBoxPos.x - Input.mousePosition.x;
             float height = (Screen.height - orgBoxPos.y) - (Screen.height - Input.mousePosition.y);
-            Debug.Log("fdsa" + width + " " + height);
             GUI.DrawTexture(new Rect(orgBoxPos.x, Screen.height - orgBoxPos.y, -width, -height), TextureForRect, ScaleMode.StretchToFill, true, 1f, Color.red, 5f, 0); // -
         }
     }
