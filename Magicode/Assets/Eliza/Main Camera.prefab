@@ -104,7 +104,9 @@ MonoBehaviour:
   selectedMinions: []
   minionPrefab: {fileID: 3481216556416443505, guid: 0cdc7ed4f4356d346ba372f7506d468e,
     type: 3}
+  playerNumber: 0
   selector: {fileID: 0}
+  TextureForRect: {fileID: 2800000, guid: d0a220d606c1ddd43a4ba66c5e9782ad, type: 3}
 --- !u!114 &4444600605820125630
 MonoBehaviour:
   m_ObjectHideFlags: 0
