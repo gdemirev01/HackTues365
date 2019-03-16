@@ -4,6 +4,7 @@ using System.Linq;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using SimpleJSON;
+using System;
 
 public class VisualScriptingManager : MonoBehaviour
 {
@@ -52,29 +53,76 @@ public class VisualScriptingManager : MonoBehaviour
         vars = new Dictionary<string, string>();
     }
 
+    public void SetActiveScriptToUnit(Unit unit)
+    {
+        Debug.Log("Dublicate list");
+        List<CodeBlock> copiedBlocks = new List<CodeBlock>();
+        copiedBlocks.AddRange(codeBlocks);
+        unitScripts[unit] = copiedBlocks;
+    }
+
     public void SetSelectedUnit(Unit unit)
     {
-        if(selectedUnit)
+        SaveCurrentBlocks();
+
+        if (unit)
+        {
+            Debug.Log("Has unit!");
+            SpellBlockGenerator.instance.GenerateSpellsForUnit(unit, 0);
+
+            selectedUnit = unit;
+            selectedUnitName.text = unit.name;
+
+            LoadSelectedUnitBlocks();
+        }
+        else
+        {
+            Debug.Log("Unit is null");
+        }
+
+        
+    }
+
+    public Unit GetSelectedUnit()
+    {
+        return selectedUnit;
+    }
+
+    public List<CodeBlock> GetCodeBlocks()
+    {
+        return codeBlocks;
+    }
+
+    public int GetSpellIndex()
+    {
+        return 0;
+    }
+    
+
+    public void SaveCurrentBlocks()
+    {
+        if (selectedUnit)
         {
             List<CodeBlock> dictBlocks = new List<CodeBlock>();
             dictBlocks.AddRange(codeBlocks);
-            
+
             unitScripts[selectedUnit] = dictBlocks;
             // Unload current blocks;
-            foreach(CodeBlock block in dictBlocks)
+            foreach (CodeBlock block in dictBlocks)
             {
                 block.transform.parent = blockContainer.transform;
             }
             codeBlocks = new List<CodeBlock>();
         }
-        
-        selectedUnit = unit;
-        selectedUnitName.text = unit.name;
+    }
 
-        if (unitScripts.ContainsKey(unit))
+
+    public void LoadSelectedUnitBlocks()
+    {
+        if (unitScripts.ContainsKey(selectedUnit))
         {
-            List<CodeBlock> blocks = unitScripts[unit];
-            foreach(CodeBlock codeBlock in blocks)
+            List<CodeBlock> blocks = unitScripts[selectedUnit];
+            foreach (CodeBlock codeBlock in blocks)
             {
                 codeBlocks.Add(codeBlock);
                 codeBlock.transform.parent = codeBlockArea.transform;
@@ -103,8 +151,8 @@ public class VisualScriptingManager : MonoBehaviour
         codeBlock.transform.SetSiblingIndex(index);
         codeBlocks.Insert(index, codeBlock);
 
-        if (CVManager.validateCode(codeBlocks))
-            CFManager.formatCode(codeBlocks);
+        //if (CVManager.validateCode(codeBlocks))
+            //CFManager.formatCode(codeBlocks);
         //saveCode();
     }
 

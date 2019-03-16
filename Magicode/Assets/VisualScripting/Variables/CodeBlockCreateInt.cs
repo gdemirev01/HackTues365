@@ -9,7 +9,7 @@ public class CodeBlockCreateInt : CodeBlockCreate
 
     private int intVarValue;
 
-    public override bool validateVarVal()
+    public override bool validateBlock()
     {
         if (int.TryParse(varValue, out intVarValue))
             return true;
@@ -18,13 +18,13 @@ public class CodeBlockCreateInt : CodeBlockCreate
 
     public override string getVarVal()
     {
-        if (validateVarVal())
+        if (validateBlock())
             return intVarValue.ToString();
         throw new System.ArgumentException(System.String.Format("{0} is not an integer", varValue), "varValue");
     }
 
-    public override void execute()
+    public override string execute()
     {
-        throw new System.NotImplementedException();
+        return "int " + getVarName() + " = " + intVarValue.ToString() + ";";
     }
 }

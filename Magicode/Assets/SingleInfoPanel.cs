@@ -16,7 +16,10 @@ public class SingleInfoPanel : MonoBehaviour
 
     private void Update()
     {
-        slider.value = minion.health;
+        if (minion)
+        {
+            slider.value = minion.health;
+        }
     }
 
     public void SetInfo(BaseMinionBehaviour minion)

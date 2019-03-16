@@ -7,7 +7,7 @@ public class CodeBlockDerivative : CodeBlock
 {
     private string var;
 
-    public override void execute()
+    public override string execute()
     {
         throw new System.NotImplementedException();
     }
@@ -20,5 +20,10 @@ public class CodeBlockDerivative : CodeBlock
     public void setVar(TMP_InputField text)
     {
         this.var = text.text;
+    }
+
+    public override bool validateBlock()
+    {
+        return true;
     }
 }
