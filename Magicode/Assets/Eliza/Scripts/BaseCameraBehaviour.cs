@@ -21,21 +21,13 @@ public class BaseCameraBehaviour : NetworkBehaviour {
     public Texture TextureForRect;
     private bool isDown = false;
     bool m_Started;
-    [SyncVar] public int playerNumber;
-    [SyncVar] public int lastPlayerNumber = 1;
-    public Text logger;
+    bool hasAssigned = false;
 
     void Start()
     {
-        logger = GameObject.Find("Canvas").transform.Find("Text").GetComponent<Text>();
         if(isLocalPlayer)
         {
             gameObject.GetComponent<Camera>().enabled = true;
-        }
-        if(isServer)
-        {
-            playerNumber = lastPlayerNumber;
-            lastPlayerNumber++;
         }
         m_Started = true;
     }
@@ -47,12 +39,55 @@ public class BaseCameraBehaviour : NetworkBehaviour {
         {
             transform.tag = "Server";
         }
+        StartCoroutine("AssignPlayers");
     }
 
+    // this needs to be here because only LocalPlayerAuth can send [Cmd]
     [Command]
-    void CmdAssignPlayer()
+    public void CmdShoot(GameObject minion, params string[] spellsToAttach)
     {
+        var spawned = Instantiate(minion.GetComponent<BaseMinionBehaviour>().bulletPrefab,
+            minion.transform.position, minion.transform.rotation);
+        spawned.AddComponent<TestMoveBulletForward>();
+        NetworkServer.Spawn(spawned);
+    }
 
+    // don't bully me please... it works... its bad but it works...
+    /*
+     * gonna do a better implementation if there is any time left
+     * found the issue, basically i was trying to access the minions while they werent initialized
+     * so now i rescan for them near the camera every 0.X seconds until i find them and then init
+     * */
+    IEnumerator AssignPlayers()
+    {
+        while(!hasAssigned)
+        {
+            var list = Physics.OverlapBox(transform.position, new Vector3(6, 20, 6));
+            if (list.Length > 6)
+            {
+                foreach (var obj in list)
+                {
+                    Debug.Log(obj.transform.name);
+                    if (obj.GetComponent<BaseMinionBehaviour>() != null)
+                    {
+                        Debug.Log("Found minions");
+                        obj.transform.Find("Mage").Find("mage_mesh").Find("Mage").GetComponent<SkinnedMeshRenderer>().
+                            materials.ElementAt(1).color = Color.blue;
+                        obj.GetComponent<BaseMinionBehaviour>().isAllied = true;
+                    }
+                }
+                hasAssigned = true;
+            }
+            yield return new WaitForSeconds(0.1f);
+        }
+    }
+
+    void ShootSpells()
+    {
+        foreach(var minion in selectedMinions)
+        {
+            CmdShoot(minion);
+        }
     }
 
     void Update()
@@ -61,7 +96,10 @@ public class BaseCameraBehaviour : NetworkBehaviour {
         {
             return;
         }
-        logger.text = lastPlayerNumber.ToString();
+        if(Input.GetButtonDown("Jump"))
+        {
+            ShootSpells();
+        }
         if (Input.GetMouseButtonDown(0))
         {
             Ray ray = GetComponent<Camera>().ScreenPointToRay(Input.mousePosition);
@@ -75,7 +113,11 @@ public class BaseCameraBehaviour : NetworkBehaviour {
                 }
                 if (hit.transform.GetComponent<BaseMinionBehaviour>() != null)
                 {
-                    selectedMinions.Add(hit.transform.gameObject);
+                    if(hit.transform.GetComponent<BaseMinionBehaviour>().isAllied == true)
+                    {
+                        selectedMinions.Add(hit.transform.gameObject);
+                        hit.transform.Find("Sphere").GetComponent<MeshRenderer>().enabled = true;
+                    }   
                 }
                 startDragboxPos = hit.point;
                 endBoxPos = Input.mousePosition;
@@ -103,13 +145,15 @@ public class BaseCameraBehaviour : NetworkBehaviour {
                 {
                     if (c.transform.GetComponent<BaseMinionBehaviour>() != null)
                     {
-                        selectedMinions.Add(c.gameObject);
-                        c.transform.Find("Sphere").GetComponent<MeshRenderer>().enabled = true;
+                        if (c.transform.GetComponent<BaseMinionBehaviour>().isAllied == true)
+                        {
+                            selectedMinions.Add(c.gameObject);
+                            c.transform.Find("Sphere").GetComponent<MeshRenderer>().enabled = true;
+                        }
                     }
                 }
             }
         }
-
         if (Input.GetMouseButtonDown(1))
         {
             Ray ray = GetComponent<Camera>().ScreenPointToRay(Input.mousePosition);
@@ -152,11 +196,6 @@ public class BaseCameraBehaviour : NetworkBehaviour {
             {
                 var spawned = Instantiate(minionPrefab, pos, Quaternion.identity);
                 NetworkServer.Spawn(spawned);
-                spawned.GetComponent<BaseMinionBehaviour>().Player = lastPlayerNumber;
-                Color color;
-                EStatic.playerColors.TryGetValue(lastPlayerNumber, out color);
-                spawned.transform.Find("Mage").Find("mage_mesh").Find("Mage").
-                    GetComponent<SkinnedMeshRenderer>().materials.ElementAt(1).color = color;
             }
         }
     }

@@ -92,7 +92,6 @@ GameObject:
   - component: {fileID: 1823319562241035836}
   - component: {fileID: 4610615545173253511}
   - component: {fileID: 8919784784269156620}
-  - component: {fileID: 6118263389200043350}
   m_Layer: 0
   m_Name: Minion
   m_TagString: Minion
@@ -159,8 +158,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   syncInterval: 0.1
-  player: 0
-  id: 0
+  isAllied: 0
+  bulletPrefab: {fileID: 4375537640488401669, guid: 900ed958562b1ad4cb9d789347e83a76,
+    type: 3}
+  health: 0
 --- !u!195 &1823319562241035836
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -210,23 +211,6 @@ CapsuleCollider:
   m_Height: 4.39
   m_Direction: 1
   m_Center: {x: 0, y: 1.5, z: 0}
---- !u!114 &6118263389200043350
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3481216556416443505}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9742e4e75e973dc428dbfa0011a0dcf6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  health: 100
-  speels:
-  - 
-  - 
-  - 
 --- !u!1001 &7192235722831932056
 PrefabInstance:
   m_ObjectHideFlags: 0

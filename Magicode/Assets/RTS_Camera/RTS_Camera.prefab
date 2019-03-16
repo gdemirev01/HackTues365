@@ -116,7 +116,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 28ef8c68bade09b41aca258d42a632f2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  lastTab: 1
+  lastTab: 0
   movementSettingsFoldout: 1
   zoomingSettingsFoldout: 0
   rotationSettingsFoldout: 1
@@ -141,7 +141,7 @@ MonoBehaviour:
   keyboardZoomingSensitivity: 2
   scrollWheelZoomingSensitivity: 25
   limitMap: 1
-  limitX: 100
+  limitX: 200
   limitY: 100
   targetFollow: {fileID: 0}
   targetOffset: {x: 0, y: 0, z: 0}
@@ -200,9 +200,6 @@ MonoBehaviour:
     type: 3}
   selector: {fileID: 0}
   TextureForRect: {fileID: 0}
-  playerNumber: 0
-  lastPlayerNumber: 1
-  logger: {fileID: 0}
 --- !u!114 &4679826804622741638
 MonoBehaviour:
   m_ObjectHideFlags: 0
