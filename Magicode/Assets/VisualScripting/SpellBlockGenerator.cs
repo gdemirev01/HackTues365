@@ -11,6 +11,8 @@ public class SpellBlockGenerator : MonoBehaviour
     [SerializeField]
     private FunctionCodeBlock prefabFunctionBlock;
 
+
+
     public static SpellBlockGenerator instance;
 
     private void Start()
@@ -49,6 +51,10 @@ public class SpellBlockGenerator : MonoBehaviour
             FunctionCodeBlock block = Instantiate(prefabFunctionBlock, spellBlockContainer.transform);
             block.SetTitle(effect.GetName());
             block.SetDescription(effect.GetDescription());
+            foreach(VariableType type in effect.GetExpectedTypes())
+            {
+                Debug.Log(type);
+            }
             block.SetParameters(effect.GetExpectedTypes());
         }
     }

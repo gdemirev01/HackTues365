@@ -9,11 +9,6 @@ public class SpellEffectMoveForward : SpellEffect
 
     public override void Activate(params object[] vars)
     {
-        speed = (int) vars[0];
-        Vector3 pos = (Vector3) vars[1];
-
-        Debug.Log(pos);
-        
-        transform.Translate(speed * transform.forward * Time.deltaTime);
+        transform.position += speed * transform.forward * Time.deltaTime;
     }
 }
