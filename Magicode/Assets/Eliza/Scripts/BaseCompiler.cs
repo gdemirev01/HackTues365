@@ -22,6 +22,8 @@ public class BaseCompiler : MonoBehaviour
         var provider = new CSharpCodeProvider();
         var param = new CompilerParameters();
         param.ReferencedAssemblies.Add("System.dll");
+        //not sure if this one is gonna work in standalone build but w/e
+        //if not i am just gonna add dlls in the Resources folder
         param.ReferencedAssemblies.Add(typeof(MonoBehaviour).Assembly.Location);
         param.GenerateExecutable = false;
         param.GenerateInMemory = false;
