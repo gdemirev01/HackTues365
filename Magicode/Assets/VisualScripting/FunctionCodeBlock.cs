@@ -15,7 +15,7 @@ public class FunctionCodeBlock : CodeBlock
     [SerializeField]
     private GameObject InputFieldArea;
 
-    private List<string> parameters;
+    private List<string> parameters = new List<string>();
 
     [SerializeField]
     private FloatInputField FloatInputFieldPrefab;
