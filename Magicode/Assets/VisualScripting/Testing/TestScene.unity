@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657844, g: 0.49641222, b: 0.57481694, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -282,6 +282,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 20712601653529397, guid: dac167cde003eef4bb1d79742c6a6ac1,
+        type: 3}
+      propertyPath: description
+      value: Move forward. (Int) Speed
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: dac167cde003eef4bb1d79742c6a6ac1, type: 3}
 --- !u!4 &98435851 stripped
@@ -396,6 +401,27 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 28.271002, y: 0, z: 0}
+--- !u!1 &895636374 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 872223286965091578, guid: dac167cde003eef4bb1d79742c6a6ac1,
+    type: 3}
+  m_PrefabInstance: {fileID: 1311614515}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &895636378
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 895636374}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b33548d532d7adb4cbbb3903dced0e93, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  name: move_sine
+  description: 
+  expectedTypes: 0000000001000000
 --- !u!4 &1060369950 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8208429222870497611, guid: dac167cde003eef4bb1d79742c6a6ac1,
@@ -456,6 +482,11 @@ PrefabInstance:
     - target: {fileID: 2107700918, guid: dac167cde003eef4bb1d79742c6a6ac1, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 20712601653529397, guid: dac167cde003eef4bb1d79742c6a6ac1,
+        type: 3}
+      propertyPath: description
+      value: move forward
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: dac167cde003eef4bb1d79742c6a6ac1, type: 3}

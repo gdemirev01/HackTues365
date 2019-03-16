@@ -16,9 +16,4 @@ public class SpellEffectMoveForward : SpellEffect
         
         transform.Translate(speed * transform.forward * Time.deltaTime);
     }
-
-    public override VariableType[] GetExpectedVariableTypes()
-    {
-        return new VariableType[] { VariableType.Float };
-    }
 }

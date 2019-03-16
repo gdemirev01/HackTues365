@@ -65,6 +65,7 @@ public class VisualScriptingManager : MonoBehaviour
     {
         SaveCurrentBlocks();
 
+        SpellBlockGenerator.instance.GenerateSpellsForUnit(unit, 0);
         selectedUnit = unit;
         selectedUnitName.text = unit.name;
 

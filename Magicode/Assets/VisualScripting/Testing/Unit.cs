@@ -35,6 +35,10 @@ public class Unit : MonoBehaviour
 
         spell.enabled = true;
         spell.gameObject.SetActive(true);
+    }
 
+    public Spell GetSpellObject(int index)
+    {
+        return spells[index];
     }
 }
