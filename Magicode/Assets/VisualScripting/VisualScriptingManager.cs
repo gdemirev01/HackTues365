@@ -42,7 +42,7 @@ public class VisualScriptingManager : MonoBehaviour
     [SerializeField]
     private CodeFormatManager CFManager;
 
-    private Dictionary<string, string> vars;
+    
 
     public static VisualScriptingManager instance;
 
@@ -50,7 +50,6 @@ public class VisualScriptingManager : MonoBehaviour
     {
         instance = this;
         AddInstantiatedCodeBlocks();
-        vars = new Dictionary<string, string>();
     }
 
     public void SetActiveScriptToUnit(Unit unit)
@@ -67,7 +66,7 @@ public class VisualScriptingManager : MonoBehaviour
 
         if (unit)
         {
-            Debug.Log("Has unit!");
+            //Debug.Log("Has unit!");
             SpellBlockGenerator.instance.GenerateSpellsForUnit(unit, 0);
 
             selectedUnit = unit;

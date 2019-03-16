@@ -59,7 +59,7 @@ public class CodeFormatManager : MonoBehaviour
             }
         }
         allPairs.Reverse();
-        Debug.Log("allPairs count: " + allPairs.Count);
+        //Debug.Log("allPairs count: " + allPairs.Count);
         return allPairs;
     }
 

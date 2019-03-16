@@ -16,9 +16,32 @@ public class CodeBlockCompiler : MonoBehaviour
     [TextArea(3, 30)]
     private string afterCodeString;
 
+    private Dictionary<string, string> vars = new Dictionary<string, string>();
+
     private void Start()
     {
         
+    }
+
+    private bool checkAndCollectVariables(List<CodeBlock> codeBlocks)
+    {
+        foreach (CodeBlock cb in codeBlocks)
+        {
+            if (cb is CodeBlockCreate)
+            {
+                CodeBlockCreate cbc = (CodeBlockCreate)cb;
+                if (vars.ContainsKey(cbc.getVarName()))
+                {
+                    return false;
+                }
+                vars.Add(cbc.getVarName(), cbc.getVarVal());
+            }
+        }
+        foreach (KeyValuePair<string, string> entry in vars)
+        {
+            Debug.Log("var name: " + entry.Key + " var val: " + entry.Value);
+        }
+        return true;
     }
 
     private bool blocksAreValid(List<CodeBlock> codeBlocks)
@@ -39,7 +62,7 @@ public class CodeBlockCompiler : MonoBehaviour
             }
         }
         // TODO: Other shit
-
+        checkAndCollectVariables(codeBlocks);
         return true;
     }
 
@@ -67,7 +90,7 @@ public class CodeBlockCompiler : MonoBehaviour
             {
                 string line = codeBlock.execute();
                 code += line;
-                Debug.Log("write line " + line);
+                //Debug.Log("write line " + line);
             }
             code += afterCodeString;
             File.WriteAllText(path, code);
