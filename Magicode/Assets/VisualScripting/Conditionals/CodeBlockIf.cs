@@ -4,9 +4,10 @@ using UnityEngine;
 
 public class CodeBlockIf : CodeBlockBegin
 {
+    protected string condition = "true";
+
     public override string execute()
     {
-        string condition = "true"; // TODO FIX
-        return "if(" + condition + " ) {";
+        return "if(" + this.condition + " ) {";
     }
 }
