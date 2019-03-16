@@ -23,7 +23,7 @@ public class CodeBlockCreateInt : CodeBlockCreate
         throw new System.ArgumentException(System.String.Format("{0} is not an integer", varValue), "varValue");
     }
 
-    public override void execute()
+    public override string execute()
     {
         throw new System.NotImplementedException();
     }

@@ -7,7 +7,7 @@ public class CodeBlockDerivative : CodeBlock
 {
     private string var;
 
-    public override void execute()
+    public override string execute()
     {
         throw new System.NotImplementedException();
     }

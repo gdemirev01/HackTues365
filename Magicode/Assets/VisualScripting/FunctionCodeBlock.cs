@@ -25,7 +25,7 @@ public class FunctionCodeBlock : CodeBlock
 
 
 
-    public override void execute()
+    public override string execute()
     {
         // primer: GetComponent<Spell>().ActivateEffect(\"move_forward\", 5, new Vector3(0, 1, 1));
         this.executableCode = "GetComponent<Spell>().ActivateEffect(\"";
