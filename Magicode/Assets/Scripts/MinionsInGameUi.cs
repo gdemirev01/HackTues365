@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class MinionsInGameUi : MonoBehaviour
 {
 
-    public GameObject minion;
+    public List<GameObject> minions;
     void Start()
     {
             
@@ -15,12 +15,25 @@ public class MinionsInGameUi : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(minion != null)
+        if(minions.Count == 1)
         {
-            var health = minion.GetComponent<MinionInfo>().health;
-            List<string> speels = minion.GetComponent<MinionInfo>().speels;
-            transform.Find("HealthAndImage").GetComponent<Text>().text = health + "";
+            transform.GetComponent<CanvasGroup>().alpha = 1;
+            transform.GetComponent<CanvasGroup>().blocksRaycasts = true;
+            transform.GetComponent<CanvasGroup>().interactable = true;
+            var health = minions[0].GetComponent<MinionInfo>().health;
+            List<string> speels = minions[0].GetComponent<MinionInfo>().spells;
+            transform.Find("Health").transform.Find("Slider").GetComponent<Slider>().value = health;
+            transform.Find("Info").transform.Find("Name").GetComponent<Text>().text = minions[0].name;
             //set images for speels 
+        }
+        else if(minions.Count > 1) {
+            transform.Find("Info").transform.Find("Name").GetComponent<Text>().text = "Minions(" + minions.Count + ")";
+        }
+        else
+        {
+            transform.GetComponent<CanvasGroup>().alpha = 0;
+            transform.GetComponent<CanvasGroup>().blocksRaycasts = false ;
+            transform.GetComponent<CanvasGroup>().interactable = false;
         }
     }
 }

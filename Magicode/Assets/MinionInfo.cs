@@ -5,5 +5,5 @@ using UnityEngine;
 public class MinionInfo : MonoBehaviour
 {
     public float health;
-    public List<string> speels;
+    public List<string> spells;
 }

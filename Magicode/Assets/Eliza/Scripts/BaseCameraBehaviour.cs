@@ -27,7 +27,7 @@ public class BaseCameraBehaviour : NetworkBehaviour {
 
     void Start()
     {
-        logger = GameObject.Find("Canvas").transform.Find("Text").GetComponent<Text>();
+        //logger = GameObject.Find("Canvas").transform.Find("Text").GetComponent<Text>();
         if(isLocalPlayer)
         {
             gameObject.GetComponent<Camera>().enabled = true;
@@ -61,7 +61,7 @@ public class BaseCameraBehaviour : NetworkBehaviour {
         {
             return;
         }
-        logger.text = lastPlayerNumber.ToString();
+        //logger.text = lastPlayerNumber.ToString();
         if (Input.GetMouseButtonDown(0))
         {
             Ray ray = GetComponent<Camera>().ScreenPointToRay(Input.mousePosition);
@@ -125,6 +125,9 @@ public class BaseCameraBehaviour : NetworkBehaviour {
                 }
             }
         }
+        var minionsInfo = GameObject.Find("MinionsInfo");
+        
+        minionsInfo.GetComponent<MinionsInGameUi>().minions = selectedMinions;
     }
 
     [Command]
@@ -148,15 +151,18 @@ public class BaseCameraBehaviour : NetworkBehaviour {
                 positions.Add(new Vector3(position.x - 3, 2, position.z + i * 3));
                 positions.Add(new Vector3(position.x + 3, 2, position.z + i * 3));
             }
+            int minionNumber = 1;
             foreach (Vector3 pos in positions)
             {
                 var spawned = Instantiate(minionPrefab, pos, Quaternion.identity);
+                spawned.name = "Minion" + minionNumber;
                 NetworkServer.Spawn(spawned);
                 spawned.GetComponent<BaseMinionBehaviour>().Player = lastPlayerNumber;
                 Color color;
                 EStatic.playerColors.TryGetValue(lastPlayerNumber, out color);
                 spawned.transform.Find("Mage").Find("mage_mesh").Find("Mage").
                     GetComponent<SkinnedMeshRenderer>().materials.ElementAt(1).color = color;
+                minionNumber++;
             }
         }
     }
@@ -175,18 +181,18 @@ public class BaseCameraBehaviour : NetworkBehaviour {
         }
     }
 
-    //void OnDrawGizmos()
-    //{
-    //    Gizmos.color = Color.red;
-    //    //Check that it is being run in Play Mode, so it doesn't try to draw this in Editor mode
-    //    if (m_Started)
-    //    {
-    //        var x = Mathf.Abs(startDragboxPos.x - endDragboxPos.x);
-    //        var z = Mathf.Abs(startDragboxPos.z - endDragboxPos.z);
-    //        Gizmos.DrawWireCube((startDragboxPos + endDragboxPos) / 2, new Vector3(x / 1.2f, 100, z / 1.2f));
+    void OnDrawGizmos()
+    {
+        Gizmos.color = Color.red;
+        //Check that it is being run in Play Mode, so it doesn't try to draw this in Editor mode
+        if (m_Started)
+        {
+            var x = Mathf.Abs(startDragboxPos.x - endDragboxPos.x);
+            var z = Mathf.Abs(startDragboxPos.z - endDragboxPos.z);
+            Gizmos.DrawWireCube((startDragboxPos + endDragboxPos) / 2, new Vector3(x / 1.2f, 100, z / 1.2f));
 
-    //    }
-    //    //Draw a cube where the OverlapBox is (positioned where your GameObject is as well as a size)
-    //}
+        }
+        //Draw a cube where the OverlapBox is (positioned where your GameObject is as well as a size)
+    }
 }
     
