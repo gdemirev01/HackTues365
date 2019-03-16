@@ -21,4 +21,9 @@ public class CodeBlockDerivative : CodeBlock
     {
         this.var = text.text;
     }
+
+    public override bool validateBlock()
+    {
+        return true;
+    }
 }

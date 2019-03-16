@@ -65,11 +65,22 @@ public class VisualScriptingManager : MonoBehaviour
     {
         SaveCurrentBlocks();
 
-        SpellBlockGenerator.instance.GenerateSpellsForUnit(unit, 0);
-        selectedUnit = unit;
-        selectedUnitName.text = unit.name;
+        if (unit)
+        {
+            Debug.Log("Has unit!");
+            SpellBlockGenerator.instance.GenerateSpellsForUnit(unit, 0);
 
-        LoadSelectedUnitBlocks();
+            selectedUnit = unit;
+            selectedUnitName.text = unit.name;
+
+            LoadSelectedUnitBlocks();
+        }
+        else
+        {
+            Debug.Log("Unit is null");
+        }
+
+        
     }
 
     public Unit GetSelectedUnit()

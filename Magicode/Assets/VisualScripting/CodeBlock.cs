@@ -51,4 +51,6 @@ public abstract class CodeBlock : MonoBehaviour, IDragHandler, IBeginDragHandler
     {
         return executableCode;
     }
+
+    public abstract bool validateBlock();
 }

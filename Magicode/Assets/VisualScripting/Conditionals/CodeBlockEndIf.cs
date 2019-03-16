@@ -8,4 +8,9 @@ public class CodeBlockEndIf : CodeBlockEnd
     {
         return "}";
     }
+
+    public override bool validateBlock()
+    {
+        return true;
+    }
 }

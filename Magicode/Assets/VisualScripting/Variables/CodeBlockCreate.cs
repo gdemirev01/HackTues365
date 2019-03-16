@@ -29,7 +29,5 @@ public abstract class CodeBlockCreate : CodeBlock
         }
     }
 
-    public abstract bool validateVarVal();
-
     public abstract string getVarVal();
 }

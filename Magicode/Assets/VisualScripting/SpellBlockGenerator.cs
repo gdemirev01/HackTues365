@@ -31,9 +31,20 @@ public class SpellBlockGenerator : MonoBehaviour
             Destroy(children[i]);
         }
 
+        Debug.Log("Stuffs");
         List<SpellEffect> effects = unit.GetSpellObject(0).GetComponents<SpellEffect>().ToList();
+        Debug.Log(effects);
+        foreach(SpellEffect spell in effects)
+        {
+            Debug.Log(spell.name, spell);
+        }
         foreach(SpellEffect effect in effects)
         {
+            if(!effect)
+            {
+                Debug.Log("Effet is null!");
+                continue;
+            }
             Debug.Log("Add block for effect: " + effect.GetName());
             FunctionCodeBlock block = Instantiate(prefabFunctionBlock, spellBlockContainer.transform);
             block.SetTitle(effect.GetName());

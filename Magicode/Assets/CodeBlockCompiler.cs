@@ -4,23 +4,24 @@ using UnityEngine;
 
 public class CodeBlockCompiler : MonoBehaviour
 {
+    [SerializeField]
+    private List<CodeBlock> debugBlocks;
+
     private bool blocksAreValid(List<CodeBlock> codeBlocks)
     {
         if(!CodeValidationManager.instance.validateCode(codeBlocks))
         {
+            Debug.LogWarning("error loops");
             return false;
         }
         
         // Validate inputs correct
         foreach(CodeBlock codeBlock in codeBlocks)
         {
-            if(codeBlock is CodeBlockCreate)
+            if (!codeBlock.validateBlock())
             {
-                CodeBlockCreate codeBlockCreate = (CodeBlockCreate)codeBlock;
-                if(!codeBlockCreate.validateVarVal())
-                {
-                    return false;
-                }
+                Debug.LogWarning("error block", codeBlock);
+                return false;
             }
         }
         // TODO: Other shit
@@ -32,15 +33,28 @@ public class CodeBlockCompiler : MonoBehaviour
     {
         Debug.Log("Compile");
         Unit unit = VisualScriptingManager.instance.GetSelectedUnit();
+        Debug.Log("unit ", unit);
+
         List<CodeBlock> codeBlocks = VisualScriptingManager.instance.GetCodeBlocks();
+        debugBlocks = codeBlocks;
+        Debug.Log("after code blocks");
         int spellIndex = VisualScriptingManager.instance.GetSpellIndex(); // returns 0 always;
 
         Spell spell = unit.GetSpellObject(0);
-        string code = "";
-        foreach(CodeBlock codeBlock in codeBlocks)
+        Debug.Log("spell ", spell);
+
+        if (blocksAreValid(codeBlocks))
         {
-            string blockCode = codeBlock.execute();
-            Debug.Log("Add " + blockCode, codeBlock);
+            string code = "";
+            foreach (CodeBlock codeBlock in codeBlocks)
+            {
+                code += codeBlock.execute();
+                Debug.Log("Add " + code, codeBlock);
+            }   
+        }
+        else
+        {
+            PopupManager.instance.ShowError();
         }
     }
 
