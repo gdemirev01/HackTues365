@@ -20,6 +20,7 @@ public class MinionPanelInfo : MonoBehaviour
 
     public void SetMinions(List<BaseMinionBehaviour> info)
     {
+        Debug.Log("Set minions");
         minions.Clear();
         foreach (BaseMinionBehaviour minion in info)
         {
