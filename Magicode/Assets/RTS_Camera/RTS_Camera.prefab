@@ -200,6 +200,7 @@ MonoBehaviour:
     type: 3}
   selector: {fileID: 0}
   TextureForRect: {fileID: 0}
+  outlineMaterial: {fileID: 2100000, guid: 3cfb4bcf1557aed49a7a9b2f0e59ac48, type: 2}
 --- !u!114 &4679826804622741638
 MonoBehaviour:
   m_ObjectHideFlags: 0
