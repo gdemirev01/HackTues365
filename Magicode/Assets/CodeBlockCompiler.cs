@@ -100,16 +100,20 @@ public class CodeBlockCompiler : MonoBehaviour
 
         if (blocksAreValid(codeBlocks))
         {
+            int totalManaCost = 0;
             string path = Application.dataPath + "/" + unit.name + ".txt";
             
             string code = "";
             code += preCodeString;
             foreach (CodeBlock codeBlock in codeBlocks)
             {
+                totalManaCost += codeBlock.manaCost;
                 string line = codeBlock.execute();
                 code += line;
                 //Debug.Log("write line " + line);
             }
+            //TODO: GET MANA COST FROM HERE (totalManaCost)
+
             code += afterCodeString;
             //Debug.Log(code);
             File.WriteAllText(path, code);
