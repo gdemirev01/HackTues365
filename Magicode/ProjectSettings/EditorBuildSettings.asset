@@ -8,10 +8,7 @@ EditorBuildSettings:
   - enabled: 0
     path: 
     guid: 00000000000000000000000000000000
-  - enabled: 0
+  - enabled: 1
     path: Assets/Scenes/EPlayLevel.unity
     guid: bf9e99af6d79a424dac51e5008dca885
-  - enabled: 1
-    path: Assets/Scenes/EPlayLevelGo6o.unity
-    guid: 0841ce63f76e44d4eb0c8ae0af3d1d90
   m_configObjects: {}

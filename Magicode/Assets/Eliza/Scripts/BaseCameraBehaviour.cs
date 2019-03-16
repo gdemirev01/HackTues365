@@ -49,8 +49,9 @@ public class BaseCameraBehaviour : NetworkBehaviour {
     public void CmdShoot(GameObject minion, params string[] spellsToAttach)
     {
         var spawned = Instantiate(minion.GetComponent<BaseMinionBehaviour>().bulletPrefab,
-            minion.transform.position, minion.transform.rotation);
+            minion.transform.position + new Vector3(0, 1, 0), minion.transform.rotation);
         spawned.AddComponent<TestMoveBulletForward>();
+        spawned.GetComponent<TestMoveBulletForward>().minionCaster = minion;
         NetworkServer.Spawn(spawned);
     }
 
@@ -67,15 +68,16 @@ public class BaseCameraBehaviour : NetworkBehaviour {
             var list = Physics.OverlapBox(transform.position, new Vector3(6, 20, 6));
             if (list.Length > 6)
             {
+                int i = 0;
                 foreach (var obj in list)
                 {
-                    Debug.Log(obj.transform.name);
                     if (obj.GetComponent<BaseMinionBehaviour>() != null)
                     {
-                        Debug.Log("Found minions");
                         obj.transform.Find("Mage").Find("mage_mesh").Find("Mage").GetComponent<SkinnedMeshRenderer>().
                             materials.ElementAt(1).color = Color.blue;
                         obj.GetComponent<BaseMinionBehaviour>().isAllied = true;
+                        obj.transform.name = "Minion " + i;
+                        i++;
                     }
                 }
                 hasAssigned = true;
@@ -180,7 +182,7 @@ public class BaseCameraBehaviour : NetworkBehaviour {
             }
         }
         var minionsInfo = GameObject.Find("MinionsInfo");
-        
+
         minionsInfo.GetComponent<MinionsInGameUi>().minions = selectedMinions;
     }
 
@@ -209,13 +211,8 @@ public class BaseCameraBehaviour : NetworkBehaviour {
             foreach (Vector3 pos in positions)
             {
                 var spawned = Instantiate(minionPrefab, pos, Quaternion.identity);
-                spawned.name = "Minion" + minionNumber;
+                spawned.name = "Minion " + minionNumber;
                 NetworkServer.Spawn(spawned);
-                //spawned.GetComponent<BaseMinionBehaviour>().Player = lastPlayerNumber;
-                //Color color;
-                //EStatic.playerColors.TryGetValue(lastPlayerNumber, out color);
-                //spawned.transform.Find("Mage").Find("mage_mesh").Find("Mage").
-                //    GetComponent<SkinnedMeshRenderer>().materials.ElementAt(1).color = color;
                 minionNumber++;
             }
         }

@@ -17,7 +17,7 @@ public class HealthController : MonoBehaviour
     {
         transform.LookAt(camera.transform);
         var slider = transform.Find("Slider").GetComponent<Slider>();
-        slider.value = transform.parent.GetComponent<MinionInfo>().health;
+        slider.value = transform.parent.GetComponent<BaseMinionBehaviour>().health;
         slider.direction = Slider.Direction.RightToLeft;
     }
 }
