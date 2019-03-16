@@ -12,9 +12,19 @@ public class TestMoveBulletForward : NetworkBehaviour
 
     void Update()
     {
-        transform.position += transform.forward * Time.deltaTime * 5;
+        //transform.position += transform.forward * Time.deltaTime * 5;
     }
 
+	void Start()
+	{
+		
+	}
+	
+	public static void Print()
+	{
+		Debug.Log("ASSEMBLY");
+	}
+	
     void OnTriggerEnter(Collider other)
     {
         try

@@ -10,15 +10,33 @@ using System.IO;
 using CSharpCompiler;
 using System.Linq;
 using System.Collections.Generic;
+using System.Threading;
+using Mirror;
+using System.Security.Policy;
+
+public class Proxy : MarshalByRefObject {
+    public Assembly GetAssembly(string assemblyPath)
+    {
+        try
+        {
+            return Assembly.LoadFile(assemblyPath);
+        }
+        catch (Exception)
+        {
+            return null;
+            // throw new InvalidOperationException(ex);
+        }
+    }
+}
 
 public class BaseCompiler : MonoBehaviour
 {
     string[] assemblyReferences;
     Assembly assembly;
 
-    public void CompileFiles(string filePath)
+    public void CompileFiles(string fileName)
     {
-        filePath = Path.Combine(Application.streamingAssetsPath, filePath);
+        string filePath = Path.Combine(Application.streamingAssetsPath, fileName);
         var domain = System.AppDomain.CurrentDomain;
         this.assemblyReferences = domain
             .GetAssemblies()
@@ -29,13 +47,35 @@ public class BaseCompiler : MonoBehaviour
         var options = new CompilerParameters();
         options.GenerateExecutable = false;
         options.GenerateInMemory = false;
-        options.OutputAssembly = @"C:\Users\ImperialWolf\Desktop\HackTues365\CODE.dll";
+        options.OutputAssembly = Path.Combine(Application.streamingAssetsPath, fileName);
         options.ReferencedAssemblies.AddRange(assemblyReferences);
         var compiler = new CSharpCompiler.CodeCompiler();
         var result = compiler.CompileAssemblyFromFile(options, filePath);
-        //this.assembly = result.CompiledAssembly;
     }
+   
+    public void LoadAssembly(string fileName, string behaviourName)
+    {
+        
+        Assembly assembly = Assembly.Load(File.ReadAllBytes(Path.Combine(Application.streamingAssetsPath, fileName)));
+        Type behaviourType = assembly.GetType(behaviourName);
+        gameObject.AddComponent(behaviourType);
+        
 
+
+        /*
+        AppDomainSetup domaininfo = new AppDomainSetup();
+        domaininfo.ApplicationBase = System.Environment.CurrentDirectory;
+        Evidence adevidence = AppDomain.CurrentDomain.Evidence;
+        AppDomain domain = AppDomain.CreateDomain("MyDomain", adevidence, domaininfo);
+        Type type = typeof(Proxy);
+        var value = (Proxy)domain.CreateInstanceAndUnwrap(
+            type.Assembly.FullName,
+            type.FullName);
+        var assembly = value.GetAssembly(@"C:\Users\ImperialWolf\Desktop\HackTues365\CODE.dll");
+        Type behaviourType = assembly.GetType("TestMoveBulletForward");
+        gameObject.AddComponent(behaviourType);
+        */
+    }
 
     //static string outputErrors;
 
@@ -101,5 +141,4 @@ public class BaseCompiler : MonoBehaviour
     //        GameObject.Find("Canvas").transform.Find("Text").GetComponent<Text>().text += e.Message;
     //    }
     //}
-
 }
