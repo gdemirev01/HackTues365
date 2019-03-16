@@ -72,6 +72,22 @@ public class VisualScriptingManager : MonoBehaviour
         LoadSelectedUnitBlocks();
     }
 
+    public Unit GetSelectedUnit()
+    {
+        return selectedUnit;
+    }
+
+    public List<CodeBlock> GetCodeBlocks()
+    {
+        return codeBlocks;
+    }
+
+    public int GetSpellIndex()
+    {
+        return 0;
+    }
+    
+
     public void SaveCurrentBlocks()
     {
         if (selectedUnit)
