@@ -27,6 +27,7 @@ public class TestMoveBulletForward : NetworkBehaviour
         catch (Exception e)
         {
             Debug.Log(other);
+            Debug.Log(e.Data);
         }
     }
 

@@ -12,14 +12,14 @@ public class SingleInfoPanel : MonoBehaviour
     [SerializeField]
     Slider slider;
 
-    private MinionInfo minion;
+    private BaseMinionBehaviour minion;
 
     private void Update()
     {
         slider.value = minion.health;
     }
 
-    public void SetInfo(MinionInfo minion)
+    public void SetInfo(BaseMinionBehaviour minion)
     {
         name.text = minion.name;
         this.minion = minion;
