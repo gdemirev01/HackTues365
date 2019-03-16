@@ -23,7 +23,6 @@ public class BaseCameraBehaviour : NetworkBehaviour {
     bool m_Started;
     bool hasAssigned = false;
 
-
     public Material outlineMaterial;
     void Start()
     {
@@ -186,18 +185,13 @@ public class BaseCameraBehaviour : NetworkBehaviour {
             }
         }
         var minionsInfo = GameObject.Find("MinionsInfo");
-
-<<<<<<< HEAD
         minionsInfo.GetComponent<MinionsInGameUi>().minions = selectedMinions;
-=======
-        
-        List<MinionInfo> selectedMinionsInfo = new List<MinionInfo>();
+        List<BaseMinionBehaviour> selectedMinionsInfo = new List<BaseMinionBehaviour>();
         foreach(GameObject minion in selectedMinions)
         {
-            selectedMinionsInfo.Add(minion.GetComponent<MinionInfo>());
+            selectedMinionsInfo.Add(minion.GetComponent<BaseMinionBehaviour>());
         }
         FindObjectOfType<MinionPanelInfo>().SetMinions(selectedMinionsInfo);
->>>>>>> 5e1bb90f19994c7b4a3b9272fe10d7bcf6f67ddc
     }
 
     [Command]

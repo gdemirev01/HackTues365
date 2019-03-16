@@ -5,7 +5,7 @@ using UnityEngine;
 public class MinionPanelInfo : MonoBehaviour
 {
     [SerializeField]
-    private List<MinionInfo> minions;
+    private List<BaseMinionBehaviour> minions;
 
     [SerializeField]
     private GameObject multipleInfoPanel;
@@ -18,10 +18,10 @@ public class MinionPanelInfo : MonoBehaviour
 
     private bool inMultipleView = false;
 
-    public void SetMinions(List<MinionInfo> info)
+    public void SetMinions(List<BaseMinionBehaviour> info)
     {
         minions.Clear();
-        foreach (MinionInfo minion in info)
+        foreach (BaseMinionBehaviour minion in info)
         {
             if(!minions.Contains(minion))
             {
