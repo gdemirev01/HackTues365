@@ -18,6 +18,7 @@ public abstract class CodeBlockCreate : CodeBlock
         if (input != null)
         {
             this.varName = input.text;
+            Debug.Log("varName: " + varName);
         }
     }
 
@@ -26,6 +27,7 @@ public abstract class CodeBlockCreate : CodeBlock
         if (input != null)
         {
             this.varValue = input.text;
+            Debug.Log("varValue: " + this.varValue);
         }
     }
 

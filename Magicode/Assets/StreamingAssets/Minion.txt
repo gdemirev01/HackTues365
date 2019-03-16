@@ -2,7 +2,7 @@ using System.Collections;
  using UnityEngine;
 public class Minion : MonoBehaviour {
 	bool hasCollided = false;
-	Unit collidedUnit;
+	BaseMinionBehaviour collidedUnit;
 
 	private void Start()
     	{
@@ -12,7 +12,7 @@ public class Minion : MonoBehaviour {
 	IEnumerator CodeStuffs() {
 		yield return new WaitForEndOfFrame();
 		while(true) {
-if(true ) {GetComponent<Spell>().ActivateEffect("move_forward");
+if(true ) {}if(hasCollided ) {GetComponent<Spell>().ActivateEffect("move_forward");
 }	
 			yield return new WaitForEndOfFrame();
 			if(hasCollided) {
@@ -22,7 +22,7 @@ if(true ) {GetComponent<Spell>().ActivateEffect("move_forward");
 	}
 	private void OnTriggerEnter(Collider other)
     	{
-        		if(other.GetComponent<Unit>())
+        		if(other.GetComponent<BaseMinionBehaviour>())
         		{
             			collidedUnit = other.GetComponent<Unit>();
 			hasCollided = true;

@@ -87,7 +87,7 @@ public class FunctionCodeBlock : CodeBlock
                 //Debug.Log("Instantiated IntegerInputFieldPrefab");
                 IntegerInputField inputField = Instantiate<IntegerInputField>(IntegerInputFieldPrefab, InputFieldArea.transform);
                 allInputFields.Add(inputField);
-                Debug.Log("size of allInputFields: " + allInputFields.Count);
+                //Debug.Log("size of allInputFields: " + allInputFields.Count);
             }
             else if (type == VariableType.Float)
             {
@@ -109,7 +109,8 @@ public class FunctionCodeBlock : CodeBlock
         {
             try
             {
-                Debug.Log(inputField.getInput());
+                //Debug.Log(inputField.getInput());
+                inputField.getInput();
             }
             catch (System.ArgumentException e)
             {
