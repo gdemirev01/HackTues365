@@ -71,7 +71,6 @@ public class FunctionCodeBlock : CodeBlock
         List < VariableType > temp = new List<VariableType>();
         temp.Add(VariableType.Float);
         temp.Add(VariableType.Integer);
-
         SetParameters(temp);
     }
 }
