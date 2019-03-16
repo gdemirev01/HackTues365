@@ -201,11 +201,11 @@ public class BaseCameraBehaviour : NetworkBehaviour {
                 var spawned = Instantiate(minionPrefab, pos, Quaternion.identity);
                 spawned.name = "Minion" + minionNumber;
                 NetworkServer.Spawn(spawned);
-                spawned.GetComponent<BaseMinionBehaviour>().Player = lastPlayerNumber;
-                Color color;
-                EStatic.playerColors.TryGetValue(lastPlayerNumber, out color);
-                spawned.transform.Find("Mage").Find("mage_mesh").Find("Mage").
-                    GetComponent<SkinnedMeshRenderer>().materials.ElementAt(1).color = color;
+                //spawned.GetComponent<BaseMinionBehaviour>().Player = lastPlayerNumber;
+                //Color color;
+                //EStatic.playerColors.TryGetValue(lastPlayerNumber, out color);
+                //spawned.transform.Find("Mage").Find("mage_mesh").Find("Mage").
+                //    GetComponent<SkinnedMeshRenderer>().materials.ElementAt(1).color = color;
                 minionNumber++;
             }
         }
