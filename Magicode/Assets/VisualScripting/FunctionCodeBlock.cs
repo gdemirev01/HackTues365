@@ -13,10 +13,15 @@ public class FunctionCodeBlock : CodeBlock
     private TMPro.TMP_Text description;
 
     [SerializeField]
-    private GameObject inputsField;
+    private GameObject InputFieldArea;
 
     private List<string> parameters;
 
+    [SerializeField]
+    private FloatInputField FloatInputFieldPrefab;
+
+    [SerializeField]
+    private IntegerInputField IntegerInputFieldPrefab;
 
     public override void execute()
     {
@@ -48,18 +53,25 @@ public class FunctionCodeBlock : CodeBlock
         {
             if(type == VariableType.Integer)
             {
-                // spawn integer field
-                Debug.Log("Integer");
+                IntegerInputField inputField = Instantiate<IntegerInputField>(IntegerInputFieldPrefab, InputFieldArea.transform);
             }
             else if(type == VariableType.Float)
             {
-                // spawn float field
-
+                FloatInputField inputField = Instantiate<FloatInputField>(FloatInputFieldPrefab, InputFieldArea.transform);
             }
             else if(type == VariableType.Vector3)
             {
                 // spawn vector3 field
             }
         }
+    }
+
+    private void Start()
+    {
+        List < VariableType > temp = new List<VariableType>();
+        temp.Add(VariableType.Float);
+        temp.Add(VariableType.Integer);
+
+        SetParameters(temp);
     }
 }
