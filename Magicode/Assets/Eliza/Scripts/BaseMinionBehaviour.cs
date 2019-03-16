@@ -8,6 +8,7 @@ public class BaseMinionBehaviour : NetworkBehaviour {
     public Dictionary<string, Spell> spells;
     public GameObject bulletPrefab;
     [SyncVar] public float health;
+    [SyncVar] public float mana;
     public static int minionsCounter = 6;
     
     [SerializeField][Tooltip("spell to be copied from scene")]

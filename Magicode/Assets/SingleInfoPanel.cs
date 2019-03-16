@@ -10,7 +10,10 @@ public class SingleInfoPanel : MonoBehaviour
     TMPro.TMP_Text name;
 
     [SerializeField]
-    Slider slider;
+    Slider healthSlider;
+
+    [SerializeField]
+    Slider manaSlider;
 
     private BaseMinionBehaviour minion;
 
@@ -18,7 +21,8 @@ public class SingleInfoPanel : MonoBehaviour
     {
         if (minion)
         {
-            slider.value = minion.health;
+            healthSlider.value = minion.health;
+            manaSlider.value = minion.mana;
         }
     }
 

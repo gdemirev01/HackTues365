@@ -307,8 +307,8 @@ MonoBehaviour:
   bulletPrefab: {fileID: 4375537640488401669, guid: 900ed958562b1ad4cb9d789347e83a76,
     type: 3}
   health: 1000
+  mana: 1000
   spellBook: []
-  scripts: []
 --- !u!195 &1823319562241035836
 NavMeshAgent:
   m_ObjectHideFlags: 0
