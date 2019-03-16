@@ -5,27 +5,29 @@ using TMPro;
 
 public class CodeBlockLoop : CodeBlockBegin
 {
-    private int loopCounter;
+    private string loopCounter;
 
     private bool loopCounterIsOK;
 
     public override string execute()
     {
-        int val = 1;
-        return "for(int i = 0; i < " + val + "; i++) {"; // TODO[CODEBLOCK] FIX
+        return "for(int i = 0; i < " + loopCounter + "; i++) {"; // TODO[CODEBLOCK] FIX
     }
 
     public void setLoopCounter(TMP_InputField input)
     {
-        
-        if (input.text != null && FindObjectOfType<TypeValidator>().validateInt(input.text, loopCounter))
+        if (input != null)
         {
-            Debug.Log(input.text);
-            loopCounterIsOK = true;
-        } else
-        {
-            loopCounterIsOK = false;
+            int temp = 0;
+            if (FindObjectOfType<TypeValidator>().validateInt(input.text, temp))
+            {
+                loopCounter = input.text;
+                Debug.Log("loop counter:" + loopCounter);
+                loopCounterIsOK = true;
+                return;
+            }
         }
+        loopCounterIsOK = false;
     }
 
     public override bool validateBlock()
@@ -35,7 +37,7 @@ public class CodeBlockLoop : CodeBlockBegin
         return false;
     }
 
-    public int getLoopCounter()
+    public string getLoopCounter()
     {
         return loopCounter;
     }
