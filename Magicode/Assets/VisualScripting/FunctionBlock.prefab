@@ -519,3 +519,5 @@ MonoBehaviour:
     type: 3}
   IntegerInputFieldPrefab: {fileID: 4694884813633945893, guid: 2237922f76a770f41a383e64c8df1617,
     type: 3}
+  Vector3InputFieldPrefab: {fileID: 5944966148318255660, guid: 0f8799d49a751214a9c4ee0baa8e3d62,
+    type: 3}

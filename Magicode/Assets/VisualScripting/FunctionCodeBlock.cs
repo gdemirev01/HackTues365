@@ -23,6 +23,9 @@ public class FunctionCodeBlock : CodeBlock
     [SerializeField]
     private IntegerInputField IntegerInputFieldPrefab;
 
+    [SerializeField]
+    private Vector3InputField Vector3InputFieldPrefab;
+
     public override void execute()
     {
         // primer: GetComponent<Spell>().ActivateEffect(\"move_forward\", 5, new Vector3(0, 1, 1));
@@ -61,7 +64,7 @@ public class FunctionCodeBlock : CodeBlock
             }
             else if(type == VariableType.Vector3)
             {
-                // spawn vector3 field
+                Vector3InputField inputField = Instantiate<Vector3InputField>(Vector3InputFieldPrefab, InputFieldArea.transform);
             }
         }
     }
@@ -69,8 +72,8 @@ public class FunctionCodeBlock : CodeBlock
     private void Start()
     {
         List < VariableType > temp = new List<VariableType>();
-        temp.Add(VariableType.Float);
-        temp.Add(VariableType.Integer);
+        //temp.Add(VariableType.Float);
+        temp.Add(VariableType.Vector3);
         SetParameters(temp);
     }
 }
