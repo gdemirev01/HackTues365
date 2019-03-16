@@ -151,8 +151,8 @@ public class VisualScriptingManager : MonoBehaviour
         codeBlock.transform.SetSiblingIndex(index);
         codeBlocks.Insert(index, codeBlock);
 
-        //if (CVManager.validateCode(codeBlocks))
-            //CFManager.formatCode(codeBlocks);
+        if (CVManager.validateCode(codeBlocks))
+            CFManager.formatCode(codeBlocks);
         //saveCode();
     }
 

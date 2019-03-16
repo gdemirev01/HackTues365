@@ -17,13 +17,11 @@ public class CodeFormatManager : MonoBehaviour
 
     public void formatCode(List<CodeBlock> codeBlocks)
     {
-        List<List<CodeBlock>> loopPairs = getLoopPairs(codeBlocks);
-        List<List<CodeBlock>> ifPairs = getIfPairs(codeBlocks);
+        List<List<CodeBlock>> allPairs = getPairs(codeBlocks);
 
         resetAll(codeBlocks);
 
-        indentPairs(loopPairs, codeBlocks);
-        indentPairs(ifPairs, codeBlocks);
+        indentPairs(allPairs, codeBlocks);
     }
 
     private void indentPairs(List<List<CodeBlock>> pairs, List<CodeBlock> codeBlocks)
@@ -41,50 +39,28 @@ public class CodeFormatManager : MonoBehaviour
         }
     }
 
-    private List<List<CodeBlock>> getLoopPairs(List<CodeBlock> codeBlocks)
+    private List<List<CodeBlock>> getPairs(List<CodeBlock> codeBlocks)
     {
-        List<List<CodeBlock>> loopPairs = new List<List<CodeBlock>>();
-        Stack<CodeBlock> loops = new Stack<CodeBlock>();
+        List<List<CodeBlock>> allPairs = new List<List<CodeBlock>>();
+        Stack<CodeBlock> allBlockBounds = new Stack<CodeBlock>();
 
         foreach (CodeBlock cb in codeBlocks)
         {
-            if (cb is CodeBlockLoop)
+            if (cb is CodeBlockIf || cb is CodeBlockLoop)
             {
-                loops.Push(cb);
+                allBlockBounds.Push(cb);
             }
-            else if (cb is CodeBlockEndLoop)
-            {
-                List<CodeBlock> pair = new List<CodeBlock>();
-                pair.Add(loops.Pop());
-                pair.Add(cb);
-                loopPairs.Add(pair);
-            }
-        }
-        loopPairs.Reverse();
-        return loopPairs;
-    }
-
-    private List<List<CodeBlock>> getIfPairs(List<CodeBlock> codeBlocks)
-    {
-        List<List<CodeBlock>> ifPairs = new List<List<CodeBlock>>();
-        Stack<CodeBlock> ifs = new Stack<CodeBlock>();
-
-        foreach (CodeBlock cb in codeBlocks)
-        {
-            if (cb is CodeBlockIf)
-            {
-                ifs.Push(cb);
-            }
-            else if (cb is CodeBlockEndIf)
+            else if (cb is CodeBlockEnd)
             {
                 List<CodeBlock> pair = new List<CodeBlock>();
-                pair.Add(ifs.Pop());
+                pair.Add(allBlockBounds.Pop());
                 pair.Add(cb);
-                ifPairs.Add(pair);
+                allPairs.Add(pair);
             }
         }
-        ifPairs.Reverse();
-        return ifPairs;
+        allPairs.Reverse();
+        Debug.Log("allPairs count: " + allPairs.Count);
+        return allPairs;
     }
 
     private void resetAll(List<CodeBlock> codeBlocks)
