@@ -17,7 +17,7 @@ public class SpellTestController : MonoBehaviour
         yield return new WaitForEndOfFrame();
         while (true)
         {
-            GetComponent<Spell>().ActivateEffect("move_forward", 15.5);
+            GetComponent<Spell>().ActivateEffect("add_lightning");
             
 
             yield return new WaitForEndOfFrame();

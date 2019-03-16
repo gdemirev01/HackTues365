@@ -17,4 +17,10 @@ public class SpellEffectClone : SpellEffect
             isActivated = true;
         }
     }
+
+    public override float GetManaCost(params object[] vars)
+    {
+        int numberOfclones = (int)vars[0];
+        return numberOfclones * 20; // omruzna mi veche. ot zhivota.
+    }
 }

@@ -13,7 +13,9 @@ public class SpellEffectMoveForward : SpellEffect
     }
 
     public override float GetManaCost(params object[] vars)
-    {        float speed = (float) Convert.ToDecimal(vars[0]);
+    {
+        
+        float speed = (float) Convert.ToDecimal(vars[0]);
         return speed * Time.deltaTime;
     }
 }
