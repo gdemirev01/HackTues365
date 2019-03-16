@@ -13,6 +13,7 @@ public class Unit : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Q))
         {
+            Debug.Log("Spawn spell ", gameObject);
             SpawnSpell(0);
         }
         else if(Input.GetKeyDown(KeyCode.W))
@@ -28,13 +29,17 @@ public class Unit : MonoBehaviour
     public void SpawnSpell(int index)
     {
         Spell spell = Instantiate(
-            spells[index], 
-            transform.position + transform.forward * 5, 
-            Quaternion.identity
+            spells[index],
+            transform.position + transform.forward * 5,
+            transform.rotation
         );
 
         spell.enabled = true;
         spell.gameObject.SetActive(true);
+    }
 
+    public Spell GetSpellObject(int index)
+    {
+        return spells[index];
     }
 }
