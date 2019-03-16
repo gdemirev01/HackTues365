@@ -10,14 +10,14 @@ public class UnitView : MonoBehaviour
     [SerializeField]
     private UnitUI UIPrefab;
 
-    List<Unit> units;
+    List<BaseMinionBehaviour> units;
 
     public static UnitView instance;
 
     void Start()
     {
         units = FindObjectOfType<MageListWIP>().GetUnits();
-        foreach(Unit unit in units)
+        foreach(BaseMinionBehaviour unit in units)
         {
             UnitUI ui = Instantiate<UnitUI>(UIPrefab, content.transform);
             ui.SetName(unit.name);

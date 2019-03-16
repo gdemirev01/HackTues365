@@ -16,11 +16,7 @@ public class CodeBlockCompiler : MonoBehaviour
     [TextArea(3, 30)]
     private string afterCodeString;
 
-    private void Start()
-    {
-        
-    }
-
+    
     private bool blocksAreValid(List<CodeBlock> codeBlocks)
     {
         if(!CodeValidationManager.instance.validateCode(codeBlocks))
@@ -46,7 +42,7 @@ public class CodeBlockCompiler : MonoBehaviour
     public void compile()
     {
         Debug.Log("Compile");
-        Unit unit = VisualScriptingManager.instance.GetSelectedUnit();
+        BaseMinionBehaviour unit = VisualScriptingManager.instance.GetSelectedUnit();
         //Debug.Log("unit ", unit);
 
         List<CodeBlock> codeBlocks = VisualScriptingManager.instance.GetCodeBlocks();
@@ -59,9 +55,11 @@ public class CodeBlockCompiler : MonoBehaviour
 
         if (blocksAreValid(codeBlocks))
         {
-            string path = Application.dataPath + "/" + unit.name + ".txt";
+            string path = Application.dataPath + "/StreamingAssets/" + unit.name + ".txt";
             
             string code = "";
+            code += "using System.Collections;\n using UnityEngine;\n";
+            code += "public class " + unit.name + " : MonoBehaviour ";
             code += preCodeString;
             foreach (CodeBlock codeBlock in codeBlocks)
             {
@@ -70,6 +68,7 @@ public class CodeBlockCompiler : MonoBehaviour
                 Debug.Log("write line " + line);
             }
             code += afterCodeString;
+            Debug.Log("Write to " + path);
             File.WriteAllText(path, code);
         }
         else
@@ -94,3 +93,5 @@ public class CodeBlockCompiler : MonoBehaviour
         }
     }
 }
+
+

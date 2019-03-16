@@ -5,9 +5,9 @@ using UnityEngine;
 public class MageListWIP : MonoBehaviour
 {
     [SerializeField]
-    List<Unit> units;
+    List<BaseMinionBehaviour> units;
 
-    public List<Unit> GetUnits()
+    public List<BaseMinionBehaviour> GetUnits()
     {
         return units;
     }

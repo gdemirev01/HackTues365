@@ -13,7 +13,6 @@ public class Unit : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Q))
         {
-            Debug.Log("Spawn spell ", gameObject);
             SpawnSpell(0);
         }
         else if(Input.GetKeyDown(KeyCode.W))

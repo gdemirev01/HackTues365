@@ -10,19 +10,19 @@ public class UnitUI : MonoBehaviour
     private TMPro.TMP_Text nameText;
 
     [SerializeField] // TODO: remove
-    private Unit unit;
+    private BaseMinionBehaviour unit;
 
     public void SetName(string name)
     {
         nameText.text = name;
     }
 
-    public void SetUnit(Unit unit)
+    public void SetUnit(BaseMinionBehaviour unit)
     {
         this.unit = unit;
     }
 
-    public Unit GetUnit()
+    public BaseMinionBehaviour GetUnit()
     {
         return unit;
     }

@@ -20,7 +20,7 @@ public class SpellBlockGenerator : MonoBehaviour
         instance = this;
     }
 
-    public void GenerateSpellsForUnit(Unit unit, int spellIndex)
+    public void GenerateSpellsForUnit(BaseMinionBehaviour unit, int spellIndex)
     {
         List<GameObject> children = new List<GameObject>();
         for(int i = 0; i < spellBlockContainer.transform.childCount; i++)

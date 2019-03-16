@@ -24,7 +24,7 @@ public class VisualScriptingManager : MonoBehaviour
     private GameObject placeholderAsset;
 
     [SerializeField] // TODO: Remove serialize field;
-    private Unit selectedUnit;
+    private BaseMinionBehaviour selectedUnit;
 
     [SerializeField]
     private TMPro.TMP_Text selectedUnitName;
@@ -32,7 +32,8 @@ public class VisualScriptingManager : MonoBehaviour
     [SerializeField]
     private GameObject blockContainer;
     
-    Dictionary<Unit, List<CodeBlock>> unitScripts = new Dictionary<Unit, List<CodeBlock>>();
+    Dictionary<BaseMinionBehaviour, List<CodeBlock>> unitScripts = 
+        new Dictionary<BaseMinionBehaviour, List<CodeBlock>>();
     
     private GameObject placeholder;
     int placeholderSiblingIndex;
@@ -53,7 +54,7 @@ public class VisualScriptingManager : MonoBehaviour
         vars = new Dictionary<string, string>();
     }
 
-    public void SetActiveScriptToUnit(Unit unit)
+    public void SetActiveScriptToUnit(BaseMinionBehaviour unit)
     {
         Debug.Log("Dublicate list");
         List<CodeBlock> copiedBlocks = new List<CodeBlock>();
@@ -61,7 +62,7 @@ public class VisualScriptingManager : MonoBehaviour
         unitScripts[unit] = copiedBlocks;
     }
 
-    public void SetSelectedUnit(Unit unit)
+    public void SetSelectedUnit(BaseMinionBehaviour unit)
     {
         SaveCurrentBlocks();
 
@@ -83,7 +84,7 @@ public class VisualScriptingManager : MonoBehaviour
         
     }
 
-    public Unit GetSelectedUnit()
+    public BaseMinionBehaviour GetSelectedUnit()
     {
         return selectedUnit;
     }
