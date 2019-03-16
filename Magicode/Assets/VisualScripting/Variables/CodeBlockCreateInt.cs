@@ -5,7 +5,6 @@ using TMPro;
 
 public class CodeBlockCreateInt : CodeBlockCreate
 {
-    
 
     private int intVarValue;
 

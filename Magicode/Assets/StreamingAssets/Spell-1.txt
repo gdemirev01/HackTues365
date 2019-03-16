@@ -1,6 +1,6 @@
 using System.Collections;
  using UnityEngine;
-public class Minion : MonoBehaviour {
+public class Spell-1 : MonoBehaviour {
 	bool hasCollided = false;
 	BaseMinionBehaviour collidedUnit;
 
@@ -12,8 +12,7 @@ public class Minion : MonoBehaviour {
 	IEnumerator CodeStuffs() {
 		yield return new WaitForEndOfFrame();
 		while(true) {
-if(true ) {}if(hasCollided ) {GetComponent<Spell>().ActivateEffect("move_forward");
-}	
+if(hasCollided ) {}	
 			yield return new WaitForEndOfFrame();
 			if(hasCollided) {
 				Destroy(gameObject);
