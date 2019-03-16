@@ -20,14 +20,23 @@ public class MinionPanelInfo : MonoBehaviour
 
     public void SetMinions(List<MinionInfo> info)
     {
-        minions = info;
+        minions.Clear();
+        foreach (MinionInfo minion in info)
+        {
+            if(!minions.Contains(minion))
+            {
+                minions.Add(minion);
+            }
+        }
+        SetFieldMode();
     }
 
     public void SetFieldMode()
     {
         if(minions.Count <= 0)
         {
-
+            singlePanel.gameObject.SetActive(false);
+            multipleInfoPanel.gameObject.SetActive(false);  
         }
         else if(minions.Count == 1)
         {
@@ -42,12 +51,12 @@ public class MinionPanelInfo : MonoBehaviour
             List<Transform> children = new List<Transform>();
             for(int i = 0; i < multipleInfoPanel.transform.childCount; i++)
             {
-                children.Add(multipleInfoPanel.transform.GetChild(0));
+                children.Add(multipleInfoPanel.transform.GetChild(i));
             }
 
             for(int i = 0; i < children.Count; i++)
             {
-                Destroy(children[i]);
+                Destroy(children[i].gameObject);
             }
 
             for(int i = 0; i < minions.Count; i++)

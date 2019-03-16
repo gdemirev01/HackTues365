@@ -23,6 +23,8 @@ public class BaseCameraBehaviour : NetworkBehaviour {
     bool m_Started;
     bool hasAssigned = false;
 
+
+    public Material outlineMaterial;
     void Start()
     {
         if(isLocalPlayer)
@@ -30,6 +32,11 @@ public class BaseCameraBehaviour : NetworkBehaviour {
             gameObject.GetComponent<Camera>().enabled = true;
         }
         m_Started = true;
+    }
+
+    public List<GameObject> GetSelected()
+    {
+        return selectedMinions;
     }
 
     public override void OnStartLocalPlayer()
@@ -116,7 +123,6 @@ public class BaseCameraBehaviour : NetworkBehaviour {
                     if(hit.transform.GetComponent<BaseMinionBehaviour>().isAllied == true)
                     {
                         selectedMinions.Add(hit.transform.gameObject);
-                        hit.transform.Find("Sphere").GetComponent<MeshRenderer>().enabled = true;
                     }   
                 }
                 startDragboxPos = hit.point;
@@ -128,11 +134,16 @@ public class BaseCameraBehaviour : NetworkBehaviour {
             isDown = false;
             orgBoxPos = Vector2.zero;
             endBoxPos = Vector2.zero;
-            foreach(var minion in selectedMinions)
+            foreach (GameObject obj in selectedMinions)
             {
-                minion.transform.Find("Sphere").GetComponent<MeshRenderer>().enabled = false;
+                var rend = obj.transform.Find("Mage").transform.Find("mage_mesh").transform.Find("Mage").GetComponent<SkinnedMeshRenderer>();
+                foreach (Material mat in rend.materials)
+                {
+                    mat.DisableKeyword("_EMISSION");
+                }
             }
             selectedMinions.Clear();
+            
             Ray ray = GetComponent<Camera>().ScreenPointToRay(Input.mousePosition);
             RaycastHit hit;
             if (Physics.Raycast(ray, out hit))
@@ -148,7 +159,11 @@ public class BaseCameraBehaviour : NetworkBehaviour {
                         if (c.transform.GetComponent<BaseMinionBehaviour>().isAllied == true)
                         {
                             selectedMinions.Add(c.gameObject);
-                            c.transform.Find("Sphere").GetComponent<MeshRenderer>().enabled = true;
+                            var rend = c.transform.Find("Mage").transform.Find("mage_mesh").transform.Find("Mage").GetComponent<SkinnedMeshRenderer>();
+                            foreach(Material mat in rend.materials) {
+                                mat.SetColor("_EmissionColor", mat.color);
+                                mat.EnableKeyword("_EMISSION");
+                            }
                         }
                     }
                 }
@@ -205,7 +220,7 @@ public class BaseCameraBehaviour : NetworkBehaviour {
             foreach (Vector3 pos in positions)
             {
                 var spawned = Instantiate(minionPrefab, pos, Quaternion.identity);
-                spawned.name = "Minion" + minionNumber;
+                spawned.name = "Minion " + minionNumber;
                 NetworkServer.Spawn(spawned);
                 //spawned.GetComponent<BaseMinionBehaviour>().Player = lastPlayerNumber;
                 //Color color;
@@ -243,6 +258,21 @@ public class BaseCameraBehaviour : NetworkBehaviour {
 
         }
         //Draw a cube where the OverlapBox is (positioned where your GameObject is as well as a size)
+    }
+
+
+    private void AddOutlineMaterial(SkinnedMeshRenderer rend)
+    {
+        if (rend != null)
+        {
+            Debug.Log(rend.gameObject.name);
+
+            Material[] mats = rend.materials;
+            List<Material> materials = mats.ToList();
+            materials.Add(outlineMaterial);
+
+            rend.materials = materials.ToArray();
+        }
     }
 }
     

@@ -13,12 +13,13 @@ public class MinionsInGameUi : MonoBehaviour
     
     void UpdateMinionsInfo(List<MinionInfo> minions)
     {
-        // SelectedUnitAbilities.instance
+
     }
     
 
     void Update()
     {
+        /*
         if(minions.Count == 1)
         {
             transform.GetComponent<CanvasGroup>().alpha = 1;
@@ -39,5 +40,6 @@ public class MinionsInGameUi : MonoBehaviour
             transform.GetComponent<CanvasGroup>().blocksRaycasts = false ;
             transform.GetComponent<CanvasGroup>().interactable = false;
         }
+        */
     }
 }
