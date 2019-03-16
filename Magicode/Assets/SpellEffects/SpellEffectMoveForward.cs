@@ -1,14 +1,19 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class SpellEffectMoveForward : SpellEffect
 {
-    [SerializeField]
-    float speed = 20;
 
     public override void Activate(params object[] vars)
     {
+        float speed = (float)Convert.ToDecimal(vars[0]);
         transform.position += speed * transform.forward * Time.deltaTime;
+    }
+
+    public override float GetManaCost(params object[] vars)
+    {        float speed = (float) Convert.ToDecimal(vars[0]);
+        return speed * Time.deltaTime;
     }
 }

@@ -29,9 +29,10 @@ public class Spell : MonoBehaviour
         }
     }
 
-    public void SetMinion()
+    public void SetMinion(BaseMinionBehaviour minion)
     {
-
+        Debug.Log("Set minion", minion);
+        this.minion = minion;
     }
 
     public void ActivateEffect(string effect_name, params object [] args)
@@ -39,7 +40,15 @@ public class Spell : MonoBehaviour
         SpellEffect effect;
         if(spellBook.TryGetValue(effect_name, out effect))
         {
+            Debug.Log("Activate spell effect " + effect_name);
             effect.Activate(args);
+            float manaCost = effect.GetManaCost(args);
+            if(minion)
+                minion.RemoveMana(manaCost);
+            if(minion && !minion.HasMana())
+            {
+                Destroy(gameObject);
+            }
         }
         else
         {

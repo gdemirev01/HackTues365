@@ -62,6 +62,8 @@ public class BaseCameraBehaviour : NetworkBehaviour {
     {
         var spawned = Instantiate(minion.GetComponent<BaseMinionBehaviour>().bulletPrefab,
             minion.transform.position + new Vector3(0, 1, 0), minion.transform.rotation);
+
+        spawned.GetComponent<Spell>().SetMinion(minion.GetComponent<BaseMinionBehaviour>());
         BaseCompiler.LoadAssembly(spawned, assemblyName, behaviourName);
         NetworkServer.Spawn(spawned);
     }

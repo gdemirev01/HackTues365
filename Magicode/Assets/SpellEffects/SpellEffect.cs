@@ -6,6 +6,8 @@ public abstract class SpellEffect : MonoBehaviour
 {
     public abstract void Activate(params object [] vars);
 
+    public abstract float GetManaCost(params object[] vars);
+
     [SerializeField]
     private new string name;
 

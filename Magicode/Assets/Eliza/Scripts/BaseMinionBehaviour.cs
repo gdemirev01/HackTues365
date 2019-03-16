@@ -59,5 +59,15 @@ public class BaseMinionBehaviour : NetworkBehaviour {
     {
         return spellBook[index];
     }
+
+    public void RemoveMana(float mana)
+    {
+        this.mana -= mana;
+    }
+
+    public bool HasMana()
+    {
+        return mana >= 0;
+    }
     
 }
