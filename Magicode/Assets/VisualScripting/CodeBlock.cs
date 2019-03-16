@@ -7,7 +7,7 @@ using UnityEngine.UI;
 
 public abstract class CodeBlock : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDragHandler
 {
-    public abstract void execute();
+    public abstract string execute();
 
     [SerializeField]
     protected string executableCode;
@@ -51,4 +51,6 @@ public abstract class CodeBlock : MonoBehaviour, IDragHandler, IBeginDragHandler
     {
         return executableCode;
     }
+
+    public abstract bool validateBlock();
 }

@@ -4,8 +4,10 @@ using UnityEngine;
 
 public class CodeBlockIf : CodeBlockBegin
 {
-    public override void execute()
+    protected string condition = "true";
+
+    public override string execute()
     {
-        throw new System.NotImplementedException();
+        return "if(" + this.condition + " ) {";
     }
 }

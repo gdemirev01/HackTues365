@@ -4,5 +4,8 @@ using UnityEngine;
 
 public abstract class CodeBlockBegin : CodeBlock
 {
-    
+    public override bool validateBlock()
+    {
+        return true;
+    }
 }
