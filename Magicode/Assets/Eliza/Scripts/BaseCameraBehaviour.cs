@@ -50,8 +50,7 @@ public class BaseCameraBehaviour : NetworkBehaviour {
     {
         var spawned = Instantiate(minion.GetComponent<BaseMinionBehaviour>().bulletPrefab,
             minion.transform.position + new Vector3(0, 1, 0), minion.transform.rotation);
-        spawned.AddComponent<TestMoveBulletForward>();
-        spawned.GetComponent<TestMoveBulletForward>().minionCaster = minion;
+        
         NetworkServer.Spawn(spawned);
     }
 

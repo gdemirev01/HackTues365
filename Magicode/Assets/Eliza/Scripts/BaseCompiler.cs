@@ -16,7 +16,7 @@ public class BaseCompiler : MonoBehaviour
     {
         
     }
-    /*
+    
     public static void Compile(string source, string outputDll, out string outputErrors)
     {
         outputErrors = "";
@@ -42,5 +42,5 @@ public class BaseCompiler : MonoBehaviour
             throw new Exception(msg.ToString());
         }
     }
-    */
+    
 }
