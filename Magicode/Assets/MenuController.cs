@@ -1,9 +1,19 @@
 ﻿using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using Mirror;
 
-public class MenuController : MonoBehaviour
+public class MenuController : NetworkBehaviour
 {
+
+    private void Start()
+    {
+        if (GameObject.Find("NetworkManager"))
+        {
+            if (!isServer)
+                Destroy(GameObject.Find("NetworkManager"));
+        }
+    }
 
     private void Update()
     {
@@ -11,7 +21,7 @@ public class MenuController : MonoBehaviour
 
     public void StartGame()
     {
-        SceneManager.LoadScene("EPlayLevel", LoadSceneMode.Single);
+        SceneManager.LoadScene("EPlayLevelGo6o", LoadSceneMode.Single);
     }
 
     public void BackToMenu()

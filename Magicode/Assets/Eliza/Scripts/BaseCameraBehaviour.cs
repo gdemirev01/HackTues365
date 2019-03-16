@@ -82,6 +82,7 @@ public class BaseCameraBehaviour : NetworkBehaviour {
                         obj.GetComponent<BaseMinionBehaviour>().isAllied = true;
                         obj.name = "Minion " + i;
                         GameObject.Find("MinionsInfo").transform.Find("MiniMap").GetComponent<MiniMapConntroller>().minions.Add(obj.gameObject);
+                        GetComponent<GameStateManager>().minions.Add(obj.gameObject);
                         i++;
                     }
                 }
