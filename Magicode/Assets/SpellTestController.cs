@@ -9,7 +9,6 @@ public class SpellTestController : MonoBehaviour
 
     private void Start()
     {
-        Debug.Log("Start spell test");
         StartCoroutine(CodeStuffs());
     }
 
@@ -30,7 +29,6 @@ public class SpellTestController : MonoBehaviour
     }
     private void OnTriggerEnter(Collider other)
     {
-        Debug.Log("trigger enter");
         if (other.GetComponent<Unit>())
         {
             Debug.Log(name + " hit unit!", other.gameObject);

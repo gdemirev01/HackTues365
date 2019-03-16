@@ -12,10 +12,9 @@ public class CodeController : MonoBehaviour
     	}
 
 	IEnumerator CodeStuffs() {
+		yield return new WaitForEndOfFrame();
 		while(true) {
-GetComponent<Spell>().ActivateEffect("move_forward");
-GetComponent<Spell>().ActivateEffect("move_sine");
-	
+int asd = 123;float asdf = 1.2;	
 			yield return new WaitForEndOfFrame();
 			if(hasCollided) {
 				Destroy(gameObject);
