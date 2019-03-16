@@ -33,15 +33,15 @@ public class CodeBlockCompiler : MonoBehaviour
     {
         Debug.Log("Compile");
         Unit unit = VisualScriptingManager.instance.GetSelectedUnit();
-        Debug.Log("unit ", unit);
+        //Debug.Log("unit ", unit);
 
         List<CodeBlock> codeBlocks = VisualScriptingManager.instance.GetCodeBlocks();
         debugBlocks = codeBlocks;
-        Debug.Log("after code blocks");
+        //Debug.Log("after code blocks");
         int spellIndex = VisualScriptingManager.instance.GetSpellIndex(); // returns 0 always;
 
         Spell spell = unit.GetSpellObject(0);
-        Debug.Log("spell ", spell);
+        //Debug.Log("spell ", spell);
 
         if (blocksAreValid(codeBlocks))
         {
@@ -49,8 +49,9 @@ public class CodeBlockCompiler : MonoBehaviour
             foreach (CodeBlock codeBlock in codeBlocks)
             {
                 code += codeBlock.execute();
-                Debug.Log("Add " + code, codeBlock);
-            }   
+                //Debug.Log("Add " + code, codeBlock);
+            }
+            Debug.Log(code);
         }
         else
         {
