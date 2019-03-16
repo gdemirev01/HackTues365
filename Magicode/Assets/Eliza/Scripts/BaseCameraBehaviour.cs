@@ -71,7 +71,7 @@ public class BaseCameraBehaviour : NetworkBehaviour {
             var list = Physics.OverlapBox(transform.position, new Vector3(6, 20, 6));
             if (list.Length > 6)
             {
-                int i = 0;
+                int i = 1;
                 foreach (var obj in list)
                 {
                     if (obj.GetComponent<BaseMinionBehaviour>() != null)
@@ -79,7 +79,8 @@ public class BaseCameraBehaviour : NetworkBehaviour {
                         obj.transform.Find("Mage").Find("mage_mesh").Find("Mage").GetComponent<SkinnedMeshRenderer>().
                             materials.ElementAt(1).color = Color.blue;
                         obj.GetComponent<BaseMinionBehaviour>().isAllied = true;
-                        obj.transform.name = "Minion " + i;
+                        obj.name = "Minion " + i;
+                        GameObject.Find("MinionsInfo").transform.Find("MiniMap").GetComponent<MiniMapConntroller>().minions.Add(obj.gameObject);
                         i++;
                     }
                 }
