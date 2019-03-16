@@ -17,6 +17,7 @@ GameObject:
   - component: {fileID: 6000397419875560584}
   - component: {fileID: 2479149235233221933}
   - component: {fileID: 4679826804622741638}
+  - component: {fileID: 3638233522558555873}
   m_Layer: 0
   m_Name: RTS_Camera
   m_TagString: Untagged
@@ -215,3 +216,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   syncInterval: 0.1
   compressRotation: 1
+--- !u!114 &3638233522558555873
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 120296}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 55ee02ca81c38fe4eb4924a26725c29d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

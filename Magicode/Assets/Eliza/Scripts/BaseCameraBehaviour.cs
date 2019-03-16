@@ -34,6 +34,11 @@ public class BaseCameraBehaviour : NetworkBehaviour {
         m_Started = true;
     }
 
+    public List<GameObject> GetSelected()
+    {
+        return selectedMinions;
+    }
+
     public override void OnStartLocalPlayer()
     {
         CmdGenerateMinions(new Vector3(transform.position.x, 0, transform.position.z));
@@ -182,7 +187,17 @@ public class BaseCameraBehaviour : NetworkBehaviour {
         }
         var minionsInfo = GameObject.Find("MinionsInfo");
 
+<<<<<<< HEAD
         minionsInfo.GetComponent<MinionsInGameUi>().minions = selectedMinions;
+=======
+        
+        List<MinionInfo> selectedMinionsInfo = new List<MinionInfo>();
+        foreach(GameObject minion in selectedMinions)
+        {
+            selectedMinionsInfo.Add(minion.GetComponent<MinionInfo>());
+        }
+        FindObjectOfType<MinionPanelInfo>().SetMinions(selectedMinionsInfo);
+>>>>>>> 5e1bb90f19994c7b4a3b9272fe10d7bcf6f67ddc
     }
 
     [Command]
