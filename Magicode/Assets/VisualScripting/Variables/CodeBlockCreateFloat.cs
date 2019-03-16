@@ -26,6 +26,6 @@ public class CodeBlockCreateFloat : CodeBlockCreate
 
     public override string execute()
     {
-        throw new System.NotImplementedException();
+        return "float " + getVarName() + " = " + floatVarValue + ";";
     }
 }

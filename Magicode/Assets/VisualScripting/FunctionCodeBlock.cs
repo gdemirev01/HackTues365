@@ -28,13 +28,14 @@ public class FunctionCodeBlock : CodeBlock
     public override string execute()
     {
         // primer: GetComponent<Spell>().ActivateEffect(\"move_forward\", 5, new Vector3(0, 1, 1));
-        this.executableCode = "GetComponent<Spell>().ActivateEffect(\"";
-        this.executableCode += title.text + "\"";
+        string code = "GetComponent<Spell>().ActivateEffect(\"";
+        code += title.text + "\"";
         foreach(string parameter in parameters) {
-            this.executableCode += ", " + parameter;
+            code += ", " + parameter;
         }
-        this.executableCode += ");\n";
-        Debug.Log("function executable code: " + this.executableCode);
+        code += ");\n";
+
+        return code;
     }
 
     public void SetTitle(string str)

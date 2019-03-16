@@ -6,6 +6,7 @@ public class CodeBlockIf : CodeBlockBegin
 {
     public override string execute()
     {
-        throw new System.NotImplementedException();
+        string condition = "true"; // TODO FIX
+        return "if(" + condition + " ) {";
     }
 }

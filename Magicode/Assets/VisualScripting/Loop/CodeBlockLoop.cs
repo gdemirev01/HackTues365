@@ -6,7 +6,8 @@ public class CodeBlockLoop : CodeBlockBegin
 {
     public override string execute()
     {
-        throw new System.NotImplementedException();
+        int val = 1;
+        return "for(int i = 0; i < " + val + "; i++) {"; // TODO[CODEBLOCK] FIX
     }
 
 

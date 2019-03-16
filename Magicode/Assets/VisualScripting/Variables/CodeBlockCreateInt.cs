@@ -25,6 +25,6 @@ public class CodeBlockCreateInt : CodeBlockCreate
 
     public override string execute()
     {
-        throw new System.NotImplementedException();
+        return "int " + getVarName() + " = " + intVarValue.ToString() + ";";
     }
 }

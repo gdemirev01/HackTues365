@@ -39,7 +39,7 @@ public class CodeBlockCompiler : MonoBehaviour
         string code = "";
         foreach(CodeBlock codeBlock in codeBlocks)
         {
-            string blockCode = codeBlock.getExecutableCode();
+            string blockCode = codeBlock.execute();
             Debug.Log("Add " + blockCode, codeBlock);
         }
     }
