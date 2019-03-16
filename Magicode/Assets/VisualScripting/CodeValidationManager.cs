@@ -30,15 +30,21 @@ public class CodeValidationManager : MonoBehaviour
             if (cb is CodeBlockLoop || cb is CodeBlockIf)
             {
                 loops.Push(cb);
-            } else if (cb is CodeBlockEnd)
+            }
+            else if (cb is CodeBlockEnd)
             {
                 if (loops.Count == 0)
                     return false;
-                if (!(loops.Pop() is CodeBlockLoop || loops.Pop() is CodeBlockIf))
+                if (!(loops.Peek() is CodeBlockLoop || loops.Peek() is CodeBlockIf))
+                {
                     return false;
+                }
+                loops.Pop();
+                    
             }
-            
+
         }
+            
         if (loops.Count == 0)
             return true;
         return false;
