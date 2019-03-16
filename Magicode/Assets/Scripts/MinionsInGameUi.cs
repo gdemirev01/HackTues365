@@ -2,20 +2,12 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using Mirror;
 
-public class MinionsInGameUi : MonoBehaviour
+public class MinionsInGameUi : NetworkBehaviour
 {
 
-    [SerializeField] // TODO: Remove
-    private List<MinionInfo> minions;
-
-    // Update is called once per frame
-    
-    void UpdateMinionsInfo(List<MinionInfo> minions)
-    {
-
-    }
-    
+    public List<GameObject> minions;
 
     void Update()
     {
@@ -25,8 +17,8 @@ public class MinionsInGameUi : MonoBehaviour
             transform.GetComponent<CanvasGroup>().alpha = 1;
             transform.GetComponent<CanvasGroup>().blocksRaycasts = true;
             transform.GetComponent<CanvasGroup>().interactable = true;
-            var health = minions[0].GetComponent<MinionInfo>().health;
-            List<string> speels = minions[0].GetComponent<MinionInfo>().spells;
+            var health = minions[0].GetComponent<BaseMinionBehaviour>().health;
+            var spells = minions[0].GetComponent<BaseMinionBehaviour>().spells;
             transform.Find("Health").transform.Find("Slider").GetComponent<Slider>().value = health;
             transform.Find("Info").transform.Find("Name").GetComponent<Text>().text = minions[0].name;
             //set images for speels 
