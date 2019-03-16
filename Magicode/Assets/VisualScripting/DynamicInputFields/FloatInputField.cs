@@ -5,17 +5,17 @@ using TMPro;
 using System.Globalization;
 using UnityEngine.UI;
 
-public class FloatInputField : MonoBehaviour
+public class FloatInputField : InputField
 {
     [SerializeField]
     private TMP_InputField inputField;
 
     private float value;
 
-    public float getInput()
+    public override string getInput()
     {
         if (inputField.text != null && FindObjectOfType<TypeValidator>().validateFloat(inputField.text, this.value))
-            return value;
+            return value.ToString();
         throw new System.ArgumentException(System.String.Format("{0} is not a float", inputField.text), "inputField");
     }
 }
