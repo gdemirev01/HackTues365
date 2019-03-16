@@ -44,21 +44,22 @@ public class BaseCompiler : MonoBehaviour
             .Select(a => a.Location)
             .ToArray();
 
+        string dllName = fileName.Substring(0, fileName.LastIndexOf('.')) + ".dll";
         var options = new CompilerParameters();
         options.GenerateExecutable = false;
         options.GenerateInMemory = false;
-        options.OutputAssembly = Path.Combine(Application.streamingAssetsPath, fileName);
+        options.OutputAssembly = Application.streamingAssetsPath + "/" + dllName;
         options.ReferencedAssemblies.AddRange(assemblyReferences);
         var compiler = new CSharpCompiler.CodeCompiler();
         var result = compiler.CompileAssemblyFromFile(options, filePath);
     }
    
-    public void LoadAssembly(string fileName, string behaviourName)
+    static public void LoadAssembly(GameObject obj, string fileName, string behaviourName)
     {
         
         Assembly assembly = Assembly.Load(File.ReadAllBytes(Path.Combine(Application.streamingAssetsPath, fileName)));
         Type behaviourType = assembly.GetType(behaviourName);
-        gameObject.AddComponent(behaviourType);
+        obj.AddComponent(behaviourType);
         
 
 

@@ -22,8 +22,16 @@ public class BaseCameraBehaviour : NetworkBehaviour {
     private bool isDown = false;
     bool m_Started;
     bool hasAssigned = false;
-
     public Material outlineMaterial;
+
+    void ShootSpells(string assemblyName, string className)
+    {
+        foreach(var minion in selectedMinions)
+        {
+            CmdShoot(minion, assemblyName, className);
+        }
+    }
+
     void Start()
     {
         if(isLocalPlayer)
@@ -50,11 +58,11 @@ public class BaseCameraBehaviour : NetworkBehaviour {
 
     // this needs to be here because only LocalPlayerAuth can send [Cmd]
     [Command]
-    public void CmdShoot(GameObject minion, params string[] spellsToAttach)
+    public void CmdShoot(GameObject minion, string assemblyName, string behaviourName)
     {
         var spawned = Instantiate(minion.GetComponent<BaseMinionBehaviour>().bulletPrefab,
             minion.transform.position + new Vector3(0, 1, 0), minion.transform.rotation);
-        
+        BaseCompiler.LoadAssembly(spawned, assemblyName, behaviourName);
         NetworkServer.Spawn(spawned);
     }
 
@@ -91,14 +99,6 @@ public class BaseCameraBehaviour : NetworkBehaviour {
         }
     }
 
-    void ShootSpells()
-    {
-        foreach(var minion in selectedMinions)
-        {
-            CmdShoot(minion);
-        }
-    }
-
     void Update()
     {
         if(!isLocalPlayer)
@@ -107,7 +107,7 @@ public class BaseCameraBehaviour : NetworkBehaviour {
         }
         if(Input.GetButtonDown("Jump"))
         {
-            ShootSpells();
+            ShootSpells("test.dll", "SpellTestController");
         }
         if (Input.GetMouseButtonDown(0))
         {
