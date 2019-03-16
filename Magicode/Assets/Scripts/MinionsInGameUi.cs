@@ -6,15 +6,20 @@ using UnityEngine.UI;
 public class MinionsInGameUi : MonoBehaviour
 {
 
-    public List<GameObject> minions;
-    void Start()
-    {
-            
-    }
+    [SerializeField] // TODO: Remove
+    private List<MinionInfo> minions;
 
     // Update is called once per frame
+    
+    void UpdateMinionsInfo(List<MinionInfo> minions)
+    {
+
+    }
+    
+
     void Update()
     {
+        /*
         if(minions.Count == 1)
         {
             transform.GetComponent<CanvasGroup>().alpha = 1;
@@ -35,5 +40,6 @@ public class MinionsInGameUi : MonoBehaviour
             transform.GetComponent<CanvasGroup>().blocksRaycasts = false ;
             transform.GetComponent<CanvasGroup>().interactable = false;
         }
+        */
     }
 }

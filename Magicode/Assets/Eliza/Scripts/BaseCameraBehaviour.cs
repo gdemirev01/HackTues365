@@ -180,8 +180,14 @@ public class BaseCameraBehaviour : NetworkBehaviour {
             }
         }
         var minionsInfo = GameObject.Find("MinionsInfo");
+
         
-        minionsInfo.GetComponent<MinionsInGameUi>().minions = selectedMinions;
+        List<MinionInfo> selectedMinionsInfo = new List<MinionInfo>();
+        foreach(GameObject minion in selectedMinions)
+        {
+            selectedMinionsInfo.Add(minion.GetComponent<MinionInfo>());
+        }
+        FindObjectOfType<MinionPanelInfo>().SetMinions(selectedMinionsInfo);
     }
 
     [Command]
