@@ -17,24 +17,24 @@ public class CodeValidationManager : MonoBehaviour
     public bool validateCode(List<CodeBlock> codeBlocks)
     {
 
-        if (!loopsAreOK(codeBlocks))
+        if (!blocksAreOK(codeBlocks))
             return false;
         return true;
     }
 
-    private bool loopsAreOK(List<CodeBlock> codeBlocks)
+    private bool blocksAreOK(List<CodeBlock> codeBlocks)
     {
         Stack<CodeBlock> loops = new Stack<CodeBlock>();
         foreach (CodeBlock cb in codeBlocks)
         {
-            if (cb is CodeBlockLoop)
+            if (cb is CodeBlockLoop || cb is CodeBlockIf)
             {
                 loops.Push(cb);
-            } else if (cb is CodeBlockEndLoop)
+            } else if (cb is CodeBlockEnd)
             {
                 if (loops.Count == 0)
                     return false;
-                if (!loops.Pop() is CodeBlockLoop)
+                if (!(loops.Pop() is CodeBlockLoop || loops.Pop() is CodeBlockIf))
                     return false;
             }
             
@@ -43,9 +43,5 @@ public class CodeValidationManager : MonoBehaviour
             return true;
         return false;
     }
-
-    private bool conditionalsAreOK(List<CodeBlock> codeBlocks)
-    {
-        return true;
-    }
+    
 }
