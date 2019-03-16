@@ -156,7 +156,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d4ab9a9be452f9540bed49ced1ef8a32, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  lifetime: 10
+  lifetime: 3
   cooldown: 0
   manaCostPerSpell: 0
 --- !u!114 &3785108928999881369
@@ -174,7 +174,6 @@ MonoBehaviour:
   name: move_forward
   description: 
   expectedTypes: 
-  speed: 20
 --- !u!114 &4777957830125067839
 MonoBehaviour:
   m_ObjectHideFlags: 0

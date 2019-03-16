@@ -6,7 +6,7 @@ using System.Linq;
 public class Spell : MonoBehaviour
 {
     [SerializeField]
-    private float lifetime = 10f;
+    private float lifetime = 3f;
 
     [SerializeField]
     private float cooldown;
@@ -21,6 +21,7 @@ public class Spell : MonoBehaviour
 
     private void Start()
     {
+        StartCoroutine(destroyAfterLifetime());
         List<SpellEffect> effects = GetComponentsInChildren<SpellEffect>().ToList();
         foreach(SpellEffect effect in effects)
         {
@@ -54,5 +55,12 @@ public class Spell : MonoBehaviour
         {
             Debug.LogError("No spell named " + effect_name);
         }
+    }
+    
+
+    IEnumerator destroyAfterLifetime()
+    {
+        yield return new WaitForSeconds(lifetime);
+        Destroy(gameObject);
     }
 }

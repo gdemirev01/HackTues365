@@ -15,8 +15,7 @@ public class SpellEffectAddLighting : SpellEffect
     {
         if (!isActivated)
         {
-            transform.Find("ErekiBall").gameObject.SetActive(enabled);
-            // set damage++
+            Instantiate(particles, transform);
             isActivated = true;
         }
     }
