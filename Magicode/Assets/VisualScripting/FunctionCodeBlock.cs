@@ -26,10 +26,12 @@ public class FunctionCodeBlock : CodeBlock
     [SerializeField]
     private Vector3InputField Vector3InputFieldPrefab;
 
+    [SerializeField]
     private List<InputField> allInputFields = new List<InputField>();
 
     public override string execute()
     {
+        collectParams();
         // primer: GetComponent<Spell>().ActivateEffect(\"move_forward\", 5, new Vector3(0, 1, 1));
         string code = "GetComponent<Spell>().ActivateEffect(\"";
         code += title.text + "\"";
@@ -38,8 +40,26 @@ public class FunctionCodeBlock : CodeBlock
             code += ", " + parameter;
         }
         code += ");\n";
-        Debug.Log("function executable code: " + this.executableCode);
+        //Debug.Log("function executable code: " + this.executableCode);
         return code;
+    }
+
+    private void collectParams()
+    {
+        Debug.Log("allInputFields count: " + allInputFields.Count);
+        if (validateBlock())
+        {
+            parameters.Clear();
+            foreach (InputField inputField in allInputFields)
+            {
+                parameters.Add(inputField.getInput());
+            }
+        }
+        else
+        {
+            Debug.Log("INCORRECT INPUT FIELDS");
+        }
+
     }
 
     public void SetTitle(string str)
@@ -57,15 +77,17 @@ public class FunctionCodeBlock : CodeBlock
         // Ilia pls napravi magiqta da se sluchi tuk.
         if(parameterTypes.Count <= 0)
         {
-            Debug.Log("paramsis null");
+            Debug.Log("paramsis null, ", gameObject);
             return;
         }
         foreach (VariableType type in parameterTypes)
         {
             if (type == VariableType.Integer)
             {
+                //Debug.Log("Instantiated IntegerInputFieldPrefab");
                 IntegerInputField inputField = Instantiate<IntegerInputField>(IntegerInputFieldPrefab, InputFieldArea.transform);
                 allInputFields.Add(inputField);
+                Debug.Log("size of allInputFields: " + allInputFields.Count);
             }
             else if (type == VariableType.Float)
             {
@@ -82,11 +104,12 @@ public class FunctionCodeBlock : CodeBlock
 
     public override bool validateBlock()
     {
+
         foreach (InputField inputField in allInputFields)
         {
             try
             {
-                inputField.getInput();
+                Debug.Log(inputField.getInput());
             }
             catch (System.ArgumentException e)
             {
@@ -96,11 +119,13 @@ public class FunctionCodeBlock : CodeBlock
         return true;
     }
 
-    private void Start()
-    {
+    
+
+    //private void Start()
+    //{
         //List<VariableType> temp = new List<VariableType>();
         //temp.Add(VariableType.Float);
         //temp.Add(VariableType.Vector3);
         //SetParameters(temp);
-    }
+    //}
 }

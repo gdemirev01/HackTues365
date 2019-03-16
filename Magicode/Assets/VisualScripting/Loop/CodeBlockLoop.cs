@@ -19,7 +19,7 @@ public class CodeBlockLoop : CodeBlockBegin
         if (input != null)
         {
             int temp = 0;
-            if (FindObjectOfType<TypeValidator>().validateInt(input.text, temp))
+            if (FindObjectOfType<TypeValidator>().validateInt(input.text, out temp))
             {
                 loopCounter = input.text;
                 Debug.Log("loop counter:" + loopCounter);

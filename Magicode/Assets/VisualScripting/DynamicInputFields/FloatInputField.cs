@@ -14,7 +14,7 @@ public class FloatInputField : InputField
 
     public override string getInput()
     {
-        if (inputField.text != null && FindObjectOfType<TypeValidator>().validateFloat(inputField.text, this.value))
+        if (inputField.text != null && FindObjectOfType<TypeValidator>().validateFloat(inputField.text, out this.value))
             return value.ToString();
         throw new System.ArgumentException(System.String.Format("{0} is not a float", inputField.text), "inputField");
     }
