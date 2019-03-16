@@ -6,25 +6,8 @@ using Mirror;
 
 public class MinionsInGameUi : NetworkBehaviour
 {
-<<<<<<< HEAD
+
     public List<GameObject> minions;
-
-    void Start()
-    {
-        
-=======
-
-    [SerializeField] // TODO: Remove
-    private List<MinionInfo> minions;
-
-    // Update is called once per frame
-    
-    void UpdateMinionsInfo(List<MinionInfo> minions)
-    {
-
->>>>>>> 5e1bb90f19994c7b4a3b9272fe10d7bcf6f67ddc
-    }
-    
 
     void Update()
     {
