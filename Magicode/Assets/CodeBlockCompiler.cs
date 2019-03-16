@@ -50,7 +50,7 @@ public class CodeBlockCompiler : MonoBehaviour
         //Debug.Log("unit ", unit);
 
         List<CodeBlock> codeBlocks = VisualScriptingManager.instance.GetCodeBlocks();
-        debugBlocks = codeBlocks;
+        //debugBlocks = codeBlocks;
         //Debug.Log("after code blocks");
         int spellIndex = VisualScriptingManager.instance.GetSpellIndex(); // returns 0 always;
 

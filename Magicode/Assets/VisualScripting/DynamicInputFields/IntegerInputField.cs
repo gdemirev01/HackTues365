@@ -14,7 +14,7 @@ public class IntegerInputField : InputField
 
     public override string getInput()
     {
-        if (inputField.text != null && FindObjectOfType<TypeValidator>().validateInt(inputField.text, this.value))
+        if (inputField.text != null && FindObjectOfType<TypeValidator>().validateInt(inputField.text, out this.value))
             return value.ToString();
         throw new System.ArgumentException(System.String.Format("{0} is not an integer", inputField.text), "inputField");
     }

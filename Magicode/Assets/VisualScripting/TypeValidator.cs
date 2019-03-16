@@ -12,14 +12,14 @@ public class TypeValidator : MonoBehaviour
         instance = this;
     }
 
-    public bool validateInt(string toValidate, int convertedInt)
+    public bool validateInt(string toValidate,out int convertedInt)
     {
         if (int.TryParse(toValidate, out convertedInt))
             return true;
         return false;
     }
 
-    public bool validateFloat(string toValidate, float convertedFloat)
+    public bool validateFloat(string toValidate, out float convertedFloat)
     {
         toValidate = toValidate.Replace(',', '.');
         if (float.TryParse(toValidate, NumberStyles.Any, CultureInfo.InvariantCulture, out convertedFloat))
@@ -33,7 +33,7 @@ public class TypeValidator : MonoBehaviour
         float[] floats = new float[3];
         for (int i = 0; i < 3; i++)
         {
-            if (!validateFloat(vectorParams[i], floats[i]))
+            if (!validateFloat(vectorParams[i], out floats[i]))
             {
                 return false;
             }
