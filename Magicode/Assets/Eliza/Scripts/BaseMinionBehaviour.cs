@@ -14,8 +14,16 @@ public class BaseMinionBehaviour : NetworkBehaviour {
     [SerializeField][Tooltip("spell to be copied from scene")]
     private List<Spell> spellBook;
 
+    [SerializeField]
+    private float manaGainPerSecond = 50f;
+    private float maxMana;
+
     private bool canCast = true;
 
+    private void Start()
+    {
+        maxMana = mana;
+    }
 
     private void Update()
     {
@@ -39,6 +47,11 @@ public class BaseMinionBehaviour : NetworkBehaviour {
             {
                 // SpawnSpell(2);
             }
+        }
+        mana += manaGainPerSecond * Time.deltaTime;
+        if(mana > maxMana)
+        {
+            mana = maxMana;
         }
     }
 
