@@ -34,6 +34,11 @@ public class BaseCameraBehaviour : NetworkBehaviour {
         m_Started = true;
     }
 
+    public List<GameObject> GetSelected()
+    {
+        return selectedMinions;
+    }
+
     public override void OnStartLocalPlayer()
     {
         CmdGenerateMinions(new Vector3(transform.position.x, 0, transform.position.z));
@@ -215,7 +220,7 @@ public class BaseCameraBehaviour : NetworkBehaviour {
             foreach (Vector3 pos in positions)
             {
                 var spawned = Instantiate(minionPrefab, pos, Quaternion.identity);
-                spawned.name = "Minion" + minionNumber;
+                spawned.name = "Minion " + minionNumber;
                 NetworkServer.Spawn(spawned);
                 //spawned.GetComponent<BaseMinionBehaviour>().Player = lastPlayerNumber;
                 //Color color;

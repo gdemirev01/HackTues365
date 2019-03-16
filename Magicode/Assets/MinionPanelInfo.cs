@@ -35,7 +35,8 @@ public class MinionPanelInfo : MonoBehaviour
     {
         if(minions.Count <= 0)
         {
-
+            singlePanel.gameObject.SetActive(false);
+            multipleInfoPanel.gameObject.SetActive(false);  
         }
         else if(minions.Count == 1)
         {
