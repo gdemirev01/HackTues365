@@ -7,6 +7,7 @@ using UnityEngine.UI;
 
 public abstract class CodeBlock : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDragHandler
 {
+    public int manaCost = 0;
     public abstract string execute();
 
     [SerializeField]

@@ -17,6 +17,7 @@ public class Spell : MonoBehaviour
     [SerializeField]
     private Dictionary<string, SpellEffect> spellBook = new Dictionary<string, SpellEffect>();
 
+    [SerializeField]
     private BaseMinionBehaviour minion;
 
     private void Start()
@@ -36,12 +37,16 @@ public class Spell : MonoBehaviour
         this.minion = minion;
     }
 
+    public BaseMinionBehaviour GetParent()
+    {
+        return minion;
+    }
+
     public void ActivateEffect(string effect_name, params object [] args)
     {
         SpellEffect effect;
         if(spellBook.TryGetValue(effect_name, out effect))
         {
-            Debug.Log("Activate spell effect " + effect_name);
             effect.Activate(args);
             float manaCost = effect.GetManaCost(args);
             if(minion)

@@ -6,7 +6,7 @@ using UnityEngine;
 public class CodeBlockCompiler : MonoBehaviour
 {
     [SerializeField]
-    private List<CodeBlock> debugBlocks;
+    private GameObject propertyArea;
     
     [SerializeField]
     [TextArea(3, 30)]
@@ -17,6 +17,8 @@ public class CodeBlockCompiler : MonoBehaviour
     private string afterCodeString;
     
     static public Dictionary<string, string> vars = new Dictionary<string, string>();
+    static public Dictionary<string, float> properties = new Dictionary<string, float>();
+
 
     public static CodeBlockCompiler instance;
     
@@ -84,6 +86,19 @@ public class CodeBlockCompiler : MonoBehaviour
         return true;
     }
 
+    private void getProperties()
+    {
+        properties.Clear();
+        foreach (Transform child in propertyArea.transform)
+        {
+            PropertyBlock pb = child.GetComponent<PropertyBlock>();
+            if (pb != null)
+            {
+                properties.Add(pb.getPropertyName(), pb.getPropertyVal());
+            }
+        }
+    }
+
     public void compile()
     {
         Debug.Log("Compile");
@@ -100,7 +115,16 @@ public class CodeBlockCompiler : MonoBehaviour
 
         if (blocksAreValid(codeBlocks))
         {
-            string path = Application.dataPath + "/StreamingAssets/" + unit.name + ".txt";
+            int totalManaCost = 0;
+
+            /*
+            getProperties();
+            foreach(KeyValuePair<string, float> entry in properties)
+            {
+                Debug.Log("propertyName: " + entry.Key + " propertyVal: " + entry.Value);
+            }
+            */
+            string path = Application.dataPath + "/" + unit.name + ".txt";
             
             string code = "";
             code += "using System.Collections;\n using UnityEngine;\n";
@@ -108,10 +132,13 @@ public class CodeBlockCompiler : MonoBehaviour
             code += preCodeString;
             foreach (CodeBlock codeBlock in codeBlocks)
             {
+                totalManaCost += codeBlock.manaCost;
                 string line = codeBlock.execute();
                 code += line;
                 //Debug.Log("write line " + line);
             }
+            //TODO: GET MANA COST FROM HERE (totalManaCost)
+
             code += afterCodeString;
             Debug.Log("Write to " + path);
             //Debug.Log(code);

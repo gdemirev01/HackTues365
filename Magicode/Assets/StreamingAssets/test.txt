@@ -2,10 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SpellTestController : MonoBehaviour
+public class SpellAsdController : MonoBehaviour
 {
     bool hasCollided = false;
-    Unit collidedUnit;
+    BaseMinionBehaviour collidedUnit;
 
     private void Start()
     {
@@ -17,21 +17,24 @@ public class SpellTestController : MonoBehaviour
         yield return new WaitForEndOfFrame();
         while (true)
         {
-            GetComponent<Spell>().ActivateEffect("move_forward", 15.5f);
+            GetComponent<Spell>().ActivateEffect("move_forward", 10.0f);
 
             yield return new WaitForEndOfFrame();
             if (hasCollided)
             {
+		Debug.Log("Collision");
                 Destroy(gameObject);
             }
         }
     }
     private void OnTriggerEnter(Collider other)
     {
-        if (other.GetComponent<Unit>())
+        if (other.GetComponent<BaseMinionBehaviour>() &&
+		other.GetComponent<BaseMinionBehaviour>() != GetComponent<Spell>().GetParent())
         {
-            Debug.Log(name + " hit unit!", other.gameObject);
-            collidedUnit = other.GetComponent<Unit>();
+            Debug.Log(name + " hit unit!", other);
+		Debug.Log("parent ", GetComponent<Spell>().GetParent());
+            collidedUnit = other.GetComponent<BaseMinionBehaviour>();
             hasCollided = true;
         }
     }

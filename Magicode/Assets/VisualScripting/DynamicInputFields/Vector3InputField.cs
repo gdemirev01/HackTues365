@@ -24,6 +24,7 @@ public class Vector3InputField : InputField
         if (inputFieldX != null && inputFieldY != null && inputFieldZ != null)
         {
             vector3AsString = inputFieldX.text + "," + inputFieldY.text + "," + inputFieldZ.text;
+            Debug.Log(vector3AsString);
             if (FindObjectOfType<TypeValidator>().validateVector3(vector3AsString, this.value))
                 return vector3AsString;
         }
