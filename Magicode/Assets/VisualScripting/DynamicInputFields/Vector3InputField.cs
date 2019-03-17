@@ -26,7 +26,7 @@ public class Vector3InputField : InputField
             vector3AsString = inputFieldX.text + "," + inputFieldY.text + "," + inputFieldZ.text;
             Debug.Log(vector3AsString);
             if (FindObjectOfType<TypeValidator>().validateVector3(vector3AsString, this.value))
-                return vector3AsString;
+                return "new Vector3(" + vector3AsString + " )";
         }
         throw new System.ArgumentException(System.String.Format("{0} is not a valid Vector3", vector3AsString), "vector3AsString");
     }

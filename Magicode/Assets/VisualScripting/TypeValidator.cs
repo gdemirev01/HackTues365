@@ -29,7 +29,7 @@ public class TypeValidator : MonoBehaviour
 
     public bool validateVector3(string toValidate, Vector3 convertedVector)
     {
-        string[] vectorParams = toValidate.Split();
+        string[] vectorParams = toValidate.Split(',');
         float[] floats = new float[3];
         for (int i = 0; i < 3; i++)
         {
