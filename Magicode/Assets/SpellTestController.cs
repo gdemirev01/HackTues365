@@ -5,7 +5,7 @@ using UnityEngine;
 public class SpellTestController : MonoBehaviour
 {
     bool hasCollided = false;
-    Unit collidedUnit;
+    BaseMinionBehaviour collidedUnit;
 
     private void Start()
     {
@@ -17,7 +17,7 @@ public class SpellTestController : MonoBehaviour
         yield return new WaitForEndOfFrame();
         while (true)
         {
-            GetComponent<Spell>().ActivateEffect("add_lightning");
+            GetComponent<Spell>().ActivateEffect("move_forward", 5f);
             
 
             yield return new WaitForEndOfFrame();
@@ -29,10 +29,10 @@ public class SpellTestController : MonoBehaviour
     }
     private void OnTriggerEnter(Collider other)
     {
-        if (other.GetComponent<Unit>())
+        if (other.GetComponent<BaseMinionBehaviour>())
         {
             Debug.Log(name + " hit unit!", other.gameObject);
-            collidedUnit = other.GetComponent<Unit>();
+            collidedUnit = other.GetComponent<BaseMinionBehaviour>();
             hasCollided = true;
         }
     }
