@@ -40,11 +40,18 @@ public class CodeBlockCompiler : MonoBehaviour
                 CodeBlockCreate cbc = (CodeBlockCreate)cb;
                 if (vars.ContainsKey(cbc.getVarName()))
                 {
-                    Debug.Log("FALSE RETURNED");
+                    //Debug.Log("FALSE RETURNED");
                     return false;
                 }
-                //Debug.Log("var name: " + cbc.getVarName() + " var val: " + cbc.getVarVal());
-                vars.Add(cbc.getVarName(), cbc.getVarVal());
+                try
+                {
+                    //Debug.Log("var name: " + cbc.getVarName() + " var val: " + cbc.getVarVal());
+                    vars.Add(cbc.getVarName(), cbc.getVarVal());
+                } catch(System.ArgumentException e)
+                {
+                    return false;
+                }
+                
             }
         }
         /*foreach (KeyValuePair<string, string> entry in vars)
