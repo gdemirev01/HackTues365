@@ -15,10 +15,10 @@ GameObject:
   - component: {fileID: 8165074}
   - component: {fileID: 11455738}
   - component: {fileID: 6000397419875560584}
-  - component: {fileID: 2479149235233221933}
   - component: {fileID: 4679826804622741638}
   - component: {fileID: 3638233522558555873}
   - component: {fileID: 732296488447236258}
+  - component: {fileID: 2948929383356709473}
   m_Layer: 0
   m_Name: RTS_Camera
   m_TagString: Untagged
@@ -180,29 +180,6 @@ MonoBehaviour:
   m_LocalPlayerAuthority: 1
   m_AssetId: 407bd5cbe8c43334bb1b25c0f3826974
   m_SceneId: 0
---- !u!114 &2479149235233221933
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 120296}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c993a6cdd010c314baf397863fa0d63d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  syncInterval: 0.1
-  scrollSpeed: 15
-  distanceY: 10
-  minDistanceY: 5
-  maxDistanceY: 15
-  selectedMinions: []
-  minionPrefab: {fileID: 3481216556416443505, guid: 0cdc7ed4f4356d346ba372f7506d468e,
-    type: 3}
-  selector: {fileID: 0}
-  TextureForRect: {fileID: 0}
-  outlineMaterial: {fileID: 2100000, guid: 3cfb4bcf1557aed49a7a9b2f0e59ac48, type: 2}
 --- !u!114 &4679826804622741638
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -241,3 +218,36 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 93db78fe72e0ae04281dd00098bf791e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  syncInterval: 0.1
+  minions: []
+--- !u!114 &2948929383356709473
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 120296}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c993a6cdd010c314baf397863fa0d63d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  syncInterval: 0.1
+  scrollSpeed: 15
+  distanceY: 10
+  minDistanceY: 5
+  maxDistanceY: 15
+  selectedMinions: []
+  minionPrefab: {fileID: 3481216556416443505, guid: 0cdc7ed4f4356d346ba372f7506d468e,
+    type: 3}
+  selector: {fileID: 0}
+  TextureForRect: {fileID: 0}
+  outlineMaterial: {fileID: 2100000, guid: 3cfb4bcf1557aed49a7a9b2f0e59ac48, type: 2}
+  spellsEquipped:
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  currentSpell: 1

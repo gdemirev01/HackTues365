@@ -6,6 +6,9 @@ TagManager:
   tags:
   - Minion
   - Server
+  - SpellIcon
+  - 6 Spell Selector
+  - 4 Spell Selector
   layers:
   - Default
   - TransparentFX

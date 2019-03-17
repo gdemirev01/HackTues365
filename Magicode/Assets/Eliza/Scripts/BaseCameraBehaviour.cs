@@ -5,6 +5,7 @@ using UnityEngine;
 using System.Linq;
 using Mirror;
 using UnityEngine.UI;
+using System;
 
 public class BaseCameraBehaviour : NetworkBehaviour { 
     public float scrollSpeed = 5;
@@ -23,20 +24,41 @@ public class BaseCameraBehaviour : NetworkBehaviour {
     bool m_Started;
     bool hasAssigned = false;
     public Material outlineMaterial;
+    // the currently selected spells for in battle
+    public string[] spellsEquipped = new string [6];
+    public int currentSpell = 1;
 
-    void ShootSpells(string assemblyName, string className)
+    public void equipSpell(int number, string spell)
+    {
+        spellsEquipped[number] = spell;
+    }
+
+    void ShootSpells(string assemblyName)
     {
         foreach(var minion in selectedMinions)
         {
-            CmdShoot(minion, assemblyName, className);
+            CmdShoot(minion, assemblyName);
         }
     }
 
     void Start()
     {
+        spellsEquipped = new string[6];
         if(isLocalPlayer)
         {
             gameObject.GetComponent<Camera>().enabled = true;
+            var icons = GameObject.FindGameObjectsWithTag("SpellIcon");
+            foreach(var icon in icons)
+            {
+                icon.GetComponent<SpellIcon>().playerCamera = gameObject;
+            }
+            var selector = GameObject.FindGameObjectWithTag("6 Spell Selector");
+            for(int i = 0; i < 6; i++)
+            {
+                spellsEquipped[i] =selector.transform.GetChild(i).GetComponent<Dropdown>().
+                    options[selector.transform.GetChild(i).GetComponent<Dropdown>().value].text;
+            }
+            selector.SetActive(false);
         }
         m_Started = true;
     }
@@ -58,14 +80,23 @@ public class BaseCameraBehaviour : NetworkBehaviour {
 
     // this needs to be here because only LocalPlayerAuth can send [Cmd]
     [Command]
-    public void CmdShoot(GameObject minion, string assemblyName, string behaviourName)
+    public void CmdShoot(GameObject minion, string assemblyName)
     {
-        var spawned = Instantiate(minion.GetComponent<BaseMinionBehaviour>().bulletPrefab,
-            minion.transform.position + new Vector3(0, 1, 0), minion.transform.rotation);
-
-        spawned.GetComponent<Spell>().SetMinion(minion.GetComponent<BaseMinionBehaviour>());
-        BaseCompiler.LoadAssembly(spawned, assemblyName, behaviourName);
-        NetworkServer.Spawn(spawned);
+        try
+        {
+            var spawned = Instantiate(minion.GetComponent<BaseMinionBehaviour>().bulletPrefab,
+                minion.transform.position + new Vector3(0, 1, 0), minion.transform.rotation);
+            spawned.GetComponent<Spell>().SetMinion(minion.GetComponent<BaseMinionBehaviour>());
+            Debug.Log(minion.GetComponent<BaseMinionBehaviour>().spellsEquipped[currentSpell]);
+            string behaviourName = spellsEquipped[minion.GetComponent<BaseMinionBehaviour>().spellsEquipped[currentSpell]];
+            string nameOfClass = spellsEquipped[currentSpell];
+            BaseCompiler.LoadAssembly(spawned, nameOfClass + ".dll", nameOfClass);
+            NetworkServer.Spawn(spawned);
+        } catch (Exception e)
+        {
+            Debug.Log(e.Message);
+        }
+       
     }
 
     // don't bully me please... it works... its bad but it works...
@@ -109,7 +140,7 @@ public class BaseCameraBehaviour : NetworkBehaviour {
         }
         if(Input.GetButtonDown("Jump"))
         {
-            ShootSpells("test.dll", "SpellTestController");
+            ShootSpells("this doesnt matter");
         }
         if (Input.GetMouseButtonDown(0))
         {

@@ -36,24 +36,42 @@ public class BaseCompiler : MonoBehaviour
 
     public void CompileFiles(string fileName)
     {
-        string filePath = Path.Combine(Application.streamingAssetsPath, fileName);
-        var domain = System.AppDomain.CurrentDomain;
-        this.assemblyReferences = domain
-            .GetAssemblies()
-            .Where(a => !(a is System.Reflection.Emit.AssemblyBuilder) && !string.IsNullOrEmpty(a.Location))
-            .Select(a => a.Location)
-            .ToArray();
+        try
+        {
+            string filePath = Path.Combine(Application.streamingAssetsPath, fileName);
+            var domain = System.AppDomain.CurrentDomain;
+            this.assemblyReferences = domain
+                .GetAssemblies()
+                .Where(a => !(a is System.Reflection.Emit.AssemblyBuilder) && !string.IsNullOrEmpty(a.Location))
+                .Select(a => a.Location)
+                .ToArray();
 
-        string dllName = fileName.Substring(0, fileName.LastIndexOf('.')) + ".dll";
-        var options = new CompilerParameters();
-        options.GenerateExecutable = false;
-        options.GenerateInMemory = false;
-        options.OutputAssembly = Application.streamingAssetsPath + "/" + dllName;
-        options.ReferencedAssemblies.AddRange(assemblyReferences);
-        var compiler = new CSharpCompiler.CodeCompiler();
-        var result = compiler.CompileAssemblyFromFile(options, filePath);
+            string dllName = fileName.Substring(0, fileName.LastIndexOf('.')) + ".dll";
+            var options = new CompilerParameters();
+            options.GenerateExecutable = false;
+            options.GenerateInMemory = false;
+            options.OutputAssembly = Application.streamingAssetsPath + "/" + dllName;
+            options.ReferencedAssemblies.AddRange(assemblyReferences);
+            var compiler = new CSharpCompiler.CodeCompiler();
+            var result = compiler.CompileAssemblyFromFile(options, filePath);
+            Debug.Log(result.CompiledAssembly.FullName);
+        }
+        catch(Exception e)
+        {
+            Debug.Log(e.Message);
+        }
     }
    
+    public void CompileStreamingFolder()
+    {
+        DirectoryInfo d = new DirectoryInfo(Application.streamingAssetsPath);
+        FileInfo[] files = d.GetFiles("*.txt");
+        foreach(var file in files)
+        {
+            CompileFiles(file.Name);
+        }
+    }
+
     static public void LoadAssembly(GameObject obj, string fileName, string behaviourName)
     {
         

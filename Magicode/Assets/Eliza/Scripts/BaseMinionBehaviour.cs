@@ -14,8 +14,17 @@ public class BaseMinionBehaviour : NetworkBehaviour {
     [SerializeField][Tooltip("spell to be copied from scene")]
     private List<Spell> spellBook;
 
+    public int[] spellsEquipped = new int [4];
+
     private bool canCast = true;
 
+    private void Start()
+    {
+        for(int i = 0; i < 4; i++)
+        {
+            spellsEquipped[i] = i;
+        }
+    }
 
     private void Update()
     {
