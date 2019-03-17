@@ -122,7 +122,7 @@ PrefabInstance:
     - target: {fileID: 3481216556416443505, guid: 0cdc7ed4f4356d346ba372f7506d468e,
         type: 3}
       propertyPath: m_Name
-      value: Spell-3
+      value: Spell_3
       objectReference: {fileID: 0}
     - target: {fileID: 3481216556416443506, guid: 0cdc7ed4f4356d346ba372f7506d468e,
         type: 3}
@@ -207,7 +207,7 @@ PrefabInstance:
     - target: {fileID: 3481216556416443505, guid: 0cdc7ed4f4356d346ba372f7506d468e,
         type: 3}
       propertyPath: m_Name
-      value: Spell-6
+      value: Spell_6
       objectReference: {fileID: 0}
     - target: {fileID: 3481216556416443506, guid: 0cdc7ed4f4356d346ba372f7506d468e,
         type: 3}
@@ -339,7 +339,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 266220137, guid: 1171b2ea3d1b7a6459ca350004d67f42, type: 3}
       propertyPath: preCodeString
-      value: "{\n\tbool hasCollided = false;\n\tBaseMinionBehaviour collidedUnit;\n\n\tprivate
+      value: "\n\tbool hasCollided = false;\n\tBaseMinionBehaviour collidedUnit;\n\n\tprivate
         void Start()\r\n    \t{\r\n        \r\t\tStartCoroutine(CodeStuffs());\n    \t}\n\n\tIEnumerator
         CodeStuffs() {\n\t\tyield return new WaitForEndOfFrame();\n\t\twhile(true)
         {\n"
@@ -352,13 +352,18 @@ PrefabInstance:
         &&\r\n\t\t\tother.GetComponent<BaseMinionBehaviour>() != GetComponent<Spell>().GetParent())\r\n
         \       \t\t{\r\n            \t\t\tDebug.Log(name + \" hit unit!\", other);\r\n\t\t\tDebug.Log(\"parent
         \", GetComponent<Spell>().GetParent());\r\n            \t\t\tcollidedUnit
-        = other.GetComponent<BaseMinionBehaviour>();\r\n            \t\t\thasCollided
+        = other.GetComponent<BaseMinionBehaviour>();\r\n\t\t\tcollidedUnit.health
+        -= Damage;\n\t\t\tcollidedUnit.RemoveMana(Damage mana);\n            \t\t\thasCollided
         = true;\r\n        \t\t}\n    \t}\n\t\n\t\n}"
       objectReference: {fileID: 0}
     - target: {fileID: 266220137, guid: 1171b2ea3d1b7a6459ca350004d67f42, type: 3}
       propertyPath: propertyArea
       value: 
       objectReference: {fileID: 1689019146}
+    - target: {fileID: 266220137, guid: 1171b2ea3d1b7a6459ca350004d67f42, type: 3}
+      propertyPath: memberVariables
+      value: "\t"
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1171b2ea3d1b7a6459ca350004d67f42, type: 3}
 --- !u!1001 &227664850
@@ -371,7 +376,7 @@ PrefabInstance:
     - target: {fileID: 3481216556416443505, guid: 0cdc7ed4f4356d346ba372f7506d468e,
         type: 3}
       propertyPath: m_Name
-      value: Spell-2
+      value: Spell_2
       objectReference: {fileID: 0}
     - target: {fileID: 3481216556416443506, guid: 0cdc7ed4f4356d346ba372f7506d468e,
         type: 3}
@@ -561,7 +566,7 @@ PrefabInstance:
     - target: {fileID: 3481216556416443505, guid: 0cdc7ed4f4356d346ba372f7506d468e,
         type: 3}
       propertyPath: m_Name
-      value: Spell-1
+      value: Spell_1
       objectReference: {fileID: 0}
     - target: {fileID: 3481216556416443506, guid: 0cdc7ed4f4356d346ba372f7506d468e,
         type: 3}
@@ -1456,7 +1461,7 @@ PrefabInstance:
     - target: {fileID: 3481216556416443505, guid: 0cdc7ed4f4356d346ba372f7506d468e,
         type: 3}
       propertyPath: m_Name
-      value: Spell-5
+      value: Spell_5
       objectReference: {fileID: 0}
     - target: {fileID: 3481216556416443506, guid: 0cdc7ed4f4356d346ba372f7506d468e,
         type: 3}
@@ -2060,7 +2065,7 @@ PrefabInstance:
     - target: {fileID: 3481216556416443505, guid: 0cdc7ed4f4356d346ba372f7506d468e,
         type: 3}
       propertyPath: m_Name
-      value: Spell-4
+      value: Spell_4
       objectReference: {fileID: 0}
     - target: {fileID: 3481216556416443506, guid: 0cdc7ed4f4356d346ba372f7506d468e,
         type: 3}
@@ -2281,7 +2286,7 @@ PrefabInstance:
     - target: {fileID: 3068565570540155496, guid: 1117e01f647130844b4c0562d609ab1d,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 0.000029993636
+      value: -0.00002152794
       objectReference: {fileID: 0}
     - target: {fileID: 3068565570540155497, guid: 1117e01f647130844b4c0562d609ab1d,
         type: 3}
@@ -2436,7 +2441,7 @@ PrefabInstance:
     - target: {fileID: 3068565570947000249, guid: 1117e01f647130844b4c0562d609ab1d,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -0.000021019738
+      value: -0.000006844207
       objectReference: {fileID: 0}
     - target: {fileID: 4141489971750467386, guid: 1117e01f647130844b4c0562d609ab1d,
         type: 3}
@@ -2612,7 +2617,7 @@ PrefabInstance:
     - target: {fileID: 367881274749729389, guid: 1117e01f647130844b4c0562d609ab1d,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -0.00000052394216
+      value: -0.00005204553
       objectReference: {fileID: 0}
     - target: {fileID: 495247666, guid: 1117e01f647130844b4c0562d609ab1d, type: 3}
       propertyPath: m_Sprite
