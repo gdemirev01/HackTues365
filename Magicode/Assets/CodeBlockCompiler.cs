@@ -7,7 +7,11 @@ public class CodeBlockCompiler : MonoBehaviour
 {
     [SerializeField]
     private GameObject propertyArea;
-    
+
+    [SerializeField]
+    [TextArea(3, 30)]
+    private string memberVariables;
+
     [SerializeField]
     [TextArea(3, 30)]
     private string preCodeString;
@@ -117,13 +121,13 @@ public class CodeBlockCompiler : MonoBehaviour
         {
             int totalManaCost = 0;
 
-            /*
+            
             getProperties();
             foreach(KeyValuePair<string, float> entry in properties)
             {
                 Debug.Log("propertyName: " + entry.Key + " propertyVal: " + entry.Value);
             }
-            */
+            
             string path = Application.dataPath + "/" + unit.name + ".txt";
             
             string code = "";
