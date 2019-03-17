@@ -128,11 +128,15 @@ public class CodeBlockCompiler : MonoBehaviour
                 Debug.Log("propertyName: " + entry.Key + " propertyVal: " + entry.Value);
             }
             
-            string path = Application.dataPath + "/" + unit.name + ".txt";
+            string path = Application.dataPath + "/StreamingAssets/" + unit.name + ".txt";
             
             string code = "";
             code += "using System.Collections;\n using UnityEngine;\n";
-            code += "public class " + unit.name + " : MonoBehaviour ";
+            code += "public class " + unit.name + " : MonoBehaviour {";
+            foreach(KeyValuePair<string, float> entry in properties)
+            {
+                code += "float " + entry.Key + " = " + entry.Value + ";";
+            }
             code += preCodeString;
             foreach (CodeBlock codeBlock in codeBlocks)
             {
@@ -145,7 +149,7 @@ public class CodeBlockCompiler : MonoBehaviour
 
             code += afterCodeString;
             Debug.Log("Write to " + path);
-            //Debug.Log(code);
+            Debug.Log(code);
             File.WriteAllText(path, code);
             PopupManager.instance.ShowNotice();
         }
