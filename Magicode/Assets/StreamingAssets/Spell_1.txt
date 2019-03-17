@@ -12,7 +12,7 @@ public class Spell_1 : MonoBehaviour {float Damage = -1;float Speed = -1;
 	IEnumerator CodeStuffs() {
 		yield return new WaitForEndOfFrame();
 		while(true) {
-	
+if(hasCollided) {if(1==2) {}}	
 			yield return new WaitForEndOfFrame();
 			if(hasCollided) {
 				Destroy(gameObject);
