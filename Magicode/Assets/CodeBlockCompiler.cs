@@ -121,7 +121,14 @@ public class CodeBlockCompiler : MonoBehaviour
             string code = "";
             code += "using System.Collections;\n using UnityEngine;\n";
             code += "public class " + unit.name + " : MonoBehaviour {";
-            
+
+            VisualScriptingManager.instance.collectProperties();
+            foreach(string str in VisualScriptingManager.properties.Keys)
+            {
+                float val = VisualScriptingManager.properties[str];
+
+                code += str + " = " + val + ";";
+            }
             code += preCodeString;
             foreach (CodeBlock codeBlock in codeBlocks)
             {
