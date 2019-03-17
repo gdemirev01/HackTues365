@@ -4,8 +4,10 @@ using UnityEngine;
 
 public class SpellTestController : MonoBehaviour
 {
+    float Damage = 5;
+    float Speed = 5;
     bool hasCollided = false;
-    Unit collidedUnit;
+    BaseMinionBehaviour collidedUnit;
 
     private void Start()
     {
@@ -17,10 +19,8 @@ public class SpellTestController : MonoBehaviour
         yield return new WaitForEndOfFrame();
         while (true)
         {
-            GetComponent<Spell>().ActivateEffect("add_lightning");
-            
-
             yield return new WaitForEndOfFrame();
+            GetComponent<Spell>().ActivateEffect("change_size", new Vector3(2, 2, 2));
             if (hasCollided)
             {
                 Destroy(gameObject);
@@ -29,11 +29,17 @@ public class SpellTestController : MonoBehaviour
     }
     private void OnTriggerEnter(Collider other)
     {
-        if (other.GetComponent<Unit>())
+
+        if (other.GetComponent<BaseMinionBehaviour>() &&
+            other.GetComponent<BaseMinionBehaviour>() != GetComponent<Spell>().GetParent())
         {
-            Debug.Log(name + " hit unit!", other.gameObject);
-            collidedUnit = other.GetComponent<Unit>();
+            Debug.Log(name + " hit unit!", other);
+            Debug.Log("parent ", GetComponent<Spell>().GetParent());
+            collidedUnit = other.GetComponent<BaseMinionBehaviour>();
+            collidedUnit.health -= Damage;
             hasCollided = true;
         }
     }
+
+
 }

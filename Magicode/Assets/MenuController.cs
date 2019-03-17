@@ -17,16 +17,22 @@ public class MenuController : NetworkBehaviour
 
     private void Update()
     {
+
     }
 
     public void StartGame()
     {
-        SceneManager.LoadScene("EPlayLevelGo6o", LoadSceneMode.Single);
+        SceneManager.LoadScene("EPlayLevel", LoadSceneMode.Single);
     }
 
     public void BackToMenu()
     {
         SceneManager.LoadScene("Menu", LoadSceneMode.Single);
+    }
+
+    public void LoadVisualScripting()
+    {
+        SceneManager.LoadScene("VisualStuff", LoadSceneMode.Single);
     }
 
     public void Back()

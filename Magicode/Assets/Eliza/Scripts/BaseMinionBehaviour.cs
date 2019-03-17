@@ -15,6 +15,9 @@ public class BaseMinionBehaviour : NetworkBehaviour {
     private List<Spell> spellBook;
 
     public int[] spellsEquipped = new int [4];
+    [SerializeField]
+    private float manaGainPerSecond = 50f;
+    private float maxMana;
 
     private bool canCast = true;
 
@@ -24,6 +27,7 @@ public class BaseMinionBehaviour : NetworkBehaviour {
         {
             spellsEquipped[i] = i;
         }
+        maxMana = mana;
     }
 
     private void Update()
@@ -34,6 +38,7 @@ public class BaseMinionBehaviour : NetworkBehaviour {
             //Destroy(this.gameObject);
         }
 
+        // TODO: Remove.
         if (canCast)
         {
             if (Input.GetKeyDown(KeyCode.Tab))
@@ -49,6 +54,11 @@ public class BaseMinionBehaviour : NetworkBehaviour {
                 // SpawnSpell(2);
             }
         }
+        mana += manaGainPerSecond * Time.deltaTime;
+        if(mana > maxMana)
+        {
+            mana = maxMana;
+        }
     }
 
     public void SpawnSpell(int index)
@@ -61,6 +71,7 @@ public class BaseMinionBehaviour : NetworkBehaviour {
 
         spell.enabled = true;
         spell.gameObject.SetActive(true);
+        spell.SetMinion(this);
     }
     
 
