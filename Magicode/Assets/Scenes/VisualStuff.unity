@@ -1452,6 +1452,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1322299154, guid: 1117e01f647130844b4c0562d609ab1d, type: 3}
+      propertyPath: m_ChildForceExpandWidth
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1322299154, guid: 1117e01f647130844b4c0562d609ab1d, type: 3}
+      propertyPath: m_ChildControlWidth
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2135467159, guid: 1117e01f647130844b4c0562d609ab1d, type: 3}
       propertyPath: m_Padding.m_Top
       value: 50
@@ -1544,7 +1552,7 @@ PrefabInstance:
     - target: {fileID: 3068565569606592613, guid: 1117e01f647130844b4c0562d609ab1d,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 0
+      value: 0.000019792078
       objectReference: {fileID: 0}
     - target: {fileID: 3068565569606592613, guid: 1117e01f647130844b4c0562d609ab1d,
         type: 3}
@@ -1594,7 +1602,7 @@ PrefabInstance:
     - target: {fileID: 3068565569919824889, guid: 1117e01f647130844b4c0562d609ab1d,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -61.6
+      value: -61.59961
       objectReference: {fileID: 0}
     - target: {fileID: 3068565570079450702, guid: 1117e01f647130844b4c0562d609ab1d,
         type: 3}
@@ -1650,6 +1658,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Pivot.y
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3068565570574284479, guid: 1117e01f647130844b4c0562d609ab1d,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 142.4414
       objectReference: {fileID: 0}
     - target: {fileID: 3068565570610809831, guid: 1117e01f647130844b4c0562d609ab1d,
         type: 3}
@@ -1779,13 +1792,23 @@ PrefabInstance:
     - target: {fileID: 3068565570947000249, guid: 1117e01f647130844b4c0562d609ab1d,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 0.0000038737344
+      value: -0.000045790697
       objectReference: {fileID: 0}
     - target: {fileID: 3068565570947000249, guid: 1117e01f647130844b4c0562d609ab1d,
         type: 3}
       propertyPath: m_SizeDelta.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3068565570947000249, guid: 1117e01f647130844b4c0562d609ab1d,
+        type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3763500481058349388, guid: 1117e01f647130844b4c0562d609ab1d,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -229.1836
+      objectReference: {fileID: 0}
     - target: {fileID: 4141489971750467386, guid: 1117e01f647130844b4c0562d609ab1d,
         type: 3}
       propertyPath: m_AnchorMin.y
@@ -1844,6 +1867,11 @@ PrefabInstance:
     - target: {fileID: 6573508932021325626, guid: 1117e01f647130844b4c0562d609ab1d,
         type: 3}
       propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7372720233263965221, guid: 1117e01f647130844b4c0562d609ab1d,
+        type: 3}
+      propertyPath: m_HorizontalFit
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7890666714264998411, guid: 1117e01f647130844b4c0562d609ab1d,
@@ -1874,7 +1902,7 @@ PrefabInstance:
     - target: {fileID: 367881274749729389, guid: 1117e01f647130844b4c0562d609ab1d,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -0.000052377698
+      value: -0.000014936579
       objectReference: {fileID: 0}
     - target: {fileID: 3068565569531739068, guid: 1117e01f647130844b4c0562d609ab1d,
         type: 3}
@@ -2315,6 +2343,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 1035957446365835446, guid: 1117e01f647130844b4c0562d609ab1d, type: 3}
+    - {fileID: 14353609900287179, guid: 1117e01f647130844b4c0562d609ab1d, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 1117e01f647130844b4c0562d609ab1d, type: 3}
 --- !u!114 &3481216556416443509 stripped
 MonoBehaviour:
