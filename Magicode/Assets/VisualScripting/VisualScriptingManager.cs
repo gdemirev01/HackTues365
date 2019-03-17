@@ -131,7 +131,7 @@ public class VisualScriptingManager : MonoBehaviour
         return 0;
     }
 
-    private void collectProperties()
+    public void collectProperties()
     {
         properties.Clear();
         foreach (PropertyBlock pb in propertyBlocks)
