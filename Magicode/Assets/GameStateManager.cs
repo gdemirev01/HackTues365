@@ -19,15 +19,42 @@ public class GameStateManager : NetworkBehaviour
         Debug.Log("Minion count: " + BaseMinionBehaviour.minionsCounter);
         if(BaseMinionBehaviour.minionsCounter <= 0)
         {
-            Debug.Log("Has lost!");
-            hasLost = true;
-            StartCoroutine(loadMenu());
+            int loseCount = 0;
+            int winCount = 0;
+            foreach(BaseMinionBehaviour behaviour in FindObjectsOfType<BaseMinionBehaviour>())
+            {
+                if(behaviour == null)
+                {
+                    continue;
+                }
+                if(behaviour.isAllied)
+                {
+                    loseCount++;
+                }
+                else
+                {
+                    winCount++;
+                }
+            }
+            if (loseCount == 0 || winCount == 0) {
+                if (loseCount == 0)
+                {
+                    PopupManager.instance.ShowError();
+                }
+
+                if (winCount == 0)
+                {
+                    PopupManager.instance.ShowNotice();
+                }
+                hasLost = true;
+                StartCoroutine(loadMenu());
+            }
         }
     }
 
     IEnumerator loadMenu()
     {
-        PopupManager.instance.ShowError();
+        
         yield return new WaitForSeconds(2);
         SceneManager.LoadScene("Menu", LoadSceneMode.Single);
     }
