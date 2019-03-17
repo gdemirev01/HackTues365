@@ -352,8 +352,8 @@ PrefabInstance:
         \       \t\t{\r\n            \t\t\tDebug.Log(name + \" hit unit!\", other);\r\n\t\t\tDebug.Log(\"parent
         \", GetComponent<Spell>().GetParent());\r\n            \t\t\tcollidedUnit
         = other.GetComponent<BaseMinionBehaviour>();\r\n\t\t\tcollidedUnit.health
-        -= Damage;\n\t\t\tcollidedUnit.RemoveMana(Damage mana);\n            \t\t\thasCollided
-        = true;\r\n        \t\t}\n    \t}\n\t\n\t\n}"
+        -= Damage;\n\t\t\t\n            \t\t\thasCollided = true;\r\n        \t\t}\n
+        \   \t}\n\t\n\t\n}"
       objectReference: {fileID: 0}
     - target: {fileID: 266220137, guid: 1171b2ea3d1b7a6459ca350004d67f42, type: 3}
       propertyPath: propertyArea
@@ -1551,7 +1551,7 @@ PrefabInstance:
     - target: {fileID: 3068565569606592613, guid: 1117e01f647130844b4c0562d609ab1d,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -0.000035477355
+      value: 0.000061478364
       objectReference: {fileID: 0}
     - target: {fileID: 3068565569606592613, guid: 1117e01f647130844b4c0562d609ab1d,
         type: 3}
@@ -1601,7 +1601,7 @@ PrefabInstance:
     - target: {fileID: 3068565569919824889, guid: 1117e01f647130844b4c0562d609ab1d,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -61.59961
+      value: -61.59955
       objectReference: {fileID: 0}
     - target: {fileID: 3068565570079450702, guid: 1117e01f647130844b4c0562d609ab1d,
         type: 3}
@@ -1791,7 +1791,7 @@ PrefabInstance:
     - target: {fileID: 3068565570947000249, guid: 1117e01f647130844b4c0562d609ab1d,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -0.000020431398
+      value: 0.00008392782
       objectReference: {fileID: 0}
     - target: {fileID: 3068565570947000249, guid: 1117e01f647130844b4c0562d609ab1d,
         type: 3}
@@ -1901,7 +1901,7 @@ PrefabInstance:
     - target: {fileID: 367881274749729389, guid: 1117e01f647130844b4c0562d609ab1d,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -0.00005032626
+      value: 0.000030517578
       objectReference: {fileID: 0}
     - target: {fileID: 3068565569531739068, guid: 1117e01f647130844b4c0562d609ab1d,
         type: 3}

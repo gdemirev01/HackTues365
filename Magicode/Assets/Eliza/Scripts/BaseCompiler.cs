@@ -38,7 +38,9 @@ public class BaseCompiler : MonoBehaviour
     {
         try
         {
-            string filePath = Path.Combine(Application.streamingAssetsPath, fileName);
+            Debug.Log("Compile " + fileName);
+            string filePath = Application.streamingAssetsPath + "/" + fileName;
+            Debug.Log("file path: " + filePath);
             var domain = System.AppDomain.CurrentDomain;
             this.assemblyReferences = domain
                 .GetAssemblies()
@@ -47,18 +49,20 @@ public class BaseCompiler : MonoBehaviour
                 .ToArray();
 
             string dllName = fileName.Substring(0, fileName.LastIndexOf('.')) + ".dll";
+            Debug.Log("dll" + dllName);
             var options = new CompilerParameters();
             options.GenerateExecutable = false;
             options.GenerateInMemory = false;
-            options.OutputAssembly = Application.streamingAssetsPath + "/" + dllName;
+            Debug.Log(Application.dataPath + "/StreamingAssets/" + dllName);
+            options.OutputAssembly = Application.dataPath + "/StreamingAssets/" + dllName;
             options.ReferencedAssemblies.AddRange(assemblyReferences);
             var compiler = new CSharpCompiler.CodeCompiler();
             var result = compiler.CompileAssemblyFromFile(options, filePath);
-            Debug.Log(result.CompiledAssembly.FullName);
+            Debug.Log("result" + result.CompiledAssembly.FullName);
         }
         catch(Exception e)
         {
-            Debug.Log(e.Message);
+            Debug.Log("Error: " + e.Message);
         }
     }
    
@@ -68,6 +72,7 @@ public class BaseCompiler : MonoBehaviour
         FileInfo[] files = d.GetFiles("*.txt");
         foreach(var file in files)
         {
+            Debug.Log("Compiling " + file.ToString());
             CompileFiles(file.Name);
         }
     }
