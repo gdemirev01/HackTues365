@@ -33,6 +33,7 @@ public class BaseMinionBehaviour : NetworkBehaviour {
             //Destroy(this.gameObject);
         }
 
+        // TODO: Remove.
         if (canCast)
         {
             if (Input.GetKeyDown(KeyCode.Tab))
@@ -65,6 +66,7 @@ public class BaseMinionBehaviour : NetworkBehaviour {
 
         spell.enabled = true;
         spell.gameObject.SetActive(true);
+        spell.SetMinion(this);
     }
     
 
