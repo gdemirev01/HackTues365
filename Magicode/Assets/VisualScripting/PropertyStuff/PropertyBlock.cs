@@ -29,6 +29,12 @@ public abstract class PropertyBlock : MonoBehaviour
         return -1;
     }
 
+    public void setPropertyVal(string newVal)
+    {
+        int.TryParse(newVal, out propertyVal);
+        this.inputField.text = newVal;
+    }
+
     public string getPropertyName()
     {
         return propertyName;

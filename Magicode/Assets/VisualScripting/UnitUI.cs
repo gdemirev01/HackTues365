@@ -35,6 +35,7 @@ public class UnitUI : MonoBehaviour
     public void DublicateActiveScriptToUnit()
     {
         VisualScriptingManager.instance.SetActiveScriptToUnit(unit);
+        //VisualScriptingManager.instance.SetActivePropertiesToUnit(unit);
     }
 
 }
