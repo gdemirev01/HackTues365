@@ -1,0 +1,37 @@
+using System.Collections;
+ using UnityEngine;
+public class Spell_3 : MonoBehaviour {float Damage = -1;float Speed = -1;
+	bool hasCollided = false;
+	BaseMinionBehaviour collidedUnit;
+
+	private void Start()
+    	{
+        		StartCoroutine(CodeStuffs());
+    	}
+
+	IEnumerator CodeStuffs() {
+		yield return new WaitForEndOfFrame();
+		while(true) {
+			yield return new WaitForEndOfFrame();	
+			
+			if(hasCollided) {
+				Destroy(gameObject);
+			}
+		}
+	}
+	private void OnTriggerEnter(Collider other)
+    	{
+        		if (other.GetComponent<BaseMinionBehaviour>() &&
+			other.GetComponent<BaseMinionBehaviour>() != GetComponent<Spell>().GetParent())
+        		{
+            			Debug.Log(name + " hit unit!", other);
+			Debug.Log("parent ", GetComponent<Spell>().GetParent());
+            			collidedUnit = other.GetComponent<BaseMinionBehaviour>();
+			collidedUnit.health -= Damage;
+			collidedUnit.RemoveMana(Damage mana);
+            			hasCollided = true;
+        		}
+    	}
+	
+	
+}

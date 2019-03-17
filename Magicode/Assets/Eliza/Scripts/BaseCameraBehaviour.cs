@@ -44,7 +44,8 @@ public class BaseCameraBehaviour : NetworkBehaviour {
     void Start()
     {
         spellsEquipped = new string[6];
-        if(isLocalPlayer)
+        GameObject.FindGameObjectWithTag("Initial Camera").GetComponent<Camera>().enabled = false;
+        if (isLocalPlayer)
         {
             gameObject.GetComponent<Camera>().enabled = true;
             var icons = GameObject.FindGameObjectsWithTag("SpellIcon");
@@ -52,13 +53,15 @@ public class BaseCameraBehaviour : NetworkBehaviour {
             {
                 icon.GetComponent<SpellIcon>().playerCamera = gameObject;
             }
-            var selector = GameObject.FindGameObjectWithTag("6 Spell Selector");
-            for(int i = 0; i < 6; i++)
+            //var selector = GameObject.FindGameObjectWithTag("6 Spell Selector");
+            for(int i = 1; i <= 6; i++)
             {
-                spellsEquipped[i] =selector.transform.GetChild(i).GetComponent<Dropdown>().
-                    options[selector.transform.GetChild(i).GetComponent<Dropdown>().value].text;
+                spellsEquipped[i-1] = //selector.transform.GetChild(i).GetComponent<Dropdown>().
+                                    //options[selector.transform.GetChild(i).GetComponent<Dropdown>().value].text;
+                    "Spell_" + i;
             }
-            selector.SetActive(false);
+            //selector.SetActive(false);
+            
         }
         m_Started = true;
     }
@@ -84,12 +87,13 @@ public class BaseCameraBehaviour : NetworkBehaviour {
     {
         try
         {
+            Debug.Log(currentSpell - 1);
             var spawned = Instantiate(minion.GetComponent<BaseMinionBehaviour>().bulletPrefab,
                 minion.transform.position + new Vector3(0, 1, 0), minion.transform.rotation);
             spawned.GetComponent<Spell>().SetMinion(minion.GetComponent<BaseMinionBehaviour>());
-            Debug.Log(minion.GetComponent<BaseMinionBehaviour>().spellsEquipped[currentSpell]);
-            string behaviourName = spellsEquipped[minion.GetComponent<BaseMinionBehaviour>().spellsEquipped[currentSpell]];
-            string nameOfClass = spellsEquipped[currentSpell];
+            Debug.Log(spellsEquipped[currentSpell - 1]);
+            string behaviourName = spellsEquipped[currentSpell - 1];
+            string nameOfClass = spellsEquipped[currentSpell - 1];
             BaseCompiler.LoadAssembly(spawned, nameOfClass + ".dll", nameOfClass);
             NetworkServer.Spawn(spawned);
         } catch (Exception e)
@@ -177,10 +181,9 @@ public class BaseCameraBehaviour : NetworkBehaviour {
                     mat.DisableKeyword("_EMISSION");
                 }
             }
-            selectedMinions.Clear();
-            
             Ray ray = GetComponent<Camera>().ScreenPointToRay(Input.mousePosition);
             RaycastHit hit;
+            selectedMinions.Clear();
             if (Physics.Raycast(ray, out hit))
             {
                 endDragboxPos = hit.point;
@@ -238,7 +241,7 @@ public class BaseCameraBehaviour : NetworkBehaviour {
         }
         minion.GetComponent<UnityEngine.AI.NavMeshAgent>().SetDestination(destination);
     }
-
+    
     [Command]
     void CmdGenerateMinions(Vector3 position)
     {

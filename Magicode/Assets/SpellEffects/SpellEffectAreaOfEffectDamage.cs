@@ -24,7 +24,7 @@ public class SpellEffectAreaOfEffectDamage : SpellEffect
     {
         float damage = (float)Convert.ToDecimal(vars[0]);
         float range = (float)Convert.ToDecimal(vars[1]);
-
+        
         return damage * range;
     }
 }

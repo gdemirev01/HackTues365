@@ -236,6 +236,7 @@ GameObject:
   - component: {fileID: 1823319562241035836}
   - component: {fileID: 8919784784269156620}
   - component: {fileID: 7786837881516015976}
+  - component: {fileID: 3481216556416443509}
   m_Layer: 0
   m_Name: Minion
   m_TagString: Minion
@@ -274,8 +275,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_ServerOnly: 0
   m_LocalPlayerAuthority: 0
-  m_AssetId: 
-  m_SceneId: 1032566193
+  m_AssetId: 0cdc7ed4f4356d346ba372f7506d468e
+  m_SceneId: 0
 --- !u!114 &3481216556416443507
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -290,27 +291,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   syncInterval: 0.1
   compressRotation: 1
---- !u!114 &3481216556416443509
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3481216556416443505}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3ecc01768ecad6d49ad7eae9f6683d38, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  syncInterval: 0.1
-  isAllied: 0
-  bulletPrefab: {fileID: 4375537640488401669, guid: 900ed958562b1ad4cb9d789347e83a76,
-    type: 3}
-  health: 1000
-  mana: 1000
-  spellBook:
-  - {fileID: 114246094758959530}
-  manaGainPerSecond: 50
 --- !u!195 &1823319562241035836
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -354,6 +334,22 @@ Rigidbody:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3481216556416443505}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
+--- !u!114 &3481216556416443509
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3481216556416443505}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 3ecc01768ecad6d49ad7eae9f6683d38, type: 3}
@@ -366,17 +362,9 @@ Rigidbody:
   health: 1000
   mana: 1000
   spellBook:
-  - {fileID: 4349478812254998204}
+  - {fileID: 114246094758959530}
   spellsEquipped: 00000000000000000000000000000000
-  serializedVersion: 2
-  m_Mass: 1
-  m_Drag: 0
-  m_AngularDrag: 0.05
-  m_UseGravity: 1
-  m_IsKinematic: 0
-  m_Interpolate: 0
-  m_Constraints: 0
-  m_CollisionDetection: 0
+  manaGainPerSecond: 50
 --- !u!1 &3681365702332139967
 GameObject:
   m_ObjectHideFlags: 0
@@ -692,11 +680,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Bullet
       objectReference: {fileID: 0}
-    - target: {fileID: 4375537640488401669, guid: 900ed958562b1ad4cb9d789347e83a76,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 4375537640488401689, guid: 900ed958562b1ad4cb9d789347e83a76,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -755,12 +738,12 @@ PrefabInstance:
     - target: {fileID: 8404307056230549088, guid: 900ed958562b1ad4cb9d789347e83a76,
         type: 3}
       propertyPath: m_AssetId
-      value: 0cdc7ed4f4356d346ba372f7506d468e
+      value: 900ed958562b1ad4cb9d789347e83a76
       objectReference: {fileID: 0}
     - target: {fileID: 8404307056230549088, guid: 900ed958562b1ad4cb9d789347e83a76,
         type: 3}
       propertyPath: m_SceneId
-      value: 974007931
+      value: 431603274
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 900ed958562b1ad4cb9d789347e83a76, type: 3}
@@ -789,11 +772,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 3481216556416443506}
     m_Modifications:
-    - target: {fileID: 1430706411900971954, guid: 68dd63f2e2beb8f4697ea931ce0cf7b3,
-        type: 3}
-      propertyPath: m_Name
-      value: Mage
-      objectReference: {fileID: 0}
     - target: {fileID: 1430706411900971953, guid: 68dd63f2e2beb8f4697ea931ce0cf7b3,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -848,6 +826,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1430706411900971954, guid: 68dd63f2e2beb8f4697ea931ce0cf7b3,
+        type: 3}
+      propertyPath: m_Name
+      value: Mage
       objectReference: {fileID: 0}
     - target: {fileID: 1430706412854343247, guid: 68dd63f2e2beb8f4697ea931ce0cf7b3,
         type: 3}

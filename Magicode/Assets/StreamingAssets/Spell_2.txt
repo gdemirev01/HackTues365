@@ -1,6 +1,6 @@
 using System.Collections;
  using UnityEngine;
-public class Spell_1 : MonoBehaviour {float Damage = -1;float Speed = -1;
+public class Spell_2 : MonoBehaviour {float Damage = 150;float Speed = 2;
 	bool hasCollided = false;
 	BaseMinionBehaviour collidedUnit;
 
@@ -14,8 +14,8 @@ public class Spell_1 : MonoBehaviour {float Damage = -1;float Speed = -1;
 		yield return new WaitForEndOfFrame();
 		while(true) {
 			yield return new WaitForEndOfFrame();GetComponent<Spell>().ActivateEffect("add_lightning");
-if(hasCollided) {GetComponent<Spell>().ActivateEffect("deal_aoe", 15, 15);
-}	
+GetComponent<Spell>().ActivateEffect("move_forward", 2);
+	
 			
 			if(hasCollided) {
 				Destroy(gameObject);

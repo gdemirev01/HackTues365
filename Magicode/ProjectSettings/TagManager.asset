@@ -9,6 +9,7 @@ TagManager:
   - SpellIcon
   - 6 Spell Selector
   - 4 Spell Selector
+  - Initial Camera
   layers:
   - Default
   - TransparentFX

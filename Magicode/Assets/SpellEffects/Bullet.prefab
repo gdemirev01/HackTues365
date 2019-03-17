@@ -21,7 +21,6 @@ GameObject:
   - component: {fileID: 7278723918271875876}
   - component: {fileID: 4254168312935464734}
   - component: {fileID: 2469158548283646535}
-  - component: {fileID: 8585483349086754572}
   m_Layer: 0
   m_Name: Bullet
   m_TagString: Untagged
@@ -241,18 +240,6 @@ MonoBehaviour:
   name: deal_aoe
   description: 
   expectedTypes: 0100000001000000
---- !u!114 &8585483349086754572
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4375537640488401669}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 16b53d9fc493d554a902f9a2fb45b936, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &4741336017082373014
 GameObject:
   m_ObjectHideFlags: 0
