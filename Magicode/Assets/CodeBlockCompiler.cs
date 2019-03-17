@@ -7,7 +7,11 @@ public class CodeBlockCompiler : MonoBehaviour
 {
     [SerializeField]
     private GameObject propertyArea;
-    
+
+    [SerializeField]
+    [TextArea(3, 30)]
+    private string memberVariables;
+
     [SerializeField]
     [TextArea(3, 30)]
     private string preCodeString;
