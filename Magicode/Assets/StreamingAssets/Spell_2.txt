@@ -1,6 +1,6 @@
 using System.Collections;
  using UnityEngine;
-public class Spell_2 : MonoBehaviour {float Damage = 12;float Speed = 13;
+public class Spell_2 : MonoBehaviour {float Damage = 0;float Speed = 0;
 	bool hasCollided = false;
 	BaseMinionBehaviour collidedUnit;
 
@@ -12,7 +12,7 @@ public class Spell_2 : MonoBehaviour {float Damage = 12;float Speed = 13;
 	IEnumerator CodeStuffs() {
 		yield return new WaitForEndOfFrame();
 		while(true) {
-			yield return new WaitForEndOfFrame();GetComponent<Spell>().ActivateEffect("move_forward", 1);
+			yield return new WaitForEndOfFrame();GetComponent<Spell>().ActivateEffect("move_forward", 123);
 	
 			
 			if(hasCollided) {

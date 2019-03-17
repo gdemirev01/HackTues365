@@ -23,7 +23,7 @@ public class KeyInput : MonoBehaviour
 
         int i = 1;
         foreach(KeyCode keycode in keyCodes){
-            if(Input.GetKeyDown(keycode) && Input.GetKey(KeyCode.LeftControl))  
+            if(Input.GetKeyDown(keycode))  
             {
                 var minion = GameObject.Find("Minion " + i);
                 var selectedMinions = gameObject.GetComponent<BaseCameraBehaviour>().selectedMinions;
