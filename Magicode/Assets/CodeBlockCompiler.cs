@@ -127,7 +127,7 @@ public class CodeBlockCompiler : MonoBehaviour
             {
                 float val = VisualScriptingManager.properties[str];
 
-                code += str + " = " + val + ";";
+                code += "float " + str + " = " + val + ";";
             }
             code += preCodeString;
             foreach (CodeBlock codeBlock in codeBlocks)
