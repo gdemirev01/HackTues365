@@ -49,8 +49,15 @@ public class Spell : MonoBehaviour
         {
             effect.Activate(args);
             float manaCost = effect.GetManaCost(args);
-            if(minion)
+            if (minion)
+            {
+                Debug.Log("remove mana " + manaCost, minion);
                 minion.RemoveMana(manaCost);
+            }
+            else
+            {
+                Debug.Log("no minion to remove mana to");
+            }
             if(minion && !minion.HasMana())
             {
                 Destroy(gameObject);
