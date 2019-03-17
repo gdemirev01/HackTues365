@@ -138,6 +138,14 @@ public class BaseCameraBehaviour : NetworkBehaviour {
 
     void Update()
     {
+        for(int i = 0; i < selectedMinions.Count; i++)
+        {
+            if(selectedMinions[i] == null)
+            {
+                selectedMinions.Remove(selectedMinions[i]);
+            }
+        }
+
         if(!isLocalPlayer)
         {
             return;

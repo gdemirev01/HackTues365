@@ -7,13 +7,28 @@ using UnityEngine.SceneManagement;
 public class GameStateManager : NetworkBehaviour
 {
     public List<GameObject> minions = new List<GameObject>();
-    // Update is called once per frame
+
+    private bool hasLost = false;
+
     void Update()
     {
+        if(hasLost)
+        {
+            return;
+        }
+        Debug.Log("Minion count: " + BaseMinionBehaviour.minionsCounter);
         if(BaseMinionBehaviour.minionsCounter <= 0)
         {
-            Debug.Log("bye");
-            SceneManager.LoadScene("Menu", LoadSceneMode.Single);
+            Debug.Log("Has lost!");
+            hasLost = true;
+            StartCoroutine(loadMenu());
         }
+    }
+
+    IEnumerator loadMenu()
+    {
+        PopupManager.instance.ShowError();
+        yield return new WaitForSeconds(2);
+        SceneManager.LoadScene("Menu", LoadSceneMode.Single);
     }
 }

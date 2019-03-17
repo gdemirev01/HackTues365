@@ -373,7 +373,7 @@ RectTransform:
   - {fileID: 514539242}
   - {fileID: 2051648749}
   m_Father: {fileID: 78318646}
-  m_RootOrder: 4
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0}
   m_AnchorMax: {x: 1, y: 0}
@@ -2338,7 +2338,7 @@ RectTransform:
   m_Children:
   - {fileID: 1634528068}
   m_Father: {fileID: 78318646}
-  m_RootOrder: 3
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
@@ -7314,6 +7314,10 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 3
       objectReference: {fileID: 0}
+    - target: {fileID: 2060108696, guid: 902519010c7156e4580dfd54bc3efff2, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -15.700256
+      objectReference: {fileID: 0}
     - target: {fileID: 1584453654, guid: 902519010c7156e4580dfd54bc3efff2, type: 3}
       propertyPath: m_Name
       value: SpellIcon 3
@@ -7582,6 +7586,51 @@ PrefabInstance:
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
       value: SetSpell
+      objectReference: {fileID: 0}
+    - target: {fileID: 6641063245244948820, guid: 902519010c7156e4580dfd54bc3efff2,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6641063245244948820, guid: 902519010c7156e4580dfd54bc3efff2,
+        type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6641063245244948820, guid: 902519010c7156e4580dfd54bc3efff2,
+        type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6641063245244948820, guid: 902519010c7156e4580dfd54bc3efff2,
+        type: 3}
+      propertyPath: m_Pivot.y
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6641063243857546221, guid: 902519010c7156e4580dfd54bc3efff2,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6641063243869622075, guid: 902519010c7156e4580dfd54bc3efff2,
+        type: 3}
+      propertyPath: m_havePropertiesChanged
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6641063243869622075, guid: 902519010c7156e4580dfd54bc3efff2,
+        type: 3}
+      propertyPath: m_isInputParsingRequired
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6641063245344419875, guid: 902519010c7156e4580dfd54bc3efff2,
+        type: 3}
+      propertyPath: m_havePropertiesChanged
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6641063245344419875, guid: 902519010c7156e4580dfd54bc3efff2,
+        type: 3}
+      propertyPath: m_isInputParsingRequired
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 902519010c7156e4580dfd54bc3efff2, type: 3}

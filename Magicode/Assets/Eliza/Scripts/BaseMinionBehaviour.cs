@@ -35,7 +35,7 @@ public class BaseMinionBehaviour : NetworkBehaviour {
         if (health <= 0)
         {
             BaseMinionBehaviour.minionsCounter--;
-            //Destroy(this.gameObject);
+            Destroy(gameObject);
         }
 
         // TODO: Remove.
