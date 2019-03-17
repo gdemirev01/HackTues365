@@ -1,6 +1,6 @@
 using System.Collections;
  using UnityEngine;
-public class Spell_1 : MonoBehaviour {float Damage = -1;float Speed = -1;
+public class Spell_5 : MonoBehaviour {float Damage = 45;float Speed = 12;
 	bool hasCollided = false;
 	BaseMinionBehaviour collidedUnit;
 
@@ -12,7 +12,8 @@ public class Spell_1 : MonoBehaviour {float Damage = -1;float Speed = -1;
 	IEnumerator CodeStuffs() {
 		yield return new WaitForEndOfFrame();
 		while(true) {
-			yield return new WaitForEndOfFrame();	
+			yield return new WaitForEndOfFrame();GetComponent<Spell>().ActivateEffect("move_forward", 12);
+	
 			
 			if(hasCollided) {
 				Destroy(gameObject);
@@ -28,7 +29,6 @@ public class Spell_1 : MonoBehaviour {float Damage = -1;float Speed = -1;
 			Debug.Log("parent ", GetComponent<Spell>().GetParent());
             			collidedUnit = other.GetComponent<BaseMinionBehaviour>();
 			collidedUnit.health -= Damage;
-			collidedUnit.RemoveMana(Damage mana);
             			hasCollided = true;
         		}
     	}

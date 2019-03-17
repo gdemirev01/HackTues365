@@ -54,7 +54,13 @@ public class BaseCompiler : MonoBehaviour
             options.ReferencedAssemblies.AddRange(assemblyReferences);
             var compiler = new CSharpCompiler.CodeCompiler();
             var result = compiler.CompileAssemblyFromFile(options, filePath);
-            Debug.Log(result.CompiledAssembly.FullName);
+            if(result.Errors.Count > 0)
+            {
+                foreach (var error in result.Errors)
+                {
+                    Debug.Log(error);
+                }
+            }
         }
         catch(Exception e)
         {
