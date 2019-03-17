@@ -6,7 +6,8 @@ public class Spell_1 : MonoBehaviour {float Damage = -1;float Speed = -1;
 
 	private void Start()
     	{
-        		StartCoroutine(CodeStuffs());
+        
+		StartCoroutine(CodeStuffs());
     	}
 
 	IEnumerator CodeStuffs() {
@@ -21,7 +22,8 @@ if(hasCollided) {if(1==2) {}}
 	}
 	private void OnTriggerEnter(Collider other)
     	{
-        		if (other.GetComponent<BaseMinionBehaviour>() &&
+        
+		if (other.GetComponent<BaseMinionBehaviour>() &&
 			other.GetComponent<BaseMinionBehaviour>() != GetComponent<Spell>().GetParent())
         		{
             			Debug.Log(name + " hit unit!", other);
