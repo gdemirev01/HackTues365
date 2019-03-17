@@ -10,12 +10,17 @@ public class VisualScriptingManager : MonoBehaviour
 {
     [SerializeField]
     List<CodeBlock> codeBlocks = new List<CodeBlock>();
+
+    List<PropertyBlock> propertyBlocks = new List<PropertyBlock>();
     
     [SerializeField]
     private GameObject codeArea;
 
     [SerializeField]
     private GameObject codeBlockArea;
+
+    [SerializeField]
+    private GameObject propertyArea;
 
     [SerializeField]
     private GameObject intermediaryCodeArea;
@@ -34,7 +39,10 @@ public class VisualScriptingManager : MonoBehaviour
     
     Dictionary<BaseMinionBehaviour, List<CodeBlock>> unitScripts = 
         new Dictionary<BaseMinionBehaviour, List<CodeBlock>>();
-    
+
+    static public Dictionary<string, float> properties = 
+        new Dictionary<string, float>();
+
     private GameObject placeholder;
     int placeholderSiblingIndex;
 
@@ -43,27 +51,42 @@ public class VisualScriptingManager : MonoBehaviour
     [SerializeField]
     private CodeFormatManager CFManager;
 
-    
-
     public static VisualScriptingManager instance;
 
     private void Start()
     {
         instance = this;
         AddInstantiatedCodeBlocks();
+        AddDefaultPropertyBlocks();
+        
+    }
+
+    private void AddDefaultPropertyBlocks()
+    {
+        properties.Clear();
+        foreach (Transform child in propertyArea.transform)
+        {
+            PropertyBlock pb = child.GetComponent<PropertyBlock>();
+            if (pb != null)
+            {
+                propertyBlocks.Add(pb);
+            }
+        }
     }
 
     public void SetActiveScriptToUnit(BaseMinionBehaviour unit)
     {
-        Debug.Log("Dublicate list");
+        Debug.Log("Duplicate list");
         List<CodeBlock> copiedBlocks = new List<CodeBlock>();
         copiedBlocks.AddRange(codeBlocks);
         unitScripts[unit] = copiedBlocks;
     }
 
+
     public void SetSelectedUnit(BaseMinionBehaviour unit)
     {
         SaveCurrentBlocks();
+        LoadDefaultProperties();
 
         if (unit)
         {
@@ -74,6 +97,7 @@ public class VisualScriptingManager : MonoBehaviour
             selectedUnitName.text = unit.name;
 
             LoadSelectedUnitBlocks();
+            LoadDefaultProperties();
         }
         else
         {
@@ -81,6 +105,15 @@ public class VisualScriptingManager : MonoBehaviour
         }
 
         
+    }
+
+    private void LoadDefaultProperties()
+    {
+        foreach (PropertyBlock pb in propertyBlocks)
+        {
+            pb.setPropertyVal("0");
+        }
+        collectProperties();
     }
 
     public BaseMinionBehaviour GetSelectedUnit()
@@ -97,7 +130,15 @@ public class VisualScriptingManager : MonoBehaviour
     {
         return 0;
     }
-    
+
+    public void collectProperties()
+    {
+        properties.Clear();
+        foreach (PropertyBlock pb in propertyBlocks)
+        {
+            properties.Add(pb.getPropertyName(), pb.getPropertyVal());
+        }
+    }
 
     public void SaveCurrentBlocks()
     {
@@ -129,6 +170,7 @@ public class VisualScriptingManager : MonoBehaviour
             }
         }
     }
+
 
     public void AddInstantiatedCodeBlocks()
     {
