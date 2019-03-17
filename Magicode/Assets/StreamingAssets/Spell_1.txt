@@ -1,21 +1,19 @@
 using System.Collections;
  using UnityEngine;
-public class Spell_1 : MonoBehaviour {float Damage = -1;float Speed = -1;
+public class Spell_1 : MonoBehaviour {float Damage = 12;float Speed = 13;
 	bool hasCollided = false;
 	BaseMinionBehaviour collidedUnit;
 
 	private void Start()
     	{
-        
-		StartCoroutine(CodeStuffs());
+        		StartCoroutine(CodeStuffs());
     	}
 
 	IEnumerator CodeStuffs() {
 		yield return new WaitForEndOfFrame();
 		while(true) {
-			yield return new WaitForEndOfFrame();GetComponent<Spell>().ActivateEffect("add_lightning");
-if(hasCollided) {GetComponent<Spell>().ActivateEffect("deal_aoe", 15, 15);
-}	
+			yield return new WaitForEndOfFrame();GetComponent<Spell>().ActivateEffect("move_forward", 1);
+	
 			
 			if(hasCollided) {
 				Destroy(gameObject);
@@ -24,8 +22,7 @@ if(hasCollided) {GetComponent<Spell>().ActivateEffect("deal_aoe", 15, 15);
 	}
 	private void OnTriggerEnter(Collider other)
     	{
-        
-		if (other.GetComponent<BaseMinionBehaviour>() &&
+        		if (other.GetComponent<BaseMinionBehaviour>() &&
 			other.GetComponent<BaseMinionBehaviour>() != GetComponent<Spell>().GetParent())
         		{
             			Debug.Log(name + " hit unit!", other);

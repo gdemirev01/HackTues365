@@ -33,16 +33,17 @@ public class BaseCameraBehaviour : NetworkBehaviour {
         spellsEquipped[number] = spell;
     }
 
-    void ShootSpells(string assemblyName)
+    void ShootSpells(int spell)
     {
         foreach(var minion in selectedMinions)
         {
-            CmdShoot(minion, assemblyName);
+            CmdShoot(minion, spell);
         }
     }
 
     void Start()
     {
+        
         spellsEquipped = new string[6];
         GameObject.FindGameObjectWithTag("Initial Camera").GetComponent<Camera>().enabled = false;
         if (isLocalPlayer)
@@ -54,14 +55,13 @@ public class BaseCameraBehaviour : NetworkBehaviour {
                 icon.GetComponent<SpellIcon>().playerCamera = gameObject;
             }
             //var selector = GameObject.FindGameObjectWithTag("6 Spell Selector");
-            for(int i = 1; i <= 6; i++)
-            {
-                spellsEquipped[i-1] = //selector.transform.GetChild(i).GetComponent<Dropdown>().
-                                    //options[selector.transform.GetChild(i).GetComponent<Dropdown>().value].text;
-                    "Spell_" + i;
-            }
             //selector.SetActive(false);
-            
+        }
+        for (int i = 1; i <= 6; i++)
+        {
+            spellsEquipped[i - 1] = //selector.transform.GetChild(i).GetComponent<Dropdown>().
+                                    //options[selector.transform.GetChild(i).GetComponent<Dropdown>().value].text;
+                "Spell_" + i;
         }
         m_Started = true;
     }
@@ -83,17 +83,17 @@ public class BaseCameraBehaviour : NetworkBehaviour {
 
     // this needs to be here because only LocalPlayerAuth can send [Cmd]
     [Command]
-    public void CmdShoot(GameObject minion, string assemblyName)
+    public void CmdShoot(GameObject minion, int spellNum)
     {
         try
         {
-            Debug.Log(currentSpell - 1);
+            Debug.Log(spellNum - 1);
             var spawned = Instantiate(minion.GetComponent<BaseMinionBehaviour>().bulletPrefab,
                 minion.transform.position + new Vector3(0, 1, 0), minion.transform.rotation);
             spawned.GetComponent<Spell>().SetMinion(minion.GetComponent<BaseMinionBehaviour>());
-            Debug.Log(spellsEquipped[currentSpell - 1]);
-            string behaviourName = spellsEquipped[currentSpell - 1];
-            string nameOfClass = spellsEquipped[currentSpell - 1];
+            Debug.Log(spellsEquipped[spellNum - 1]);
+            string behaviourName = spellsEquipped[spellNum - 1];
+            string nameOfClass = spellsEquipped[spellNum - 1];
             BaseCompiler.LoadAssembly(spawned, nameOfClass + ".dll", nameOfClass);
             NetworkServer.Spawn(spawned);
         } catch (Exception e)
@@ -144,7 +144,7 @@ public class BaseCameraBehaviour : NetworkBehaviour {
         }
         if(Input.GetButtonDown("Jump"))
         {
-            ShootSpells("this doesnt matter");
+            ShootSpells(currentSpell);
         }
         if (Input.GetMouseButtonDown(0))
         {
