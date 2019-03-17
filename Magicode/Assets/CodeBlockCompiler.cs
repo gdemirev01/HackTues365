@@ -146,10 +146,10 @@ public class CodeBlockCompiler : MonoBehaviour
                 //Debug.Log("write line " + line);
             }
             //TODO: GET MANA COST FROM HERE (totalManaCost)
-
+            Debug.Log(code);
             code += afterCodeString;
             Debug.Log("Write to " + path);
-            Debug.Log(code);
+            //Debug.Log(code);
             File.WriteAllText(path, code);
             PopupManager.instance.ShowNotice();
         }

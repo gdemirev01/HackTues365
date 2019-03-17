@@ -19,3 +19,4 @@ public class FloatInputField : InputField
         throw new System.ArgumentException(System.String.Format("{0} is not a float", inputField.text), "inputField");
     }
 }
+
