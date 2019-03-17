@@ -342,13 +342,12 @@ PrefabInstance:
       value: "\n\tbool hasCollided = false;\n\tBaseMinionBehaviour collidedUnit;\n\n\tprivate
         void Start()\r\n    \t{\r\n        \r\t\tStartCoroutine(CodeStuffs());\n    \t}\n\n\tIEnumerator
         CodeStuffs() {\n\t\tyield return new WaitForEndOfFrame();\n\t\twhile(true)
-        {\n"
+        {\n\t\t\tyield return new WaitForEndOfFrame();"
       objectReference: {fileID: 0}
     - target: {fileID: 266220137, guid: 1171b2ea3d1b7a6459ca350004d67f42, type: 3}
       propertyPath: afterCodeString
-      value: "\t\n\t\t\tyield return new WaitForEndOfFrame();\n\t\t\tif(hasCollided)
-        {\n\t\t\t\tDestroy(gameObject);\n\t\t\t}\n\t\t}\n\t}\n\tprivate void OnTriggerEnter(Collider
-        other)\r\n    \t{\r\n        \r\t\tif (other.GetComponent<BaseMinionBehaviour>()
+      value: "\t\n\t\t\t\n\t\t\tif(hasCollided) {\n\t\t\t\tDestroy(gameObject);\n\t\t\t}\n\t\t}\n\t}\n\tprivate
+        void OnTriggerEnter(Collider other)\r\n    \t{\r\n        \r\t\tif (other.GetComponent<BaseMinionBehaviour>()
         &&\r\n\t\t\tother.GetComponent<BaseMinionBehaviour>() != GetComponent<Spell>().GetParent())\r\n
         \       \t\t{\r\n            \t\t\tDebug.Log(name + \" hit unit!\", other);\r\n\t\t\tDebug.Log(\"parent
         \", GetComponent<Spell>().GetParent());\r\n            \t\t\tcollidedUnit
@@ -1552,7 +1551,7 @@ PrefabInstance:
     - target: {fileID: 3068565569606592613, guid: 1117e01f647130844b4c0562d609ab1d,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -0.000039564937
+      value: -0.000035477355
       objectReference: {fileID: 0}
     - target: {fileID: 3068565569606592613, guid: 1117e01f647130844b4c0562d609ab1d,
         type: 3}
@@ -1792,7 +1791,7 @@ PrefabInstance:
     - target: {fileID: 3068565570947000249, guid: 1117e01f647130844b4c0562d609ab1d,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -0.0000043653313
+      value: -0.000020431398
       objectReference: {fileID: 0}
     - target: {fileID: 3068565570947000249, guid: 1117e01f647130844b4c0562d609ab1d,
         type: 3}
@@ -1902,7 +1901,7 @@ PrefabInstance:
     - target: {fileID: 367881274749729389, guid: 1117e01f647130844b4c0562d609ab1d,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -0.000026662676
+      value: -0.00005032626
       objectReference: {fileID: 0}
     - target: {fileID: 3068565569531739068, guid: 1117e01f647130844b4c0562d609ab1d,
         type: 3}

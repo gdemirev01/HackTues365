@@ -20,9 +20,9 @@ public class SpellTestController : MonoBehaviour
         while (true)
         {
             yield return new WaitForEndOfFrame();
+            GetComponent<Spell>().ActivateEffect("change_size", new Vector3(2, 2, 2));
             if (hasCollided)
             {
-                GetComponent<Spell>().ActivateEffect("deal_aoe", 100, 5);
                 Destroy(gameObject);
             }
         }
