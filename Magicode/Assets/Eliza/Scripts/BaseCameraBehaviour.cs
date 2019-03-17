@@ -87,12 +87,13 @@ public class BaseCameraBehaviour : NetworkBehaviour {
     {
         try
         {
+            Debug.Log(currentSpell - 1);
             var spawned = Instantiate(minion.GetComponent<BaseMinionBehaviour>().bulletPrefab,
                 minion.transform.position + new Vector3(0, 1, 0), minion.transform.rotation);
             spawned.GetComponent<Spell>().SetMinion(minion.GetComponent<BaseMinionBehaviour>());
-            Debug.Log(minion.GetComponent<BaseMinionBehaviour>().spellsEquipped[currentSpell]);
-            string behaviourName = spellsEquipped[minion.GetComponent<BaseMinionBehaviour>().spellsEquipped[currentSpell]];
-            string nameOfClass = spellsEquipped[currentSpell];
+            Debug.Log(spellsEquipped[currentSpell - 1]);
+            string behaviourName = spellsEquipped[currentSpell - 1];
+            string nameOfClass = spellsEquipped[currentSpell - 1];
             BaseCompiler.LoadAssembly(spawned, nameOfClass + ".dll", nameOfClass);
             NetworkServer.Spawn(spawned);
         } catch (Exception e)
