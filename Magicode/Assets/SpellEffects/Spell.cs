@@ -26,14 +26,12 @@ public class Spell : MonoBehaviour
         List<SpellEffect> effects = GetComponentsInChildren<SpellEffect>().ToList();
         foreach(SpellEffect effect in effects)
         {
-            Debug.Log("Add spell named " + effect.GetName(), effect);
             spellBook.Add(effect.GetName(), effect);
         }
     }
 
     public void SetMinion(BaseMinionBehaviour minion)
     {
-        Debug.Log("Set minion", minion);
         this.minion = minion;
     }
 
@@ -51,7 +49,6 @@ public class Spell : MonoBehaviour
             float manaCost = effect.GetManaCost(args);
             if (minion)
             {
-                Debug.Log("remove mana " + manaCost, minion);
                 minion.RemoveMana(manaCost);
             }
             else

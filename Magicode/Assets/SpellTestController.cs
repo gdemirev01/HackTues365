@@ -23,6 +23,7 @@ public class SpellTestController : MonoBehaviour
             GetComponent<Spell>().ActivateEffect("change_size", new Vector3(2, 2, 2));
             if (hasCollided)
             {
+                GetComponent<Spell>().ActivateEffect("aoe_damage", 10, 5);
                 Destroy(gameObject);
             }
         }
