@@ -3,7 +3,13 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - Minion
+  - Server
+  - SpellIcon
+  - 6 Spell Selector
+  - 4 Spell Selector
+  - Initial Camera
   layers:
   - Default
   - TransparentFX

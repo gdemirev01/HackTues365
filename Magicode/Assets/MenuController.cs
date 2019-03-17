@@ -1,27 +1,38 @@
 ﻿using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using Mirror;
 
-public class MenuController : MonoBehaviour
+public class MenuController : NetworkBehaviour
 {
+
+    private void Start()
+    {
+        if (GameObject.Find("NetworkManager"))
+        {
+            if (!isServer)
+                Destroy(GameObject.Find("NetworkManager"));
+        }
+    }
 
     private void Update()
     {
+
     }
 
     public void StartGame()
     {
-        SceneManager.LoadScene("Play", LoadSceneMode.Single);
-    }
-
-    public void PauseGame(bool pause)
-    {
-        ToggleMenu("PauseMenu", pause);
+        SceneManager.LoadScene("EPlayLevel", LoadSceneMode.Single);
     }
 
     public void BackToMenu()
     {
         SceneManager.LoadScene("Menu", LoadSceneMode.Single);
+    }
+
+    public void LoadVisualScripting()
+    {
+        SceneManager.LoadScene("VisualStuff", LoadSceneMode.Single);
     }
 
     public void Back()
